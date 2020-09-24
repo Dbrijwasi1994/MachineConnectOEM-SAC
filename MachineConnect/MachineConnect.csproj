@@ -1,0 +1,1347 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C1A45DCD-B078-46CD-8563-0970DA063980}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MachineConnectOEM</RootNamespace>
+    <AssemblyName>MachineConnectOEM</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.0</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>MachineConnectIcon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AxInterop.AcroPDFLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>External Dll\AxInterop.AcroPDFLib.dll</HintPath>
+    </Reference>
+    <Reference Include="DnsClient, Version=1.3.1.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
+      <HintPath>..\packages\DnsClient.1.3.1\lib\net45\DnsClient.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=4.0.2.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>External Dll\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="FocasLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>External Dll\FocasLib.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Bson, Version=2.11.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Bson.2.11.1\lib\net452\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=2.11.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.2.11.1\lib\net452\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core, Version=2.11.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.Core.2.11.1\lib\net452\MongoDB.Driver.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.GridFS, Version=2.11.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.GridFS.2.11.1\lib\net452\MongoDB.Driver.GridFS.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Libmongocrypt, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Libmongocrypt.1.0.0\lib\net452\MongoDB.Libmongocrypt.dll</HintPath>
+    </Reference>
+    <Reference Include="netchartdir, Version=4.1.0.0, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>External Dll\netchartdir.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="SharpCompress, Version=0.23.0.0, Culture=neutral, PublicKeyToken=afb0a02973931d96, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpCompress.0.23.0\lib\net45\SharpCompress.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard1.1\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="Xceed.Wpf.Toolkit, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>External Dll\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AboutMachineConnect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutMachineConnect.designer.cs">
+      <DependentUpon>AboutMachineConnect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ActivityInfo.xaml.cs">
+      <DependentUpon>ActivityInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ActivityInfoEntity.cs" />
+    <Compile Include="ActivityInformation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ActivityInformation.Designer.cs">
+      <DependentUpon>ActivityInformation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ActivityInfoUserCnrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ActivityInfoUserCnrl.Designer.cs">
+      <DependentUpon>ActivityInfoUserCnrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AppConfigModifier.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AppConfigModifier.designer.cs">
+      <DependentUpon>AppConfigModifier.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AppSettings.cs" />
+    <Compile Include="ConnectionManager.cs" />
+    <Compile Include="ApplicationUISettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ApplicationUISettings.Designer.cs">
+      <DependentUpon>ApplicationUISettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomDialogBoxProgramTransfer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomDialogBoxProgramTransfer.designer.cs">
+      <DependentUpon>CustomDialogBoxProgramTransfer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CycleProfile.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CycleProfile.Designer.cs">
+      <DependentUpon>CycleProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CycleProfileWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CycleProfileWindow.Designer.cs">
+      <DependentUpon>CycleProfileWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\ProcessParamConfigModel.cs" />
+    <Compile Include="IRSLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IRSLogin.Designer.cs">
+      <DependentUpon>IRSLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MenuPage.xaml.cs">
+      <DependentUpon>MenuPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MenuUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MenuUserControl.Designer.cs">
+      <DependentUpon>MenuUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MGTL\ButtonTable_UserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MGTL\ButtonTable_UserControl.designer.cs">
+      <DependentUpon>ButtonTable_UserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MGTL\DressingTime_UserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MGTL\DressingTime_UserControl.designer.cs">
+      <DependentUpon>DressingTime_UserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MGTL\IDCYCLETimeUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MGTL\IDCYCLETimeUserControl.designer.cs">
+      <DependentUpon>IDCYCLETimeUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MGTL\ODCalculator.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MGTL\ODCalculator.designer.cs">
+      <DependentUpon>ODCalculator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MGTL\OutPut_UserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MGTL\OutPut_UserControl.designer.cs">
+      <DependentUpon>OutPut_UserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OperatorMaintenanceCheckList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OperatorMaintenanceCheckList.Designer.cs">
+      <DependentUpon>OperatorMaintenanceCheckList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PendingActivities.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PendingActivities.Designer.cs">
+      <DependentUpon>PendingActivities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PowerCalculator.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PowerCalculator.designer.cs">
+      <DependentUpon>PowerCalculator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DummyControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DummyControl.Designer.cs">
+      <DependentUpon>DummyControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DialogBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DialogBox.designer.cs">
+      <DependentUpon>DialogBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FocasAppSettingz.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FocasAppSettingz.Designer.cs">
+      <DependentUpon>FocasAppSettingz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginForm.designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MachineInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MachineInfoForm.Designer.cs">
+      <DependentUpon>MachineInfoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PowerCalci.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PowerCalci.designer.cs">
+      <DependentUpon>PowerCalci.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MachineMenuControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MachineMenuControl.Designer.cs">
+      <DependentUpon>MachineMenuControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MachineManual.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MachineManual.Designer.cs">
+      <DependentUpon>MachineManual.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PredAndPrevExportMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PredAndPrevExportMenu.Designer.cs">
+      <DependentUpon>PredAndPrevExportMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PredectiveMaintenance.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PredectiveMaintenance.Designer.cs">
+      <DependentUpon>PredectiveMaintenance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PredictiveMaintanance.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PredictiveMaintanance.Designer.cs">
+      <DependentUpon>PredictiveMaintanance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomDialogBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomDialogBox.designer.cs">
+      <DependentUpon>CustomDialogBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DTOClass.cs" />
+    <Compile Include="HomeScreen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HomeScreen.Designer.cs">
+      <DependentUpon>HomeScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainScreen.Designer.cs">
+      <DependentUpon>MainScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseAccess.cs" />
+    <Compile Include="FormUISettings.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="PRGPage.xaml.cs">
+      <DependentUpon>PRGPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PRGUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PRGUserControl.Designer.cs">
+      <DependentUpon>PRGUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Process.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Process.Designer.cs">
+      <DependentUpon>Process.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="ProgramTransfer\Connection_manager.cs" />
+    <Compile Include="ProgramTransfer\CreateFolder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProgramTransfer\CreateFolder.designer.cs">
+      <DependentUpon>CreateFolder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProgramTransfer\DB_ACCESS.cs" />
+    <Compile Include="DTO\AlarmHistoryDTO.cs" />
+    <Compile Include="DTO\CoolentLubOilLevel.cs" />
+    <Compile Include="DTO\DTOBase.cs" />
+    <Compile Include="DTO\LiveDataDTO.cs" />
+    <Compile Include="DTO\MachineInfo.cs" />
+    <Compile Include="DTO\MachineSetting.cs" />
+    <Compile Include="DTO\OprMessageDTO.cs" />
+    <Compile Include="DTO\ProgramDTO.cs" />
+    <Compile Include="DTO\SpeedLoad.cs" />
+    <Compile Include="DTO\ToolLife.cs" />
+    <Compile Include="ProgramTransfer\ProgramTransferControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProgramTransfer\ProgramTransferControl.designer.cs">
+      <DependentUpon>ProgramTransferControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProgramTransfer\ProgramTransfer.cs" />
+    <Compile Include="ProgramTransfer\Settings.cs" />
+    <Compile Include="ProjectInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ProjectInstaller.designer.cs">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SAC\DashBoard_Sac.xaml.cs">
+      <DependentUpon>DashBoard_Sac.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SAC\Dashboard_Sac_Win.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SAC\Dashboard_Sac_Win.Designer.cs">
+      <DependentUpon>Dashboard_Sac_Win.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SAC\DataBaseAccess_SAC.cs" />
+    <Compile Include="SAC\DefinePMRules.xaml.cs">
+      <DependentUpon>DefinePMRules.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SAC\DefinePMRules_Win.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SAC\DefinePMRules_Win.Designer.cs">
+      <DependentUpon>DefinePMRules_Win.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SAC\DialogBox.xaml.cs">
+      <DependentUpon>DialogBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SAC\DialogBox_Win.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SAC\DialogBox_Win.Designer.cs">
+      <DependentUpon>DialogBox_Win.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SAC\DTO.cs" />
+    <Compile Include="SAC\IRSchedule.xaml.cs">
+      <DependentUpon>IRSchedule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SAC\IRSchedule_Win.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SAC\IRSchedule_Win.Designer.cs">
+      <DependentUpon>IRSchedule_Win.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SAC\NewDateTime.xaml.cs">
+      <DependentUpon>NewDateTime.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ServiceSettings.Designer.cs">
+      <DependentUpon>ServiceSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs" />
+    <Compile Include="ShiftDetailz.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ShiftDetailz.designer.cs">
+      <DependentUpon>ShiftDetailz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SpindleData.cs" />
+    <Compile Include="SpindleParameter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SpindleParameter.designer.cs">
+      <DependentUpon>SpindleParameter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MachineInformation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MachineInformation.designer.cs">
+      <DependentUpon>MachineInformation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CNCAndPredictiveAlarmControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CNCAndPredictiveAlarmControl.Designer.cs">
+      <DependentUpon>CNCAndPredictiveAlarmControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CNCAndPreventiveAlarmz.xaml.cs">
+      <DependentUpon>CNCAndPreventiveAlarmz.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UpgradeDatabase.cs" />
+    <Compile Include="UpgradeOEM.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UpgradeOEM.designer.cs">
+      <DependentUpon>UpgradeOEM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebPageViewerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WebPageViewerControl.Designer.cs">
+      <DependentUpon>WebPageViewerControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WPF_UserControl\PredictiveAlarms.xaml.cs">
+      <DependentUpon>PredictiveAlarms.xaml</DependentUpon>
+    </Compile>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1000\1000_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1000\1000_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1000\1000_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1000\1000_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1001\1001_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1001\1001_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1001\1001_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1001\1001_4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1001\1001_5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1002\1002_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1002\1002_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1002\1002_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1002\1002_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1005\1005_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1005\1005_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1006\1006_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1007\1007_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1007\1007_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1010\1010_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1010\1010_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1011\1011_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1011\1011_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1011\1011_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1012\1012_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1012\1012_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1013\1013_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1013\1013_1.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1017\1017_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1017\1017_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1017\1017_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1017\1017_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1017\1017_4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1017\1017_5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1020\1020_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1020\1020_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1021\1021_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1021\1021_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1021\1021_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1022\1022_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1022\1022_1.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1022\1022_2.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1022\1022_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1023\1023_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1023\1023_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1023\1023_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1031\1031_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1031\1031_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1031\1031_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1034\1034_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1034\1034_1.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1035\1035_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1035\1035_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1035\1035_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1042\1042_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1042\1042_1.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1044\1044_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1044\1044_1.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1050\1050_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1051\1051_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1051\1051_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1052\1052_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1052\1052_1.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1053\1053_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1053\1053_1.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1060\1060_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1060\1060_1.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1060\1060_2.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1061\1061_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1061\1061_1.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1061\1061_2.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1062\1062_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1062\1062_1.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1076\1076_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1077\1077_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1095\1095_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1095\1095_1.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1096\1096_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1096\1096_1.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1150\1150_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1150\1150_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1152\1152_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1153\1153_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1153\1153_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1154\1154_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1154\1154_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1155\1155_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1155\1155_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1156\1156_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1156\1156_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1157\1157_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1157\1157_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1160\1160_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1160\1160_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1161\1161_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1161\1161_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1162\1162_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1162\1162_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1163\1163_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1164\1164_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1164\1164_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1166\1166_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1171\1171_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1171\1171_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1172\1172_0.png" />
+    <Content Include="AlarmsAndDocs\ACE\Alarms\1172\1172_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1000\1000_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1001\1001_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1002\1002_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1003\1003_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1004\1004_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1005\1005_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1006\1006_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1007\1007_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1015\1015_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1017\1017_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1020\1020_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1021\1021_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1023\1023_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1024\1024_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1025\1025_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1035\1035_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1037\1037_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1040\1040_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1041\1041_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1050\1050_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1062\1062_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1063\1063_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1085\1085_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1086\1086_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1087\1087_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1093\1093_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1094\1094_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1100\1100_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1106\.1106_0png.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1110\1110_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1121\1121_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1130\1130_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1131\1131_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1140\1140_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1141\1141_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1142\1142_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1150\1150_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1151\1151_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1160\1160_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1161\1161_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1162\1162_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1163\1163_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1170\1170_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1180\1180_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1181\1181_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1183\1183_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1184\1184_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\1186\1186_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\2053\2053.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\2055\2055_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\2056\2056_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\2070\2070_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\2071\2071_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\2077\2077_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\2084\2084_0.png" />
+    <Content Include="AlarmsAndDocs\MGTL\Alarms\2110\2110_0.png" />
+    <Content Include="CompanyLogo\ACE.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CompanyLogo\ACE1.png" />
+    <Content Include="CompanyLogo\AMS.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CompanyLogo\AMS1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CompanyLogo\CompanyLogo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CompanyLogo\MGTL.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Core\Compression\Snappy\lib\win\snappy32.dll" />
+    <Content Include="Core\Compression\Snappy\lib\win\snappy64.dll" />
+    <Content Include="Core\Compression\Zstandard\lib\win\libzstd.dll" />
+    <Content Include="External Dll\AxInterop.AcroPDFLib.dll" />
+    <Content Include="External Dll\FocasDll\fwlib0DN.dll" />
+    <Content Include="External Dll\FocasDll\Fwlib0i.dll" />
+    <Content Include="External Dll\FocasDll\Fwlib0iB.dll" />
+    <Content Include="External Dll\FocasDll\Fwlib0iD.dll" />
+    <Content Include="External Dll\FocasDll\Fwlib150.dll" />
+    <Content Include="External Dll\FocasDll\Fwlib15i.dll" />
+    <Content Include="External Dll\FocasDll\Fwlib160.dll" />
+    <Content Include="External Dll\FocasDll\Fwlib16W.dll" />
+    <Content Include="External Dll\FocasDll\fwlib30i.dll" />
+    <Content Include="External Dll\FocasDll\Fwlib32.dll" />
+    <Content Include="External Dll\FocasDll\fwlibe1.dll" />
+    <Content Include="External Dll\FocasDll\FwlibNCG.dll" />
+    <Content Include="External Dll\FocasDll\Fwlibpm.dll" />
+    <Content Include="External Dll\FocasDll\Fwlibpmi.dll" />
+    <Content Include="External Dll\FocasLib.dll" />
+    <Content Include="External Dll\Interop.AcroPDFLib.dll" />
+    <Content Include="External Dll\Microsoft.Expression.Interactions.dll" />
+    <Content Include="External Dll\System.Windows.Interactivity.dll" />
+    <Content Include="External Dll\Xceed.Wpf.Toolkit.dll" />
+    <Content Include="HelpFiles\help.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\b_Nex.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\b_pre.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Data_pending.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\ImageNotFound.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Ace.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Gif\NetworkOk.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Gif\NetworkNotOk.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\DateBtn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\DownSelection.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\DownSelectionz.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Gif\DisConnected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Gif\Running.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Gif\Runningz.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Gif\Stopped.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BtnNextStop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BtnPrevStop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Close.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Contract_Button.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Expand_Btn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Folder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\ForImg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\GoNext.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Kc.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\KcImg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\login.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Machine Connect _small.png" />
+    <Content Include="Images\MachineSelection.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\McImg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\menu %281%29.png" />
+    <Content Include="Images\menu %284%29.png" />
+    <Content Include="Images\menu.png" />
+    <Content Include="Images\PowerRequiredImg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\PrevBackStop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\RunChartLegend.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\SelectedDate.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\shutdown.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\SpecificCutting.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\SpindleLegend.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\TPMTrak_Logo_Trasparent.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\UI_Settings.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MachineConnectIcon.ico" />
+    <Content Include="DTO\DTO.csproj" />
+    <Content Include="ReportTemplates\PreventiveMaintenanceReport.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="packages.config" />
+    <None Include="Resources\btnDownload.png" />
+    <None Include="Resources\btnUpload.png" />
+    <Content Include="Scripts\1.Script.txt" />
+    <Content Include="Scripts\2.Script.txt" />
+    <Content Include="SI_Unit_Images\CuttingSpeed.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SI_Unit_Images\CuttingSpeedUnit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SI_Unit_Images\DepthAndDia.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SI_Unit_Images\DepthOfCut.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SI_Unit_Images\FeedUnit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SI_Unit_Images\PAC.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SI_Unit_Images\PAS.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SI_Unit_Images\Power.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SI_Unit_Images\PowerReq.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SI_Unit_Images\RPM.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SI_Unit_Images\SpecificCuttingForce.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SI_Unit_Images\SpecificCuttingForceUnit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SI_Unit_Images\TAC.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SI_Unit_Images\TangentialForce.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SI_Unit_Images\TAS.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SI_Unit_Images\Torque.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UpgradeImages\01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UpgradeImages\02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UpgradeImages\03.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UpgradeImages\04.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UpgradeImages\05.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UpgradeImages\06.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UpgradeImages\09.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UpgradeImages\10.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UpgradeImages\11.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UpgradeImages\11a.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UpgradeImages\11b.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UpgradeImages\13.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UpgradeImages\14.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UpgradeImages\15.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UpgradeImages\16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UpgradeImages\17.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UpgradeImages\18.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UpgradeImages\19.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="AboutMachineConnect.resx">
+      <DependentUpon>AboutMachineConnect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ActivityInformation.resx">
+      <DependentUpon>ActivityInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ActivityInfoUserCnrl.resx">
+      <DependentUpon>ActivityInfoUserCnrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AppConfigModifier.resx">
+      <DependentUpon>AppConfigModifier.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ApplicationUISettings.resx">
+      <DependentUpon>ApplicationUISettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomDialogBoxProgramTransfer.resx">
+      <DependentUpon>CustomDialogBoxProgramTransfer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CycleProfile.resx">
+      <DependentUpon>CycleProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CycleProfileWindow.resx">
+      <DependentUpon>CycleProfileWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IRSLogin.resx">
+      <DependentUpon>IRSLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MenuUserControl.resx">
+      <DependentUpon>MenuUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MGTL\ButtonTable_UserControl.resx">
+      <DependentUpon>ButtonTable_UserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MGTL\DressingTime_UserControl.resx">
+      <DependentUpon>DressingTime_UserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MGTL\IDCYCLETimeUserControl.resx">
+      <DependentUpon>IDCYCLETimeUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MGTL\ODCalculator.resx">
+      <DependentUpon>ODCalculator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MGTL\OutPut_UserControl.resx">
+      <DependentUpon>OutPut_UserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OperatorMaintenanceCheckList.resx">
+      <DependentUpon>OperatorMaintenanceCheckList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PendingActivities.resx">
+      <DependentUpon>PendingActivities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PowerCalculator.resx">
+      <DependentUpon>PowerCalculator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DummyControl.resx">
+      <DependentUpon>DummyControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DialogBox.resx">
+      <DependentUpon>DialogBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FocasAppSettingz.resx">
+      <DependentUpon>FocasAppSettingz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MachineInfoForm.resx">
+      <DependentUpon>MachineInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PowerCalci.resx">
+      <DependentUpon>PowerCalci.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MachineMenuControl.resx">
+      <DependentUpon>MachineMenuControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MachineManual.resx">
+      <DependentUpon>MachineManual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PredAndPrevExportMenu.resx">
+      <DependentUpon>PredAndPrevExportMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PredectiveMaintenance.resx">
+      <DependentUpon>PredectiveMaintenance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PredictiveMaintanance.resx">
+      <DependentUpon>PredictiveMaintanance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomDialogBox.resx">
+      <DependentUpon>CustomDialogBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HomeScreen.resx">
+      <DependentUpon>HomeScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainScreen.resx">
+      <DependentUpon>MainScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PRGUserControl.resx">
+      <DependentUpon>PRGUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Process.resx">
+      <DependentUpon>Process.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProgramTransfer\CreateFolder.resx">
+      <DependentUpon>CreateFolder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProgramTransfer\ProgramTransferControl.resx">
+      <DependentUpon>ProgramTransferControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectInstaller.resx">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="SAC\Dashboard_Sac_Win.resx">
+      <DependentUpon>Dashboard_Sac_Win.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SAC\IRSchedule_Win.resx">
+      <DependentUpon>IRSchedule_Win.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ServiceSettings.resx">
+      <DependentUpon>ServiceSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShiftDetailz.resx">
+      <DependentUpon>ShiftDetailz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SpindleParameter.resx">
+      <DependentUpon>SpindleParameter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MachineInformation.resx">
+      <DependentUpon>MachineInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CNCAndPredictiveAlarmControl.resx">
+      <DependentUpon>CNCAndPredictiveAlarmControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpgradeOEM.resx">
+      <DependentUpon>UpgradeOEM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebPageViewerControl.resx">
+      <DependentUpon>WebPageViewerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <Content Include="AlarmsAndDocs\ACE\Jobber\Electrical Manuals\JOBBER-XL_LM_ELITE-2016_00_TF.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Daily CheckList\Check List.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\User Manual\ACE Maintenance Manual_New.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlarmsAndDocs\ACE\Super Jobber\Electrical Manuals\SUPER JOBBER_500 ELITE-2015_00 OI TF.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="AlarmsAndDocs\ACE\Alarms\1031\Thumbs.db" />
+    <None Include="AlarmsAndDocs\ACE\Alarms\1155\Thumbs.db" />
+    <Content Include="AlarmsAndDocs\ACE\Navigation Manual\Navigation_Help_Key.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="External Dll\chartdir.lic">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="HelpFiles\MachineConnect OEM User Manual.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="External Dll\EPPlus.dll" />
+    <Content Include="External Dll\netchartdir.dll" />
+    <Content Include="Images\AmitLogo.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\AMIT_logo.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BackImg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\dock_icon_home_button_by_moa_isa_jediknight.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Help.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Home.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\MachineConnectIcon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Next.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Prev.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Previous.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Red.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Redz.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Settings.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Yellow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AcrobatAccessLib">
+      <Guid>{C523F390-9C83-11D3-9094-00104BD0D535}</Guid>
+      <VersionMajor>3</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="AcroPDFLib">
+      <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="ActivityInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CNCAndPreventiveAlarmz.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MenuPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PRGPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SAC\DashBoard_Sac.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SAC\DefinePMRules.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SAC\DialogBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SAC\IRSchedule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SAC\NewDateTime.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SAC\ResourceDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF_UserControl\PredictiveAlarms.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="AlarmsAndDocs\ACE\Alarms\1151\" />
+    <Folder Include="AlarmsAndDocs\ACE\Alarms\1167\" />
+    <Folder Include="AlarmsAndDocs\ACE\Alarms\1170\" />
+    <Folder Include="AlarmsAndDocs\AMS\Alarms\" />
+    <Folder Include="AlarmsAndDocs\AMS\Daily CheckList\" />
+    <Folder Include="AlarmsAndDocs\AMS\Navigation Manual\" />
+    <Folder Include="AlarmsAndDocs\AMS\User Manual\" />
+    <Folder Include="AlarmsAndDocs\MGTL\Daily CheckList\" />
+    <Folder Include="ReportTemplates\Reports\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\MongoDB.Libmongocrypt.1.0.0\build\MongoDB.Libmongocrypt.targets" Condition="Exists('..\packages\MongoDB.Libmongocrypt.1.0.0\build\MongoDB.Libmongocrypt.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\MongoDB.Libmongocrypt.1.0.0\build\MongoDB.Libmongocrypt.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MongoDB.Libmongocrypt.1.0.0\build\MongoDB.Libmongocrypt.targets'))" />
+    <Error Condition="!Exists('..\packages\MongoDB.Driver.Core.2.11.1\build\MongoDB.Driver.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MongoDB.Driver.Core.2.11.1\build\MongoDB.Driver.Core.targets'))" />
+  </Target>
+  <Import Project="..\packages\MongoDB.Driver.Core.2.11.1\build\MongoDB.Driver.Core.targets" Condition="Exists('..\packages\MongoDB.Driver.Core.2.11.1\build\MongoDB.Driver.Core.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

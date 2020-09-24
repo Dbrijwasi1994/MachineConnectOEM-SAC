@@ -1,0 +1,8 @@
+﻿IF NOT  EXISTS(
+    SELECT *
+    FROM sys.columns 
+    WHERE Name      = N'ProgramFoldersEnabled'
+      AND Object_ID = Object_ID(N'machineinformation'))
+BEGIN
+   Alter table machineinformation Add ProgramFoldersEnabled bit NOT NULL DEFAULT(0) 
+END

@@ -1,0 +1,225 @@
+﻿<UserControl x:Class="MachineConnectOEM.SAC.DashBoard_Sac"
+             x:Name="SACDashboard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:MachineConnectOEM.SAC"          
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="800" Loaded="SACDashboard_Loaded">
+    <!--xmlns:local="clr-namespace:MachineConnectApplication.SAC"-->
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <!--<local:NameToBrushConverter x:Key="NameToBrushConverter"/>-->
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="./ResourceDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <!--Visibility="{Binding ButtCancel, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"-->
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1" Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="360"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="PROCESS PARAMETERS" Style="{StaticResource labelStylehdrDas}"/>
+                <ListBox x:Name="listBox" Grid.Row="1" SnapsToDevicePixels="True" Grid.IsSharedSizeScope="True" HorizontalAlignment="Center" VerticalAlignment="Center"        ItemsSource="{Binding data}" Background="#7AF9FF" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" Padding="0" Margin="0">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel>
+                            </WrapPanel>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <ContentControl Content="{Binding}" Padding="0">
+                                <ContentControl.Style>
+                                    <Style TargetType="ContentControl">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding TemplateType}" Value="1">
+                                                <Setter Property="ContentTemplate">
+                                                    <Setter.Value>
+                                                        <DataTemplate>
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition SharedSizeGroup="A"/>
+                                                                </Grid.ColumnDefinitions>
+                                                                <Border  Margin="5" BorderBrush="LightBlue" MaxWidth="550" MinHeight="150" Background="{Binding BackgroundColor}" BorderThickness="1" CornerRadius="6">
+                                                                    <StackPanel>
+                                                                        <Grid>
+                                                                            <Grid.RowDefinitions>
+                                                                                <RowDefinition Height="0.25*"></RowDefinition>
+                                                                                <RowDefinition></RowDefinition>
+                                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                                <RowDefinition></RowDefinition>
+                                                                                <RowDefinition Height="0.25*"></RowDefinition>
+                                                                            </Grid.RowDefinitions>
+                                                                            <Label Grid.Row="0" Content="{Binding ParameterName}" Style="{StaticResource ResourceKey=MyLabelStyle}" FontSize="{Binding Source={x:Static local:AppSettings.FontSizeLable}}"/>
+                                                                            <Separator Grid.Row="1" Background="Transparent" Height="2"></Separator>
+                                                                            <TextBox Grid.Row="2" Text="{Binding  ParameterValue}" Style="{StaticResource ResourceKey=txtStyle}" FontSize="{Binding Source={x:Static local:AppSettings.FontSizeParamValue}}"/>
+                                                                            <TextBlock Grid.Row="3" Text="{Binding Unit}" HorizontalAlignment="Center" TextAlignment="Center" Foreground="Black" FontWeight="Bold" FontSize="{Binding Source={x:Static local:AppSettings.FontSizeText}}" Width="auto"/>
+                                                                            <Grid Grid.Row="4">
+                                                                                <Grid.ColumnDefinitions>
+                                                                                    <ColumnDefinition></ColumnDefinition>
+                                                                                    <ColumnDefinition></ColumnDefinition>
+                                                                                </Grid.ColumnDefinitions>
+                                                                                <StackPanel Grid.Column="0"  Orientation="Horizontal" HorizontalAlignment="Center">
+                                                                                    <Label Content="Hi" Style="{StaticResource ResourceKey=labelStylehdr}"></Label>
+                                                                                    <TextBox   Text="{Binding MaxValue}" Style="{StaticResource ResourceKey=txtStyle2}"></TextBox>
+                                                                                </StackPanel>
+                                                                                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                                                                                    <Label Content="Lo" Style="{StaticResource ResourceKey=labelStylehdr}"></Label>
+                                                                                    <TextBox Text="{Binding MinValue}" Style="{StaticResource ResourceKey=txtStyle2}"></TextBox>
+                                                                                    <Label Content="{Binding Path=ParameterBitValue, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                                                                                </StackPanel>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                    </StackPanel>
+                                                                </Border>
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding TemplateType}" Value="2">
+                                                <Setter Property="ContentTemplate">
+                                                    <Setter.Value>
+                                                        <DataTemplate>
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition SharedSizeGroup="A"/>
+                                                                </Grid.ColumnDefinitions>
+                                                                <Border  Margin="5" BorderBrush="LightBlue" MaxWidth="550" MinHeight="150"  Background="{Binding BackgroundColor}" BorderThickness="1" CornerRadius="6">
+                                                                    <StackPanel>
+                                                                        <Grid>
+                                                                            <Grid.RowDefinitions>
+                                                                                <RowDefinition Height="0.25*"></RowDefinition>
+                                                                                <RowDefinition></RowDefinition>
+                                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                            </Grid.RowDefinitions>
+                                                                            <Label Grid.Row="0" Content="{Binding ParameterName}" Style="{StaticResource ResourceKey=MyLabelStyle}" FontSize="{Binding Source={x:Static local:AppSettings.FontSizeLable}}"></Label>
+                                                                            <Separator Grid.Row="1" Background="Transparent" Height="2"></Separator>
+                                                                            <TextBox Grid.Row="2" Text="{Binding  ParameterValue}" Style="{StaticResource ResourceKey=txtStyle}" VerticalAlignment="Center" Margin="0 25 0 0" FontSize="{Binding Source={x:Static local:AppSettings.FontSizeParamValue}}"/>
+                                                                        </Grid>
+                                                                    </StackPanel>
+                                                                </Border>
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ContentControl.Style>
+                            </ContentControl>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListBoxItem}">
+                            <Style.Resources>
+                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+                            </Style.Resources>
+                            <!--<Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True" >
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="Foreground" Value="Black" />
+                        </Trigger>
+                    </Style.Triggers>-->
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                </ListBox>
+            </Grid>
+
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0" BorderBrush="Black" BorderThickness="1" CornerRadius="5" Margin="0,0,5,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Background="Red" Foreground="White" Content="Schedule Warning" FontWeight="Bold" HorizontalContentAlignment="Center" FontSize="16"/>
+                        <ListBox Grid.Row="1" Background="#FFFFE2" x:Name="listBoxWarning" ItemsSource="{Binding data}">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical"/>
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" Text="{Binding NotificationDataTitle}" TextWrapping="Wrap" FontSize="14" FontWeight="Bold"/>
+                                        <TextBlock Grid.Row="1" Text="{Binding Activity}" TextWrapping="Wrap" FontSize="12"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" CornerRadius="5" Margin="0,5,5,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Background="Red" Foreground="White" FontWeight="Bold" HorizontalContentAlignment="Stretch" FontSize="16" Margin="0" Padding="0">
+                            <Label.Content>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="30"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Background="Red" Foreground="White" FontWeight="Bold" HorizontalContentAlignment="Center" FontSize="16" Content="Schedule Pending" Margin="0" Padding="0" VerticalContentAlignment="Center"/>
+                                    <Button Grid.Column="1" ToolTip="Show All Pending Tasks" x:Name="btnAllPending" Margin="2" Padding="0" Click="btnAllPending_Click">
+                                        <Button.Content>
+                                            <Image Source="/Images/Data_pending.png" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                        </Button.Content>
+                                    </Button>
+                                </Grid>
+                            </Label.Content>
+                        </Label>
+                        <ListBox Grid.Row="1" Background="#FFFFE2" x:Name="listBoxPending" ItemsSource="{Binding data}">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical"/>
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" Text="{Binding NotificationDataTitle}" TextWrapping="Wrap" FontSize="14" FontWeight="Bold"/>
+                                        <TextBlock Grid.Row="1" Text="{Binding Activity}" TextWrapping="Wrap" FontSize="12"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

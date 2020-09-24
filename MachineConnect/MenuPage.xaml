@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="MachineConnectOEM.MenuPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="435" d:DesignWidth="1270"  FontFamily="Segoe UI"  Background="White">
+
+    <UserControl.Resources>
+        <Style x:Key="buttonStyle" TargetType="{x:Type Button}">
+            <Style.Triggers>
+                <Trigger Property = "IsMouseOver" Value = "True">
+                    <Setter Property = "Foreground" Value = "Red" />
+                </Trigger>
+            </Style.Triggers>
+            <Setter Property="Height"  Value="105"></Setter>
+            <Setter Property="Width" Value="225"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="Background" Value="Green"></Setter>
+            <Setter Property="FontSize" Value="15"></Setter>
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+            <Setter Property="BorderBrush" Value="Black"></Setter>
+            <Setter Property="BorderThickness" Value="0.5"></Setter>
+            <Setter Property="FontFamily" Value="Segoe UI Semibold"></Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="125"></RowDefinition>
+            <RowDefinition Height="125"></RowDefinition>
+            <RowDefinition Height="125"></RowDefinition>
+            <RowDefinition Height="125"></RowDefinition>
+            <RowDefinition Height="125"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="235"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="235"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="235"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Button   Grid.Row="0" Grid.Column="1"  Content = "IO STATUS" Style="{StaticResource buttonStyle}"/>
+        <Button Name="btnManuals" Grid.Row="0" Grid.Column="3"  Content = "MANUALS" Click="btnManuals_Click" Style="{StaticResource buttonStyle}"/>
+        <Button  Grid.Row="0" Grid.Column="5"  Content = "PREVENTIVE MAINTENANCE" Style="{StaticResource buttonStyle}"/>
+
+
+        <Button   Grid.Row="1" Grid.Column="1"  Content = "WHEEL POWER GRAPH" Style="{StaticResource buttonStyle}"/>
+        <Button  Grid.Row="1" Grid.Column="3" Style="{StaticResource buttonStyle}">
+            <TextBlock Text="GRINDING AND DRESSING PARAMETRS" TextWrapping="Wrap" TextAlignment="Center"/>
+        </Button>
+
+        <Button  Grid.Row="1" Grid.Column="5"  Content = "GRINDING CALCULATOR" Style="{StaticResource buttonStyle}"/>
+
+        <Button   Grid.Row="2" Grid.Column="1"  Content = "PRODUCTION MONITORING" Style="{StaticResource buttonStyle}"/>
+        <Button  Grid.Row="2" Grid.Column="3"  Content = "SENSOR STATUS" Style="{StaticResource buttonStyle}"/>
+        <Button  Grid.Row="2" Grid.Column="5"  Content = "HISTORY" Style="{StaticResource buttonStyle}"/>
+
+        <Button   Grid.Row="3" Grid.Column="1"  Content = "SCHEDULE CHART" Style="{StaticResource buttonStyle}"/>
+        <Button  Grid.Row="3" Grid.Column="3"  Content = "MACHINE ACCESSORIES" Style="{StaticResource buttonStyle}"/>
+        <Button  Grid.Row="3" Grid.Column="5"  Content = "CONTROL SETTING" Style="{StaticResource buttonStyle}"/>
+
+        <Button   Grid.Row="4" Grid.Column="1"  Content = "PASSWORD" Style="{StaticResource buttonStyle}"/>
+        <Button  Grid.Row="4" Grid.Column="3"  Content = "HELP" Style="{StaticResource buttonStyle}"/>
+        <Button  Grid.Row="4" Grid.Column="5"  Content = "BACKUP" Style="{StaticResource buttonStyle}"/>
+    </Grid>
+</UserControl>
