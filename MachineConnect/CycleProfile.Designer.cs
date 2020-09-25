@@ -28,14 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
             this.dgvCycleDetails = new System.Windows.Forms.DataGridView();
+            this.SelectCycle = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.MachineModel = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.IPAddress = new System.Windows.Forms.DataGridViewLinkColumn();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.cmbParameter = new System.Windows.Forms.ComboBox();
+            this.lblParameter = new System.Windows.Forms.Label();
             this.cmbMachineId = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.dtpToDate = new System.Windows.Forms.DateTimePicker();
@@ -46,29 +51,24 @@
             this.chkShowMarkers = new System.Windows.Forms.CheckBox();
             this.chkShowValues = new System.Windows.Forms.CheckBox();
             this.ChartsPanel = new System.Windows.Forms.Panel();
-            this.lblParameter = new System.Windows.Forms.Label();
-            this.cmbParameter = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanelCharts = new System.Windows.Forms.TableLayoutPanel();
-            this.chartViewer1 = new ChartDirector.WinChartViewer();
-            this.chartViewer2 = new ChartDirector.WinChartViewer();
-            this.chartViewer3 = new ChartDirector.WinChartViewer();
-            this.chartViewer4 = new ChartDirector.WinChartViewer();
-            this.chartViewer5 = new ChartDirector.WinChartViewer();
             this.chartViewer6 = new ChartDirector.WinChartViewer();
-            this.SelectCycle = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.MachineModel = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.IPAddress = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.chartViewer5 = new ChartDirector.WinChartViewer();
+            this.chartViewer4 = new ChartDirector.WinChartViewer();
+            this.chartViewer3 = new ChartDirector.WinChartViewer();
+            this.chartViewer2 = new ChartDirector.WinChartViewer();
+            this.chartViewer1 = new ChartDirector.WinChartViewer();
             this.tableLayoutPanelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCycleDetails)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.ChartsPanel.SuspendLayout();
             this.tableLayoutPanelCharts.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chartViewer1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartViewer2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartViewer3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartViewer4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartViewer5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartViewer6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartViewer5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartViewer4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartViewer3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartViewer2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartViewer1)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanelMain
@@ -95,37 +95,37 @@
             this.dgvCycleDetails.AllowUserToAddRows = false;
             this.dgvCycleDetails.AllowUserToDeleteRows = false;
             this.dgvCycleDetails.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(251)))), ((int)(((byte)(251)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgvCycleDetails.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(251)))), ((int)(((byte)(251)))));
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvCycleDetails.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvCycleDetails.BackgroundColor = System.Drawing.Color.White;
             this.dgvCycleDetails.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgvCycleDetails.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(73)))), ((int)(((byte)(125)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvCycleDetails.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(73)))), ((int)(((byte)(125)))));
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.White;
+            this.dgvCycleDetails.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dgvCycleDetails.ColumnHeadersHeight = 40;
             this.dgvCycleDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvCycleDetails.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SelectCycle,
             this.MachineModel,
             this.IPAddress});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCycleDetails.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCycleDetails.DefaultCellStyle = dataGridViewCellStyle9;
             this.dgvCycleDetails.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCycleDetails.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgvCycleDetails.EnableHeadersVisualStyles = false;
@@ -133,14 +133,14 @@
             this.dgvCycleDetails.Location = new System.Drawing.Point(0, 34);
             this.dgvCycleDetails.Margin = new System.Windows.Forms.Padding(0);
             this.dgvCycleDetails.Name = "dgvCycleDetails";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCycleDetails.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCycleDetails.RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.dgvCycleDetails.RowHeadersVisible = false;
             this.dgvCycleDetails.RowHeadersWidth = 40;
             this.dgvCycleDetails.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -156,6 +156,42 @@
             this.dgvCycleDetails.Size = new System.Drawing.Size(1451, 200);
             this.dgvCycleDetails.TabIndex = 21;
             this.dgvCycleDetails.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCycleDetails_CellContentDoubleClick);
+            this.dgvCycleDetails.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvCycleDetails_DataBindingComplete);
+            // 
+            // SelectCycle
+            // 
+            this.SelectCycle.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Black;
+            this.SelectCycle.DefaultCellStyle = dataGridViewCellStyle8;
+            this.SelectCycle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SelectCycle.HeaderText = "Select";
+            this.SelectCycle.MinimumWidth = 100;
+            this.SelectCycle.Name = "SelectCycle";
+            this.SelectCycle.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.SelectCycle.Text = "Select";
+            this.SelectCycle.ToolTipText = "Select Cycle";
+            // 
+            // MachineModel
+            // 
+            this.MachineModel.DataPropertyName = "CycleStart";
+            this.MachineModel.HeaderText = "Cycle Start";
+            this.MachineModel.MinimumWidth = 150;
+            this.MachineModel.Name = "MachineModel";
+            this.MachineModel.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.MachineModel.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.MachineModel.Width = 150;
+            // 
+            // IPAddress
+            // 
+            this.IPAddress.DataPropertyName = "CycleEnd";
+            this.IPAddress.HeaderText = "Cycle End";
+            this.IPAddress.MinimumWidth = 150;
+            this.IPAddress.Name = "IPAddress";
+            this.IPAddress.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.IPAddress.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.IPAddress.Width = 150;
             // 
             // tableLayoutPanel1
             // 
@@ -191,6 +227,35 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1449, 32);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // cmbParameter
+            // 
+            this.cmbParameter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbParameter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbParameter.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbParameter.FormattingEnabled = true;
+            this.cmbParameter.Items.AddRange(new object[] {
+            "Hour",
+            "Minute",
+            "Seconds"});
+            this.cmbParameter.Location = new System.Drawing.Point(839, 3);
+            this.cmbParameter.Name = "cmbParameter";
+            this.cmbParameter.Size = new System.Drawing.Size(144, 25);
+            this.cmbParameter.TabIndex = 29;
+            // 
+            // lblParameter
+            // 
+            this.lblParameter.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblParameter.AutoSize = true;
+            this.lblParameter.BackColor = System.Drawing.Color.White;
+            this.lblParameter.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblParameter.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.lblParameter.Location = new System.Drawing.Point(739, 6);
+            this.lblParameter.Name = "lblParameter";
+            this.lblParameter.Size = new System.Drawing.Size(92, 20);
+            this.lblParameter.TabIndex = 28;
+            this.lblParameter.Text = "Parameter : ";
+            this.lblParameter.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // cmbMachineId
             // 
@@ -313,6 +378,7 @@
             // ChartsPanel
             // 
             this.ChartsPanel.AutoScroll = true;
+            this.ChartsPanel.AutoSize = true;
             this.ChartsPanel.Controls.Add(this.tableLayoutPanelCharts);
             this.ChartsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ChartsPanel.Location = new System.Drawing.Point(2, 236);
@@ -321,37 +387,10 @@
             this.ChartsPanel.Size = new System.Drawing.Size(1447, 1202);
             this.ChartsPanel.TabIndex = 22;
             // 
-            // lblParameter
-            // 
-            this.lblParameter.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.lblParameter.AutoSize = true;
-            this.lblParameter.BackColor = System.Drawing.Color.White;
-            this.lblParameter.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblParameter.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.lblParameter.Location = new System.Drawing.Point(739, 6);
-            this.lblParameter.Name = "lblParameter";
-            this.lblParameter.Size = new System.Drawing.Size(92, 20);
-            this.lblParameter.TabIndex = 28;
-            this.lblParameter.Text = "Parameter : ";
-            this.lblParameter.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // cmbParameter
-            // 
-            this.cmbParameter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbParameter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbParameter.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbParameter.FormattingEnabled = true;
-            this.cmbParameter.Items.AddRange(new object[] {
-            "Hour",
-            "Minute",
-            "Seconds"});
-            this.cmbParameter.Location = new System.Drawing.Point(839, 3);
-            this.cmbParameter.Name = "cmbParameter";
-            this.cmbParameter.Size = new System.Drawing.Size(144, 25);
-            this.cmbParameter.TabIndex = 29;
-            // 
             // tableLayoutPanelCharts
             // 
+            this.tableLayoutPanelCharts.AutoScroll = true;
+            this.tableLayoutPanelCharts.AutoSize = true;
             this.tableLayoutPanelCharts.ColumnCount = 1;
             this.tableLayoutPanelCharts.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelCharts.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
@@ -364,6 +403,7 @@
             this.tableLayoutPanelCharts.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelCharts.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelCharts.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanelCharts.MaximumSize = new System.Drawing.Size(1916, 1200);
             this.tableLayoutPanelCharts.Name = "tableLayoutPanelCharts";
             this.tableLayoutPanelCharts.RowCount = 6;
             this.tableLayoutPanelCharts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
@@ -372,64 +412,29 @@
             this.tableLayoutPanelCharts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableLayoutPanelCharts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableLayoutPanelCharts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
-            this.tableLayoutPanelCharts.Size = new System.Drawing.Size(1447, 1202);
+            this.tableLayoutPanelCharts.Size = new System.Drawing.Size(1447, 1200);
             this.tableLayoutPanelCharts.TabIndex = 0;
             // 
-            // chartViewer1
+            // chartViewer6
             // 
-            this.chartViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chartViewer1.HotSpotCursor = System.Windows.Forms.Cursors.Hand;
-            this.chartViewer1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.chartViewer1.Location = new System.Drawing.Point(3, 3);
-            this.chartViewer1.Name = "chartViewer1";
-            this.chartViewer1.ScrollDirection = ChartDirector.WinChartDirection.HorizontalVertical;
-            this.chartViewer1.Size = new System.Drawing.Size(1441, 194);
-            this.chartViewer1.TabIndex = 26;
-            this.chartViewer1.TabStop = false;
-            this.chartViewer1.ZoomDirection = ChartDirector.WinChartDirection.HorizontalVertical;
-            // 
-            // chartViewer2
-            // 
-            this.chartViewer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chartViewer2.HotSpotCursor = System.Windows.Forms.Cursors.Hand;
-            this.chartViewer2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.chartViewer2.Location = new System.Drawing.Point(3, 203);
-            this.chartViewer2.Name = "chartViewer2";
-            this.chartViewer2.ScrollDirection = ChartDirector.WinChartDirection.HorizontalVertical;
-            this.chartViewer2.Size = new System.Drawing.Size(1441, 194);
-            this.chartViewer2.TabIndex = 27;
-            this.chartViewer2.TabStop = false;
-            this.chartViewer2.ZoomDirection = ChartDirector.WinChartDirection.HorizontalVertical;
-            // 
-            // chartViewer3
-            // 
-            this.chartViewer3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chartViewer3.HotSpotCursor = System.Windows.Forms.Cursors.Hand;
-            this.chartViewer3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.chartViewer3.Location = new System.Drawing.Point(3, 403);
-            this.chartViewer3.Name = "chartViewer3";
-            this.chartViewer3.ScrollDirection = ChartDirector.WinChartDirection.HorizontalVertical;
-            this.chartViewer3.Size = new System.Drawing.Size(1441, 194);
-            this.chartViewer3.TabIndex = 28;
-            this.chartViewer3.TabStop = false;
-            this.chartViewer3.ZoomDirection = ChartDirector.WinChartDirection.HorizontalVertical;
-            // 
-            // chartViewer4
-            // 
-            this.chartViewer4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chartViewer4.HotSpotCursor = System.Windows.Forms.Cursors.Hand;
-            this.chartViewer4.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.chartViewer4.Location = new System.Drawing.Point(3, 603);
-            this.chartViewer4.Name = "chartViewer4";
-            this.chartViewer4.ScrollDirection = ChartDirector.WinChartDirection.HorizontalVertical;
-            this.chartViewer4.Size = new System.Drawing.Size(1441, 194);
-            this.chartViewer4.TabIndex = 29;
-            this.chartViewer4.TabStop = false;
-            this.chartViewer4.ZoomDirection = ChartDirector.WinChartDirection.HorizontalVertical;
+            this.chartViewer6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chartViewer6.HotSpotCursor = System.Windows.Forms.Cursors.Hand;
+            this.chartViewer6.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.chartViewer6.Location = new System.Drawing.Point(3, 1003);
+            this.chartViewer6.Name = "chartViewer6";
+            this.chartViewer6.ScrollDirection = ChartDirector.WinChartDirection.HorizontalVertical;
+            this.chartViewer6.Size = new System.Drawing.Size(1441, 194);
+            this.chartViewer6.TabIndex = 31;
+            this.chartViewer6.TabStop = false;
+            this.chartViewer6.ZoomDirection = ChartDirector.WinChartDirection.HorizontalVertical;
             // 
             // chartViewer5
             // 
-            this.chartViewer5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chartViewer5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.chartViewer5.HotSpotCursor = System.Windows.Forms.Cursors.Hand;
             this.chartViewer5.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.chartViewer5.Location = new System.Drawing.Point(3, 803);
@@ -440,74 +445,91 @@
             this.chartViewer5.TabStop = false;
             this.chartViewer5.ZoomDirection = ChartDirector.WinChartDirection.HorizontalVertical;
             // 
-            // chartViewer6
+            // chartViewer4
             // 
-            this.chartViewer6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chartViewer6.HotSpotCursor = System.Windows.Forms.Cursors.Hand;
-            this.chartViewer6.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.chartViewer6.Location = new System.Drawing.Point(3, 1003);
-            this.chartViewer6.Name = "chartViewer6";
-            this.chartViewer6.ScrollDirection = ChartDirector.WinChartDirection.HorizontalVertical;
-            this.chartViewer6.Size = new System.Drawing.Size(1441, 196);
-            this.chartViewer6.TabIndex = 31;
-            this.chartViewer6.TabStop = false;
-            this.chartViewer6.ZoomDirection = ChartDirector.WinChartDirection.HorizontalVertical;
+            this.chartViewer4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chartViewer4.HotSpotCursor = System.Windows.Forms.Cursors.Hand;
+            this.chartViewer4.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.chartViewer4.Location = new System.Drawing.Point(3, 603);
+            this.chartViewer4.Name = "chartViewer4";
+            this.chartViewer4.ScrollDirection = ChartDirector.WinChartDirection.HorizontalVertical;
+            this.chartViewer4.Size = new System.Drawing.Size(1441, 194);
+            this.chartViewer4.TabIndex = 29;
+            this.chartViewer4.TabStop = false;
+            this.chartViewer4.ZoomDirection = ChartDirector.WinChartDirection.HorizontalVertical;
             // 
-            // SelectCycle
+            // chartViewer3
             // 
-            this.SelectCycle.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
-            this.SelectCycle.DefaultCellStyle = dataGridViewCellStyle3;
-            this.SelectCycle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SelectCycle.HeaderText = "Select";
-            this.SelectCycle.MinimumWidth = 100;
-            this.SelectCycle.Name = "SelectCycle";
-            this.SelectCycle.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.SelectCycle.Text = "Select";
-            this.SelectCycle.ToolTipText = "Select Cycle";
+            this.chartViewer3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chartViewer3.HotSpotCursor = System.Windows.Forms.Cursors.Hand;
+            this.chartViewer3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.chartViewer3.Location = new System.Drawing.Point(3, 403);
+            this.chartViewer3.Name = "chartViewer3";
+            this.chartViewer3.ScrollDirection = ChartDirector.WinChartDirection.HorizontalVertical;
+            this.chartViewer3.Size = new System.Drawing.Size(1441, 194);
+            this.chartViewer3.TabIndex = 28;
+            this.chartViewer3.TabStop = false;
+            this.chartViewer3.ZoomDirection = ChartDirector.WinChartDirection.HorizontalVertical;
             // 
-            // MachineModel
+            // chartViewer2
             // 
-            this.MachineModel.DataPropertyName = "CycleStart";
-            this.MachineModel.HeaderText = "Cycle Start";
-            this.MachineModel.MinimumWidth = 150;
-            this.MachineModel.Name = "MachineModel";
-            this.MachineModel.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.MachineModel.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.MachineModel.Width = 150;
+            this.chartViewer2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chartViewer2.HotSpotCursor = System.Windows.Forms.Cursors.Hand;
+            this.chartViewer2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.chartViewer2.Location = new System.Drawing.Point(3, 203);
+            this.chartViewer2.Name = "chartViewer2";
+            this.chartViewer2.ScrollDirection = ChartDirector.WinChartDirection.HorizontalVertical;
+            this.chartViewer2.Size = new System.Drawing.Size(1441, 194);
+            this.chartViewer2.TabIndex = 27;
+            this.chartViewer2.TabStop = false;
+            this.chartViewer2.ZoomDirection = ChartDirector.WinChartDirection.HorizontalVertical;
             // 
-            // IPAddress
+            // chartViewer1
             // 
-            this.IPAddress.DataPropertyName = "CycleEnd";
-            this.IPAddress.HeaderText = "Cycle End";
-            this.IPAddress.MinimumWidth = 150;
-            this.IPAddress.Name = "IPAddress";
-            this.IPAddress.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.IPAddress.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.IPAddress.Width = 150;
+            this.chartViewer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chartViewer1.HotSpotCursor = System.Windows.Forms.Cursors.Hand;
+            this.chartViewer1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.chartViewer1.Location = new System.Drawing.Point(3, 3);
+            this.chartViewer1.Name = "chartViewer1";
+            this.chartViewer1.ScrollDirection = ChartDirector.WinChartDirection.HorizontalVertical;
+            this.chartViewer1.Size = new System.Drawing.Size(1441, 194);
+            this.chartViewer1.TabIndex = 26;
+            this.chartViewer1.TabStop = false;
+            this.chartViewer1.ZoomDirection = ChartDirector.WinChartDirection.HorizontalVertical;
             // 
             // CycleProfile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
+            this.AutoSize = true;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.tableLayoutPanelMain);
             this.Name = "CycleProfile";
             this.Size = new System.Drawing.Size(1451, 1440);
             this.Load += new System.EventHandler(this.CycleProfile_Load);
             this.tableLayoutPanelMain.ResumeLayout(false);
+            this.tableLayoutPanelMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCycleDetails)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ChartsPanel.ResumeLayout(false);
+            this.ChartsPanel.PerformLayout();
             this.tableLayoutPanelCharts.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chartViewer1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartViewer2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartViewer3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartViewer4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartViewer5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartViewer6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartViewer5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartViewer4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartViewer3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartViewer2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartViewer1)).EndInit();
             this.ResumeLayout(false);
 
         }

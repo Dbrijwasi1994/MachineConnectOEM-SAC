@@ -651,11 +651,11 @@ namespace MachineConnectApplication
             MTB = DatabaseAccess.GetMTB(HomeScreen.selectedMachine);
             if (MTB.Equals("MGTL", StringComparison.OrdinalIgnoreCase))
             {
-                btnUpgrade.Visible = false;
+                btnUpgrade.Visible = true;
             }
             else
             {
-                btnUpgrade.Visible = false;
+                btnUpgrade.Visible = true;
             }
 
             int axisNumber = DatabaseAccess.GetSpindleAxisNumber(HomeScreen.selectedMachine);
@@ -1062,9 +1062,16 @@ namespace MachineConnectApplication
 
         private void btnCycleProfile_Click(object sender, EventArgs e)
         {
-            CycleProfileWindow cycleProfile = new CycleProfileWindow();
-            cycleProfile.Dock = DockStyle.Fill;
-            cycleProfile.ShowDialog();
+            //CycleProfileWindow cycleProfile = new CycleProfileWindow();
+            //cycleProfile.Dock = DockStyle.Fill;
+            //cycleProfile.ShowDialog();
+            this.Cursor = Cursors.WaitCursor;
+            DisposePanelControls();
+            pnlContainer.Controls.Clear();
+            CycleProfile control = new CycleProfile();
+            control.Dock = DockStyle.Fill;
+            pnlContainer.Controls.Add(control);
+            this.Cursor = Cursors.Default;
         }
     }
 }

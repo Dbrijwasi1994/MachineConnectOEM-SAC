@@ -27,7 +27,7 @@ namespace MachineConnectApplication
         public DateTime CycleEnd { get; set; }
     }
 
-    public class ParameterCycleInfo
+    public class ParameterCycleInfo : ICloneable
     {
         public object _id { get; set; }
         public int IDD { get; set; }
@@ -43,6 +43,11 @@ namespace MachineConnectApplication
         public string Qualifier { get; set; }
         public string Column1 { get; set; }
         public string Column2 { get; set; }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 
     public class StartEndTimes

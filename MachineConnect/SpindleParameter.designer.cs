@@ -296,7 +296,6 @@
             this.btnUpgrade.TabIndex = 58;
             this.btnUpgrade.Text = "APPLICATION PARAMETERS";
             this.btnUpgrade.UseVisualStyleBackColor = false;
-            this.btnUpgrade.Visible = false;
             this.btnUpgrade.Click += new System.EventHandler(this.btnUpgrade_Click);
             // 
             // cmbDuration
