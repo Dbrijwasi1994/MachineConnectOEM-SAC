@@ -26,7 +26,7 @@ namespace MachineConnectOEM
         public CycleProfile()
         {
             InitializeComponent();
-            parametersList = new Dictionary<string, string>() { { "All", "P0" }, { "Work Head Temperature", "P9" }, { "X-Axis Load", "P10" }, { "Z-Axis Load", "P11" }, { "C-Axis Load", "P12" }, { "C-Axis Speed", "P28" }, { "Feed Rate", "P26" } };
+            parametersList = new Dictionary<string, string>() { { "All", "All" }, { "Work Head Temperature", "c-AxisTemp" }, { "X-Axis Load", "x-AxisLoad" }, { "Z-Axis Load", "z-AxisLoad" }, { "C-Axis Load", "c-AxisLoad" }, { "C-Axis Speed", "C-AxisSpeed" }, { "Feed Rate", "FeedRate" } };
         }
 
         private void CycleProfile_Load(object sender, EventArgs e)
@@ -115,29 +115,29 @@ namespace MachineConnectOEM
             List<CycleInfo> cycleInfoList = new List<CycleInfo>();
             try
             {
-                bool HasGotP13 = false;
-                bool HasGotP14 = false;
+                bool HasGotP1 = false;
+                bool HasGotP2 = false;
                 CycleInfo cycleInfo = null;
                 foreach (ParameterCycleInfo parameterCycleInfo in parameterCyclesData)
                 {
-                    if (parameterCycleInfo.ParameterID.Equals("P13"))
+                    if (parameterCycleInfo.ParameterID.Equals("P1"))
                     {
-                        if (!HasGotP13)
+                        if (!HasGotP1)
                         {
                             cycleInfo = new CycleInfo();
                             cycleInfo.CycleStart = parameterCycleInfo.UpdatedtimeStamp;
-                            HasGotP13 = true;
-                            HasGotP14 = false;
+                            HasGotP1 = true;
+                            HasGotP2 = false;
                         }
                     }
-                    if (parameterCycleInfo.ParameterID.Equals("P14"))
+                    if (parameterCycleInfo.ParameterID.Equals("P2"))
                     {
-                        HasGotP13 = false;
-                        if (cycleInfo != null && !HasGotP14)
+                        HasGotP1 = false;
+                        if (cycleInfo != null && !HasGotP2)
                         {
                             cycleInfo.CycleEnd = parameterCycleInfo.UpdatedtimeStamp;
                             cycleInfoList.Add(cycleInfo);
-                            HasGotP14 = true;
+                            HasGotP2 = true;
                         }
                     }
                 }
@@ -327,10 +327,10 @@ namespace MachineConnectOEM
                 c.xAxis().setFormatCondition("else");
                 c.xAxis().setMultiFormat(Chart.StartOfDayFilter(), "<*font=bold*>{value|hh:nn:ss<*br*>mmm dd}", Chart.AllPassFilter(), "{value|hh:nn:ss}");
 
-                string paramId = parametersList != null ? parametersList.Where(x => x.Key.Equals(parameter, StringComparison.OrdinalIgnoreCase)).First().Value : "P26";
+                string paramId = parametersList != null ? parametersList.Where(x => x.Key.Equals(parameter, StringComparison.OrdinalIgnoreCase)).First().Value : "FeedRate";
                 if (cycleProfileData.Any(x => x.ParameterID.Equals(paramId)))
                 {
-                    List<ParameterCycleInfo> parameterCycleData = cycleProfileData.Select(x=>(ParameterCycleInfo)x.Clone()).ToList();
+                    List<ParameterCycleInfo> parameterCycleData = cycleProfileData.Select(x => (ParameterCycleInfo)x.Clone()).ToList();
                     foreach (ParameterCycleInfo parameterCycle in parameterCycleData)
                         if (!parameterCycle.ParameterID.Equals(paramId)) parameterCycle.ParameterValue = 0.0;
                     dataSeries = parameterCycleData.OrderBy(x => x.UpdatedtimeStamp).Select(x => x.ParameterValue).ToArray();
@@ -355,13 +355,13 @@ namespace MachineConnectOEM
                 {
                     if (cycleProfileData != null && cycleProfileData.Count > 0)
                     {
-                        List<string> parameterIDList = new List<string>() { "P15", "P16", "P17", "P18" };
+                        List<string> parameterIDList = new List<string>() { "P3", "P4", "P5", "P6" };
                         List<ParameterCycleInfo> parameterCycleInfos = cycleProfileData.Where(x => parameterIDList.Contains(x.ParameterID)).ToList();
                         if (parameterCycleInfos != null && parameterCycleInfos.Count > 0)
                         {
                             foreach (ParameterCycleInfo parameterCycleInfo in parameterCycleInfos)
                             {
-                                if (parameterCycleInfo.ParameterID.Equals("P15"))
+                                if (parameterCycleInfo.ParameterID.Equals("P3"))
                                 {
                                     if (parameterCycleInfo.UpdatedtimeStamp != null)
                                     {
@@ -371,7 +371,7 @@ namespace MachineConnectOEM
                                         markCycleEndTime.setAlignment(Chart.BottomRight);
                                     }
                                 }
-                                else if (parameterCycleInfo.ParameterID.Equals("P16"))
+                                else if (parameterCycleInfo.ParameterID.Equals("P4"))
                                 {
                                     if (parameterCycleInfo.UpdatedtimeStamp != null)
                                     {
@@ -381,21 +381,21 @@ namespace MachineConnectOEM
                                         markCycleEndTime.setAlignment(Chart.BottomRight);
                                     }
                                 }
-                                else if (parameterCycleInfo.ParameterID.Equals("P17"))
+                                else if (parameterCycleInfo.ParameterID.Equals("P5"))
                                 {
                                     if (parameterCycleInfo.UpdatedtimeStamp != null)
                                     {
-                                        Mark markCycleEndTime = c.xAxis2().addMark(Chart.CTime(parameterCycleInfo.UpdatedtimeStamp), 0x8000, "Dressing Start", "Arial", 7);
+                                        Mark markCycleEndTime = c.xAxis2().addMark(Chart.CTime(parameterCycleInfo.UpdatedtimeStamp), 0x800000, "Dressing Start", "Arial", 7);
                                         markCycleEndTime.setLineWidth(2);
                                         markCycleEndTime.setFontAngle(90);
                                         markCycleEndTime.setAlignment(Chart.BottomRight);
                                     }
                                 }
-                                else if (parameterCycleInfo.ParameterID.Equals("P18"))
+                                else if (parameterCycleInfo.ParameterID.Equals("P6"))
                                 {
                                     if (parameterCycleInfo.UpdatedtimeStamp != null)
                                     {
-                                        Mark markCycleEndTime = c.xAxis2().addMark(Chart.CTime(parameterCycleInfo.UpdatedtimeStamp), 0x8000, "Dressing End", "Arial", 7);
+                                        Mark markCycleEndTime = c.xAxis2().addMark(Chart.CTime(parameterCycleInfo.UpdatedtimeStamp), 0x800000, "Dressing End", "Arial", 7);
                                         markCycleEndTime.setLineWidth(2);
                                         markCycleEndTime.setFontAngle(90);
                                         markCycleEndTime.setAlignment(Chart.BottomRight);
@@ -405,100 +405,217 @@ namespace MachineConnectOEM
                         }
                         if (parameter.Equals("Feed Rate", StringComparison.OrdinalIgnoreCase))
                         {
-                            EventStartEndTimes eventStartEndTimes = new EventStartEndTimes();
-                            eventStartEndTimes = GetEventStartEndTimesList(cycleProfileData);
-                            if (eventStartEndTimes.aprFeedRateStartEndTimes != null && eventStartEndTimes.aprFeedRateStartEndTimes.Count > 0)
+                            string PlotMethod = "Marker";
+                            if (PlotMethod.Equals("Marker"))
                             {
-                                foreach (StartEndTimes startEndTime in eventStartEndTimes.aprFeedRateStartEndTimes)
+                                EventStartEndTimes eventStartEndTimes = new EventStartEndTimes();
+                                eventStartEndTimes = GetEventStartEndTimesList(cycleProfileData);
+                                if (eventStartEndTimes.aprFeedRateStartEndTimes != null && eventStartEndTimes.aprFeedRateStartEndTimes.Count > 0)
                                 {
-                                    if (startEndTime.EventEnd > startEndTime.EventStart)
+                                    foreach (StartEndTimes startEndTime in eventStartEndTimes.aprFeedRateStartEndTimes)
                                     {
-                                        for (int ii = 0; ii < (startEndTime.EventEnd - startEndTime.EventStart).TotalSeconds; ii++)
+                                        if (startEndTime.EventEnd > startEndTime.EventStart)
                                         {
-                                            Mark markAprFeedRate = c.xAxis2().addMark(Chart.CTime(startEndTime.EventStart.AddSeconds(ii)), 0x4860, "", "Arial", 7);
-                                            markAprFeedRate.setLineWidth(2);
-                                            markAprFeedRate.setFontAngle(90);
-                                            markAprFeedRate.setAlignment(Chart.BottomRight);
+                                            Mark markAprFeedRateStart = c.xAxis2().addMark(Chart.CTime(startEndTime.EventStart), 0x4860, "Approach feed rate", "Arial", 7);
+                                            markAprFeedRateStart.setLineWidth(2);
+                                            markAprFeedRateStart.setFontAngle(90);
+                                            markAprFeedRateStart.setAlignment(Chart.BottomRight);
+
+                                            Mark markAprFeedRateEnd = c.xAxis2().addMark(Chart.CTime(startEndTime.EventEnd), 0x4860, "Approach feed rate", "Arial", 7);
+                                            markAprFeedRateEnd.setLineWidth(2);
+                                            markAprFeedRateEnd.setFontAngle(90);
+                                            markAprFeedRateEnd.setAlignment(Chart.BottomRight);
+                                        }
+                                    }
+                                }
+                                if (eventStartEndTimes.rufFeedRateStartEndTimes != null && eventStartEndTimes.rufFeedRateStartEndTimes.Count > 0)
+                                {
+                                    foreach (StartEndTimes startEndTime in eventStartEndTimes.rufFeedRateStartEndTimes)
+                                    {
+                                        if (startEndTime.EventEnd > startEndTime.EventStart)
+                                        {
+                                            Mark markRoughingFeedRateStart = c.xAxis2().addMark(Chart.CTime(startEndTime.EventStart), 0x80FF, "Roughing feed rate", "Arial", 7);
+                                            markRoughingFeedRateStart.setLineWidth(2);
+                                            markRoughingFeedRateStart.setFontAngle(90);
+                                            markRoughingFeedRateStart.setAlignment(Chart.BottomRight);
+
+                                            Mark markRoughingFeedRateEnd = c.xAxis2().addMark(Chart.CTime(startEndTime.EventEnd), 0x80FF, "Roughing feed rate", "Arial", 7);
+                                            markRoughingFeedRateEnd.setLineWidth(2);
+                                            markRoughingFeedRateEnd.setFontAngle(90);
+                                            markRoughingFeedRateEnd.setAlignment(Chart.BottomRight);
+                                        }
+                                    }
+                                }
+                                if (eventStartEndTimes.semiFinFeedRateStartEndTimes != null && eventStartEndTimes.semiFinFeedRateStartEndTimes.Count > 0)
+                                {
+                                    foreach (StartEndTimes startEndTime in eventStartEndTimes.semiFinFeedRateStartEndTimes)
+                                    {
+                                        if (startEndTime.EventEnd > startEndTime.EventStart)
+                                        {
+                                            Mark markSemiFinFeedRateStart = c.xAxis2().addMark(Chart.CTime(startEndTime.EventStart), 0xFFFF, "Semi finishing feed rate", "Arial", 7);
+                                            markSemiFinFeedRateStart.setLineWidth(2);
+                                            markSemiFinFeedRateStart.setFontAngle(90);
+                                            markSemiFinFeedRateStart.setAlignment(Chart.BottomRight);
+
+                                            Mark markSemiFinFeedRateEnd = c.xAxis2().addMark(Chart.CTime(startEndTime.EventEnd), 0xFFFF, "Semi finishing feed rate", "Arial", 7);
+                                            markSemiFinFeedRateEnd.setLineWidth(2);
+                                            markSemiFinFeedRateEnd.setFontAngle(90);
+                                            markSemiFinFeedRateEnd.setAlignment(Chart.BottomRight);
+                                        }
+                                    }
+                                }
+                                if (eventStartEndTimes.finFeedRateStartEndTimes != null && eventStartEndTimes.finFeedRateStartEndTimes.Count > 0)
+                                {
+                                    foreach (StartEndTimes startEndTime in eventStartEndTimes.finFeedRateStartEndTimes)
+                                    {
+                                        if (startEndTime.EventEnd > startEndTime.EventStart)
+                                        {
+                                            Mark markFinishingFeedRateStart = c.xAxis2().addMark(Chart.CTime(startEndTime.EventStart), 0xFF00, "Finishing feed rate", "Arial", 7);
+                                            markFinishingFeedRateStart.setLineWidth(2);
+                                            markFinishingFeedRateStart.setFontAngle(90);
+                                            markFinishingFeedRateStart.setAlignment(Chart.BottomRight);
+
+                                            Mark markFinishingFeedRateEnd = c.xAxis2().addMark(Chart.CTime(startEndTime.EventEnd), 0xFF00, "Finishing feed rate", "Arial", 7);
+                                            markFinishingFeedRateEnd.setLineWidth(2);
+                                            markFinishingFeedRateEnd.setFontAngle(90);
+                                            markFinishingFeedRateEnd.setAlignment(Chart.BottomRight);
+                                        }
+                                    }
+                                }
+                                if (eventStartEndTimes.dreFeedRateStartEndTimes != null && eventStartEndTimes.dreFeedRateStartEndTimes.Count > 0)
+                                {
+                                    foreach (StartEndTimes startEndTime in eventStartEndTimes.dreFeedRateStartEndTimes)
+                                    {
+                                        if (startEndTime.EventEnd > startEndTime.EventStart)
+                                        {
+                                            Mark markDressingFeedRateStart = c.xAxis2().addMark(Chart.CTime(startEndTime.EventStart), 0xFFFF00, "Dressing feed rate", "Arial", 7);
+                                            markDressingFeedRateStart.setLineWidth(2);
+                                            markDressingFeedRateStart.setFontAngle(90);
+                                            markDressingFeedRateStart.setAlignment(Chart.BottomRight);
+
+                                            Mark markDressingFeedRateEnd = c.xAxis2().addMark(Chart.CTime(startEndTime.EventEnd), 0xFFFF00, "Dressing feed rate", "Arial", 7);
+                                            markDressingFeedRateEnd.setLineWidth(2);
+                                            markDressingFeedRateEnd.setFontAngle(90);
+                                            markDressingFeedRateEnd.setAlignment(Chart.BottomRight);
+                                        }
+                                    }
+                                }
+                                if (eventStartEndTimes.sparkOutStartEndTimes != null && eventStartEndTimes.sparkOutStartEndTimes.Count > 0)
+                                {
+                                    foreach (StartEndTimes startEndTime in eventStartEndTimes.sparkOutStartEndTimes)
+                                    {
+                                        if (startEndTime.EventEnd > startEndTime.EventStart)
+                                        {
+                                            Mark markSparkOutTimeStart = c.xAxis2().addMark(Chart.CTime(startEndTime.EventStart), 0xFF80FF, "Spark out time", "Arial", 7);
+                                            markSparkOutTimeStart.setLineWidth(2);
+                                            markSparkOutTimeStart.setFontAngle(90);
+                                            markSparkOutTimeStart.setAlignment(Chart.BottomRight);
+
+                                            Mark markSparkOutTimeEnd = c.xAxis2().addMark(Chart.CTime(startEndTime.EventEnd), 0xFF80FF, "Spark out time", "Arial", 7);
+                                            markSparkOutTimeEnd.setLineWidth(2);
+                                            markSparkOutTimeEnd.setFontAngle(90);
+                                            markSparkOutTimeEnd.setAlignment(Chart.BottomRight);
                                         }
                                     }
                                 }
                             }
-                            if (eventStartEndTimes.rufFeedRateStartEndTimes != null && eventStartEndTimes.rufFeedRateStartEndTimes.Count > 0)
+                            if (PlotMethod.Equals("Band"))
                             {
-                                foreach (StartEndTimes startEndTime in eventStartEndTimes.rufFeedRateStartEndTimes)
+                                EventStartEndTimes eventStartEndTimes = new EventStartEndTimes();
+                                eventStartEndTimes = GetEventStartEndTimesList(cycleProfileData);
+                                if (eventStartEndTimes.aprFeedRateStartEndTimes != null && eventStartEndTimes.aprFeedRateStartEndTimes.Count > 0)
                                 {
-                                    if (startEndTime.EventEnd > startEndTime.EventStart)
+                                    foreach (StartEndTimes startEndTime in eventStartEndTimes.aprFeedRateStartEndTimes)
                                     {
-                                        for (int ii = 0; ii < (startEndTime.EventEnd - startEndTime.EventStart).TotalSeconds; ii++)
+                                        if (startEndTime.EventEnd > startEndTime.EventStart)
                                         {
-                                            Mark markRoughingFeedRate = c.xAxis2().addMark(Chart.CTime(startEndTime.EventStart.AddSeconds(ii)), 0x80FF, "", "Arial", 7);
-                                            markRoughingFeedRate.setLineWidth(2);
-                                            markRoughingFeedRate.setFontAngle(90);
-                                            markRoughingFeedRate.setAlignment(Chart.BottomRight);
+                                            for (int ii = 0; ii < (startEndTime.EventEnd - startEndTime.EventStart).TotalSeconds; ii++)
+                                            {
+                                                Mark markAprFeedRate = c.xAxis2().addMark(Chart.CTime(startEndTime.EventStart.AddSeconds(ii)), 0x4860, "", "Arial", 7);
+                                                markAprFeedRate.setLineWidth(2);
+                                                markAprFeedRate.setFontAngle(90);
+                                                markAprFeedRate.setAlignment(Chart.BottomRight);
+                                            }
                                         }
                                     }
                                 }
-                            }
-                            if (eventStartEndTimes.semiFinFeedRateStartEndTimes != null && eventStartEndTimes.semiFinFeedRateStartEndTimes.Count > 0)
-                            {
-                                foreach (StartEndTimes startEndTime in eventStartEndTimes.semiFinFeedRateStartEndTimes)
+                                if (eventStartEndTimes.rufFeedRateStartEndTimes != null && eventStartEndTimes.rufFeedRateStartEndTimes.Count > 0)
                                 {
-                                    if (startEndTime.EventEnd > startEndTime.EventStart)
+                                    foreach (StartEndTimes startEndTime in eventStartEndTimes.rufFeedRateStartEndTimes)
                                     {
-                                        for (int ii = 0; ii < (startEndTime.EventEnd - startEndTime.EventStart).TotalSeconds; ii++)
+                                        if (startEndTime.EventEnd > startEndTime.EventStart)
                                         {
-                                            Mark markSemiFinFeedRate = c.xAxis2().addMark(Chart.CTime(startEndTime.EventStart.AddSeconds(ii)), 0xFFFF, "", "Arial", 7);
-                                            markSemiFinFeedRate.setLineWidth(2);
-                                            markSemiFinFeedRate.setFontAngle(90);
-                                            markSemiFinFeedRate.setAlignment(Chart.BottomRight);
+                                            for (int ii = 0; ii < (startEndTime.EventEnd - startEndTime.EventStart).TotalSeconds; ii++)
+                                            {
+                                                Mark markRoughingFeedRate = c.xAxis2().addMark(Chart.CTime(startEndTime.EventStart.AddSeconds(ii)), 0x80FF, "", "Arial", 7);
+                                                markRoughingFeedRate.setLineWidth(2);
+                                                markRoughingFeedRate.setFontAngle(90);
+                                                markRoughingFeedRate.setAlignment(Chart.BottomRight);
+                                            }
                                         }
                                     }
                                 }
-                            }
-                            if (eventStartEndTimes.finFeedRateStartEndTimes != null && eventStartEndTimes.finFeedRateStartEndTimes.Count > 0)
-                            {
-                                foreach (StartEndTimes startEndTime in eventStartEndTimes.finFeedRateStartEndTimes)
+                                if (eventStartEndTimes.semiFinFeedRateStartEndTimes != null && eventStartEndTimes.semiFinFeedRateStartEndTimes.Count > 0)
                                 {
-                                    if (startEndTime.EventEnd > startEndTime.EventStart)
+                                    foreach (StartEndTimes startEndTime in eventStartEndTimes.semiFinFeedRateStartEndTimes)
                                     {
-                                        for (int ii = 0; ii < (startEndTime.EventEnd - startEndTime.EventStart).TotalSeconds; ii++)
+                                        if (startEndTime.EventEnd > startEndTime.EventStart)
                                         {
-                                            Mark markFinishingFeedRate = c.xAxis2().addMark(Chart.CTime(startEndTime.EventStart.AddSeconds(ii)), 0xFF00, "", "Arial", 7);
-                                            markFinishingFeedRate.setLineWidth(2);
-                                            markFinishingFeedRate.setFontAngle(90);
-                                            markFinishingFeedRate.setAlignment(Chart.BottomRight);
+                                            for (int ii = 0; ii < (startEndTime.EventEnd - startEndTime.EventStart).TotalSeconds; ii++)
+                                            {
+                                                Mark markSemiFinFeedRate = c.xAxis2().addMark(Chart.CTime(startEndTime.EventStart.AddSeconds(ii)), 0xFFFF, "", "Arial", 7);
+                                                markSemiFinFeedRate.setLineWidth(2);
+                                                markSemiFinFeedRate.setFontAngle(90);
+                                                markSemiFinFeedRate.setAlignment(Chart.BottomRight);
+                                            }
                                         }
                                     }
                                 }
-                            }
-                            if (eventStartEndTimes.dreFeedRateStartEndTimes != null && eventStartEndTimes.dreFeedRateStartEndTimes.Count > 0)
-                            {
-                                foreach (StartEndTimes startEndTime in eventStartEndTimes.dreFeedRateStartEndTimes)
+                                if (eventStartEndTimes.finFeedRateStartEndTimes != null && eventStartEndTimes.finFeedRateStartEndTimes.Count > 0)
                                 {
-                                    if (startEndTime.EventEnd > startEndTime.EventStart)
+                                    foreach (StartEndTimes startEndTime in eventStartEndTimes.finFeedRateStartEndTimes)
                                     {
-                                        for (int ii = 0; ii < (startEndTime.EventEnd - startEndTime.EventStart).TotalSeconds; ii++)
+                                        if (startEndTime.EventEnd > startEndTime.EventStart)
                                         {
-                                            Mark markDressingFeedRate = c.xAxis2().addMark(Chart.CTime(startEndTime.EventStart.AddSeconds(ii)), 0xFFFF00, "", "Arial", 7);
-                                            markDressingFeedRate.setLineWidth(2);
-                                            markDressingFeedRate.setFontAngle(90);
-                                            markDressingFeedRate.setAlignment(Chart.BottomRight);
+                                            for (int ii = 0; ii < (startEndTime.EventEnd - startEndTime.EventStart).TotalSeconds; ii++)
+                                            {
+                                                Mark markFinishingFeedRate = c.xAxis2().addMark(Chart.CTime(startEndTime.EventStart.AddSeconds(ii)), 0xFF00, "", "Arial", 7);
+                                                markFinishingFeedRate.setLineWidth(2);
+                                                markFinishingFeedRate.setFontAngle(90);
+                                                markFinishingFeedRate.setAlignment(Chart.BottomRight);
+                                            }
                                         }
                                     }
                                 }
-                            }
-                            if (eventStartEndTimes.sparkOutStartEndTimes != null && eventStartEndTimes.sparkOutStartEndTimes.Count > 0)
-                            {
-                                foreach (StartEndTimes startEndTime in eventStartEndTimes.sparkOutStartEndTimes)
+                                if (eventStartEndTimes.dreFeedRateStartEndTimes != null && eventStartEndTimes.dreFeedRateStartEndTimes.Count > 0)
                                 {
-                                    if (startEndTime.EventEnd > startEndTime.EventStart)
+                                    foreach (StartEndTimes startEndTime in eventStartEndTimes.dreFeedRateStartEndTimes)
                                     {
-                                        for (int ii = 0; ii < (startEndTime.EventEnd - startEndTime.EventStart).TotalSeconds; ii++)
+                                        if (startEndTime.EventEnd > startEndTime.EventStart)
                                         {
-                                            Mark markSparkOutTime = c.xAxis2().addMark(Chart.CTime(startEndTime.EventStart.AddSeconds(ii)), 0xFF80FF, "", "Arial", 7);
-                                            markSparkOutTime.setLineWidth(2);
-                                            markSparkOutTime.setFontAngle(90);
-                                            markSparkOutTime.setAlignment(Chart.BottomRight);
+                                            for (int ii = 0; ii < (startEndTime.EventEnd - startEndTime.EventStart).TotalSeconds; ii++)
+                                            {
+                                                Mark markDressingFeedRate = c.xAxis2().addMark(Chart.CTime(startEndTime.EventStart.AddSeconds(ii)), 0xFFFF00, "", "Arial", 7);
+                                                markDressingFeedRate.setLineWidth(2);
+                                                markDressingFeedRate.setFontAngle(90);
+                                                markDressingFeedRate.setAlignment(Chart.BottomRight);
+                                            }
+                                        }
+                                    }
+                                }
+                                if (eventStartEndTimes.sparkOutStartEndTimes != null && eventStartEndTimes.sparkOutStartEndTimes.Count > 0)
+                                {
+                                    foreach (StartEndTimes startEndTime in eventStartEndTimes.sparkOutStartEndTimes)
+                                    {
+                                        if (startEndTime.EventEnd > startEndTime.EventStart)
+                                        {
+                                            for (int ii = 0; ii < (startEndTime.EventEnd - startEndTime.EventStart).TotalSeconds; ii++)
+                                            {
+                                                Mark markSparkOutTime = c.xAxis2().addMark(Chart.CTime(startEndTime.EventStart.AddSeconds(ii)), 0xFF80FF, "", "Arial", 7);
+                                                markSparkOutTime.setLineWidth(2);
+                                                markSparkOutTime.setFontAngle(90);
+                                                markSparkOutTime.setAlignment(Chart.BottomRight);
+                                            }
                                         }
                                     }
                                 }
@@ -610,12 +727,29 @@ namespace MachineConnectOEM
         {
             try
             {
-                List<WinChartViewer> chartControlsList = ChartsPanel.Controls.OfType<WinChartViewer>().ToList();
+                List<WinChartViewer> chartControlsList = tableLayoutPanelCharts.Controls.OfType<WinChartViewer>().Where(x => x.Visible).ToList();
                 if (chartControlsList != null && chartControlsList.Count > 0)
                 {
-                    foreach (WinChartViewer winChartViewer in chartControlsList)
+                    string selectedParam = cmbParameter.SelectedItem != null ? cmbParameter.Text : "";
+                    if (chartControlsList.Count > 1)
                     {
-                        PlotCycleProfileChart(winChartViewer);
+                        PlotCycleProfileChart(chartViewer1, "Work Head Temperature");
+                        PlotCycleProfileChart(chartViewer2, "X-Axis Load");
+                        PlotCycleProfileChart(chartViewer3, "Z-Axis Load");
+                        PlotCycleProfileChart(chartViewer4, "C-Axis Load");
+                        PlotCycleProfileChart(chartViewer5, "C-Axis Speed");
+                        PlotCycleProfileChart(chartViewer6, "Feed Rate");
+                        winChartViewer_MouseEnter(null, EventArgs.Empty, chartViewer1);
+                        winChartViewer_MouseEnter(null, EventArgs.Empty, chartViewer2);
+                        winChartViewer_MouseEnter(null, EventArgs.Empty, chartViewer3);
+                        winChartViewer_MouseEnter(null, EventArgs.Empty, chartViewer5);
+                        winChartViewer_MouseEnter(null, EventArgs.Empty, chartViewer5);
+                        winChartViewer_MouseEnter(null, EventArgs.Empty, chartViewer6);
+                    }
+                    else
+                    {
+                        PlotCycleProfileChart(chartViewer1, selectedParam);
+                        winChartViewer_MouseEnter(null, EventArgs.Empty, chartViewer1);
                     }
                 }
             }
@@ -648,13 +782,13 @@ namespace MachineConnectOEM
             EventStartEndTimes eventStartEndTimes = new EventStartEndTimes();
             try
             {
-                List<string> parameterIDList = new List<string>() { "P19", "P20", "P21", "P22", "P23", "P24" };
+                List<string> parameterIDList = new List<string>() { "P7", "P8", "P9", "P10", "P11", "P12" };
                 List<ParameterCycleInfo> parameterCycleInfos = cycleProfileData.Where(x => parameterIDList.Contains(x.ParameterID)).ToList();
                 if (parameterCycleInfos != null && parameterCycleInfos.Count > 0)
                 {
                     foreach (ParameterCycleInfo parameterCycleInfo in parameterCycleInfos)
                     {
-                        if (parameterCycleInfo.ParameterID.Equals("P19"))
+                        if (parameterCycleInfo.ParameterID.Equals("P7"))
                         {
                             if (!aprFeedRateStarted)
                             {
@@ -693,7 +827,7 @@ namespace MachineConnectOEM
                                 sparkOutTimeStarted = false;
                             }
                         }
-                        else if (parameterCycleInfo.ParameterID.Equals("P20"))
+                        else if (parameterCycleInfo.ParameterID.Equals("P8"))
                         {
                             if (aprFeedRateStarted)
                             {
@@ -732,7 +866,7 @@ namespace MachineConnectOEM
                                 sparkOutTimeStarted = false;
                             }
                         }
-                        else if (parameterCycleInfo.ParameterID.Equals("P21"))
+                        else if (parameterCycleInfo.ParameterID.Equals("P9"))
                         {
                             if (aprFeedRateStarted)
                             {
@@ -771,7 +905,7 @@ namespace MachineConnectOEM
                                 sparkOutTimeStarted = false;
                             }
                         }
-                        else if (parameterCycleInfo.ParameterID.Equals("P22"))
+                        else if (parameterCycleInfo.ParameterID.Equals("P10"))
                         {
                             if (aprFeedRateStarted)
                             {
@@ -810,7 +944,7 @@ namespace MachineConnectOEM
                                 sparkOutTimeStarted = false;
                             }
                         }
-                        else if (parameterCycleInfo.ParameterID.Equals("P23"))
+                        else if (parameterCycleInfo.ParameterID.Equals("P11"))
                         {
                             if (aprFeedRateStarted)
                             {
@@ -849,7 +983,7 @@ namespace MachineConnectOEM
                                 sparkOutTimeStarted = false;
                             }
                         }
-                        else if (parameterCycleInfo.ParameterID.Equals("P24"))
+                        else if (parameterCycleInfo.ParameterID.Equals("P12"))
                         {
                             if (aprFeedRateStarted)
                             {

@@ -3484,7 +3484,7 @@ namespace MachineConnectApplication
                 IMongoCollection<ParameterCycleInfo> collection = db.GetCollection<ParameterCycleInfo>("ProcessParameterTransaction_BajajIoT");
                 if (collection != null && collection.CountDocuments(Builders<ParameterCycleInfo>.Filter.Empty) > 0)
                 {
-                    cycleDetailsList = db.GetCollection<ParameterCycleInfo>("ProcessParameterTransaction_BajajIoT").AsQueryable().Where(x => x.MachineID.Equals(machineID) && (x.ParameterID.Equals("P13") || x.ParameterID.Equals("P14"))).Where(x => x.UpdatedtimeStamp > cycleStart && x.UpdatedtimeStamp < cycleEnd).OrderBy(x => x.UpdatedtimeStamp).Take(10).ToList();
+                    cycleDetailsList = db.GetCollection<ParameterCycleInfo>("ProcessParameterTransaction_BajajIoT").AsQueryable().Where(x => x.MachineID.Equals(machineID) && (x.ParameterID.Equals("P1") || x.ParameterID.Equals("P2"))).Where(x => x.UpdatedtimeStamp > cycleStart && x.UpdatedtimeStamp < cycleEnd).OrderBy(x => x.UpdatedtimeStamp).Take(10).ToList();
                 }
             }
             catch (Exception ex)
@@ -3507,6 +3507,152 @@ namespace MachineConnectApplication
                 Logger.WriteErrorLog(ex);
             }
             return cycleProfileList;
+        }
+        #endregion
+
+        #region PPM Settings
+        internal static ObservableCollection<ProcessParamConfigModelNew> BindProcessParametersNew()
+        {
+            SqlConnection sqlConn = ConnectionManager.GetConnection();
+            ObservableCollection<ProcessParamConfigModelNew> listProcess = new ObservableCollection<ProcessParamConfigModelNew>();
+            ProcessParamConfigModelNew model = null;
+            string query = @"select ROW_NUMBER() OVER (order by IDD) as SerialNum, * from ProcessParameterMaster_BajajIoT";
+            int i = 1;
+            try
+            {
+                SqlCommand cmd = new SqlCommand(query, sqlConn);
+                cmd.CommandType = CommandType.Text;
+                SqlDataReader rdr = cmd.ExecuteReader();
+                if (rdr.HasRows)
+                {
+                    while (rdr.Read())
+                    {
+                        model = new ProcessParamConfigModelNew();
+                        model.SerialNum = i++;
+                        if (rdr["IDD"] != DBNull.Value)
+                            model.IDD = Convert.ToInt32(rdr["IDD"].ToString());
+                        if (rdr["ParameterID"] != DBNull.Value)
+                            model.ParameterId = rdr["ParameterID"].ToString();
+                        model.ParameterName = rdr["ParameterName"].ToString();
+                        model.DisplayText = rdr["DisplayText"].ToString();
+                        model.GroupId = rdr["DataScreenGroup"].ToString();
+                        model.Register = rdr["DataReadAddress"].ToString();
+                        model.Freqency = Convert.ToDouble(rdr["PullingFreq"].ToString());
+                        model.LowerValue = rdr["LowerValue"].ToString();
+                        model.HigherValue = rdr["HigherValue"].ToString();
+                        model.HighRedLimit = rdr["HighRedLimit"].ToString();
+                        model.LowRedLimit = rdr["LowerRedLimit"].ToString();
+                        model.TemplateType = rdr["TemplateType"].ToString();
+                        model.LowGreenLimit = rdr["LowerGreenLimt"].ToString();
+                        model.HighGreenLimit = rdr["HighGreenLimit"].ToString();
+                        model.LowYellowLimit = rdr["LowerYellowLimit"].ToString();
+                        model.HighYellowLimit = rdr["HighYellowLimit"].ToString();
+                        model.Unit = rdr["Unit"].ToString();
+                        model.DBDataType = rdr["DBDataType"].ToString();
+                        if (!string.IsNullOrEmpty(rdr["IsEnabled"].ToString()))
+                        {
+                            model.IsVisible = rdr["IsEnabled"].ToString() == "1" ? true : false;
+                        }
+                        else
+                            model.IsVisible = false;
+                        if (rdr["SortOrder"] != DBNull.Value)
+                            model.SortOrder = Convert.ToInt32(rdr["SortOrder"].ToString());
+                        listProcess.Add(model);
+                    }
+                }
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteErrorLog(ex.Message);
+            }
+            finally
+            {
+                if (sqlConn != null) sqlConn.Close();
+            }
+            return listProcess;
+        }
+
+        internal static void SaveProcessParameterData(int iDD, string groupId, string parameterId, string parameterName, string displayText, string lowerValue, string higherValue, string highRedLimit, string lowRedLimit, string dBDataType, string highGreenLimit, string lowGreenLimit, string highYellowLimit, string lowYellowLimit, string unit, bool isVisible, int sortOrder, double freq, string Register, string TemplateType, out bool isUpdated)
+        {
+            isUpdated = false;
+            SqlConnection sqlConn = ConnectionManager.GetConnection();
+            try
+            {
+                string query = @"if not exists(select * from ProcessParameterMaster_BajajIoT where idd=IDD and ParameterID=@ParameterID)
+                                        begin 
+                                        insert into ProcessParameterMaster_BajajIoT (ParameterID,ParameterName,DataScreenGroup,DisplayText,DataReadAddress,PullingFreq,Unit,LowerValue,HigherValue,HighRedLimit,LowerRedLimit,HighGreenLimit,LowerGreenLimt,HighYellowLimit,LowerYellowLimit,DBDataType,IsEnabled,SortOrder,TemplateType)
+                                        values(@ParameterID,@ParameterName,@groupId,@displayText,@DataReadAddress,@PullingFreq,@Unit,@lowerValue,@higherValue,@HRL,@LRL,@HGL,@LGL,@HYL,@LYL,@DBtype,@IsVisible,@SortOrder,@TemplateType)
+                                        end 
+                                        else
+                                        begin
+                                        update ProcessParameterMaster_BajajIoT set ParameterName=@ParameterName,DataScreenGroup=@groupId,DisplayText=@displayText,TemplateType=@TemplateType,DataReadAddress=@DataReadAddress,PullingFreq=@PullingFreq,Unit=@Unit,LowerValue=@LowerValue,HigherValue=@HigherValue,HighRedLimit=@HRL,LowerRedLimit=@LRL,HighGreenLimit=@HGL,LowerGreenLimt=@LGL,HighYellowLimit=@HYL,LowerYellowLimit=@LYL,DBDataType=@DBtype,IsEnabled=@IsVisible,SortOrder=@SortOrder where IDD=IDD and ParameterID=@ParameterID
+                                        end";
+                SqlCommand cmd = new SqlCommand(query, sqlConn);
+                cmd.Parameters.Add(new SqlParameter("@IDD", iDD));
+                cmd.Parameters.Add(new SqlParameter("@ParameterID", parameterId));
+                cmd.Parameters.Add(new SqlParameter("@ParameterName", parameterName));
+                cmd.Parameters.Add(new SqlParameter("@groupId", groupId));
+                cmd.Parameters.Add(new SqlParameter("@PullingFreq", freq));
+                cmd.Parameters.Add(new SqlParameter("@DataReadAddress", Register));
+                cmd.Parameters.Add(new SqlParameter("@displayText", displayText));
+                cmd.Parameters.Add(new SqlParameter("@lowerValue", lowerValue));
+                cmd.Parameters.Add(new SqlParameter("@higherValue", higherValue));
+                cmd.Parameters.Add(new SqlParameter("@HRL", highRedLimit));
+                cmd.Parameters.Add(new SqlParameter("@LRL", lowRedLimit));
+                cmd.Parameters.Add(new SqlParameter("@HGL", highGreenLimit));
+                cmd.Parameters.Add(new SqlParameter("@LGL", lowGreenLimit));
+                cmd.Parameters.Add(new SqlParameter("@HYL", highYellowLimit));
+                cmd.Parameters.Add(new SqlParameter("@LYL", lowYellowLimit));
+                cmd.Parameters.Add(new SqlParameter("@Unit", unit));
+                cmd.Parameters.Add(new SqlParameter("@DBtype", dBDataType));
+                cmd.Parameters.Add(new SqlParameter("@TemplateType", TemplateType));
+                cmd.Parameters.Add(new SqlParameter("@IsVisible", isVisible));
+                cmd.Parameters.Add(new SqlParameter("@SortOrder", sortOrder));
+                int rowsAffected = cmd.ExecuteNonQuery();
+                if (rowsAffected > 0)
+                    isUpdated = true;
+                else
+                    isUpdated = false;
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteErrorLog(ex.Message);
+                isUpdated = false;
+            }
+            finally
+            {
+                if (sqlConn != null) sqlConn.Close();
+            }
+        }
+
+        internal static void DeleteProcessParamData(int slNo, string ParameterID, out bool isDeleted)
+        {
+            isDeleted = false;
+            SqlConnection sqlConn = ConnectionManager.GetConnection();
+            string query = @"Delete from [dbo].[ProcessParameterMaster_BajajIoT] where IDD = @IDD and parameterId=@ParameterID";
+            try
+            {
+                SqlCommand cmd = new SqlCommand(query, sqlConn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("@IDD", slNo);
+                cmd.Parameters.AddWithValue("@ParameterID", ParameterID);
+                int rowsAffected = cmd.ExecuteNonQuery();
+                if (rowsAffected > 0)
+                {
+                    isDeleted = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                isDeleted = false;
+                Logger.WriteErrorLog("Error in Deleting Grid Data From [dbo].[ProcessParameterMaster_MGTL] - \n" + ex.ToString());
+                throw;
+            }
+            finally
+            {
+                if (sqlConn != null) sqlConn.Close();
+            }
         }
         #endregion
     }

@@ -132,7 +132,7 @@ namespace MachineConnectApplication
             }
             else
             {
-                btnSettings.Visible = false;
+                btnSettings.Visible = true;
             }
 
 

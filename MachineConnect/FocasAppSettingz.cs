@@ -178,7 +178,7 @@ namespace MachineConnectApplication
             SetButonsDefaultForeColor();
             this.btnProcessParamSettings.BackColor = ColorTranslator.FromHtml("0x4040A0");
             btnProcessParamSettings.ForeColor = Color.Orange;
-            PRGUserControl ctrl = new PRGUserControl();
+            PPMSettingsParent ctrl = new PPMSettingsParent();
             ctrl.Dock = DockStyle.Fill;
             pnlContainer.Controls.Add(ctrl);
         }

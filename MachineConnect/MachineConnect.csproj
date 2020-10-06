@@ -298,6 +298,15 @@
     <Compile Include="MachineManual.Designer.cs">
       <DependentUpon>MachineManual.cs</DependentUpon>
     </Compile>
+    <Compile Include="PPMSettingsChild.xaml.cs">
+      <DependentUpon>PPMSettingsChild.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PPMSettingsParent.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PPMSettingsParent.designer.cs">
+      <DependentUpon>PPMSettingsParent.cs</DependentUpon>
+    </Compile>
     <Compile Include="PredAndPrevExportMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1076,6 +1085,9 @@
     <EmbeddedResource Include="MachineManual.resx">
       <DependentUpon>MachineManual.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PPMSettingsParent.resx">
+      <DependentUpon>PPMSettingsParent.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PredAndPrevExportMenu.resx">
       <DependentUpon>PredAndPrevExportMenu.cs</DependentUpon>
     </EmbeddedResource>
@@ -1282,6 +1294,10 @@
     <Page Include="MenuPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PPMSettingsChild.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="PRGPage.xaml">
       <SubType>Designer</SubType>

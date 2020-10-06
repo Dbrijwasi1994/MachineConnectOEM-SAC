@@ -106,7 +106,7 @@ namespace MachineConnectOEM.SAC
             SqlDataReader sdr = null;
             try
             {
-                cmd = new SqlCommand("[S_GetProcessParameter_MGTL]", con);
+                cmd = new SqlCommand("S_GetLiveDashboardData_Bajaj", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@MachineId", selectedMachine);
                 sdr = cmd.ExecuteReader();
@@ -115,7 +115,7 @@ namespace MachineConnectOEM.SAC
                     while (sdr.Read())
                     {
                         processParamDasboardData = new DTO();
-                        processParamDasboardData.ParameterId = Convert.ToInt32(sdr["ParameterID"]);
+                        processParamDasboardData.ParameterId = Convert.ToString(sdr["ParameterID"]);
                         processParamDasboardData.ParameterName = sdr["ParameterName"].ToString();
                         processParamDasboardData.MinValue = sdr["MinValue"].ToString();
                         processParamDasboardData.MaxValue = sdr["MaxValue"].ToString();
@@ -127,7 +127,7 @@ namespace MachineConnectOEM.SAC
                         else
                             processParamDasboardData.TemplateType = 2;
                         processParamDasboardData.BackgroundColor = !string.IsNullOrEmpty(sdr["ParameterColor"].ToString()) ? sdr["ParameterColor"].ToString() : "#FFF000";
-                        processParamDasboardData.ParameterValue = sdr["ParameterBitValue"].ToString();
+                        processParamDasboardData.ParameterValue = sdr["ParameterValue"].ToString();
                         processParamDasboardDataList.Add(processParamDasboardData);
                     }
                 }

@@ -9,7 +9,7 @@ namespace MachineConnectOEM.SAC
 {
     public class DTO
     {
-        private int _ParameterId;
+        private string _ParameterId;
         private string _parameterName;
         private string _minValue;
         private string _maxValue;
@@ -19,7 +19,7 @@ namespace MachineConnectOEM.SAC
         private string _parameterValue;
 
 
-        public int ParameterId
+        public string ParameterId
         {
             get { return _ParameterId; }
             set { _ParameterId = value; }

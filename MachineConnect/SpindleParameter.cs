@@ -245,7 +245,7 @@ namespace MachineConnectApplication
             DateTime dataStarted = Convert.ToDateTime(MainScreen.CURRENT_DATE_TIME);//DateTime.Now;
             DateTime dataEnded = Convert.ToDateTime(MainScreen.CURRENT_DATE_TIME);// DateTime.Now;
             int lastDuration = 0;
-            fromDate = Convert.ToDateTime(MainScreen.CURRENT_DATE_TIME);// DateTime.Now.AddHours(-24);
+            fromDate = DatabaseAccess.GetShiftStartEndTimeForDay(1, dtpStartDate.Value.ToString("yyyy-MM-dd HH:mm:ss"));// DateTime.Now.AddHours(-24);
             toDate = Convert.ToDateTime(MainScreen.LOGICAL_DAY_END);//.AddHours(24);;//DateTime.Now;
             lastDuration = Convert.ToInt32(cmbDuration.Text.ToString()) * 60 * 60;
             int CompareDate = Convert.ToInt32((toDate.Ticks - fromDate.Ticks) / 10000000);
@@ -647,7 +647,7 @@ namespace MachineConnectApplication
 
 
         private void RPM_Load(object sender, EventArgs e)
-        {
+        {            
             MTB = DatabaseAccess.GetMTB(HomeScreen.selectedMachine);
             if (MTB.Equals("MGTL", StringComparison.OrdinalIgnoreCase))
             {
@@ -659,7 +659,6 @@ namespace MachineConnectApplication
             }
 
             int axisNumber = DatabaseAccess.GetSpindleAxisNumber(HomeScreen.selectedMachine);
-
             if (axisNumber <= 1)
             {
                 cmbAxis.Visible = false;
