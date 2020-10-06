@@ -20,6 +20,8 @@ using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO.Compression;
 using MachineConnectOEM;
+using MongoDB.Driver;
+using MongoDB.Bson;
 
 namespace MachineConnectApplication
 {
@@ -245,8 +247,10 @@ namespace MachineConnectApplication
             DateTime dataStarted = Convert.ToDateTime(MainScreen.CURRENT_DATE_TIME);//DateTime.Now;
             DateTime dataEnded = Convert.ToDateTime(MainScreen.CURRENT_DATE_TIME);// DateTime.Now;
             int lastDuration = 0;
+            string axis = cmbAxis.Text.ToString();
             fromDate = DatabaseAccess.GetShiftStartEndTimeForDay(1, dtpStartDate.Value.ToString("yyyy-MM-dd HH:mm:ss"));// DateTime.Now.AddHours(-24);
             toDate = Convert.ToDateTime(MainScreen.LOGICAL_DAY_END);//.AddHours(24);;//DateTime.Now;
+            //DataTable dtSpindleData = DatabaseAccess.GetSpindleLoadSpeedTempData(HomeScreen.selectedMachine, fromDate.ToString("yyyy-MM-dd HH:mm:ss"), toDate.ToString("yyyy-MM-dd HH:mm:ss"), axis);
             lastDuration = Convert.ToInt32(cmbDuration.Text.ToString()) * 60 * 60;
             int CompareDate = Convert.ToInt32((toDate.Ticks - fromDate.Ticks) / 10000000);
             if (lastDuration > CompareDate)
@@ -254,7 +258,7 @@ namespace MachineConnectApplication
                 lastDuration = CompareDate;
             }
 
-            DataTable dt = DatabaseAccess.GetSpindleLoadSpeedTemp(HomeScreen.selectedMachine, fromDate.ToString("yyyy-MM-dd HH:mm:ss"), toDate.ToString("yyyy-MM-dd HH:mm:ss"), cmbAxis.Text.ToString());
+            DataTable dt = DatabaseAccess.GetSpindleLoadSpeedTemp(HomeScreen.selectedMachine, fromDate.ToString("yyyy-MM-dd HH:mm:ss"), toDate.ToString("yyyy-MM-dd HH:mm:ss"), axis);
 
             if (dt.Rows.Count > 1)
             {

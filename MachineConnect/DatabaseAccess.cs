@@ -11,6 +11,8 @@ using System.Collections.ObjectModel;
 using MachineConnectOEM;
 using MongoDB.Driver;
 using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
 
 namespace MachineConnectApplication
 {
@@ -3475,6 +3477,28 @@ namespace MachineConnectApplication
         }
 
         #region "Bajaj IOT"
+        internal static DataTable GetSpindleLoadSpeedTempData(string selectedMachine, string fromDate, string toDate, string axis)
+        {
+            DataTable dtSpindleData = new DataTable();
+            try
+            {
+                IMongoDatabase db = dbClient.GetDatabase(MongoDatabaseName);
+                var focas_SpindleInfo = db.GetCollection<SpindleInfo>("Focas_SpindleInfo");
+                var filter = Builders<BsonDocument>.Filter;
+                var dataFilter = filter.Eq("MachineId", HomeScreen.selectedMachine) & filter.Eq("AxisNo", axis.Equals("Spindle") ? "" : axis) & filter.Gt("CNCTimeStamp", fromDate & filter.Lt("CNCTimeStamp", toDate));
+                //var dataFilter = filter.Eq("MachineId", HomeScreen.selectedMachine) & filter.Eq("AxisNo", axis.Equals("Spindle") ? "" : axis);
+                //var data = focas_SpindleInfo.Find(dataFilter).ToBsonDocument();
+                //var data = focas_SpindleInfo.Find(dataFilter).Project("{_id: 0}").ToList();
+                //var results = BsonSerializer.Deserialize<SpindleInfo>(data);
+                //DataTable dataTable = GetDataTableFromMongoBsonDocument(data);
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteErrorLog(ex);
+            }
+            return dtSpindleData;
+        }
+
         internal static List<ParameterCycleInfo> GetCycleDetailsData(string machineID, DateTime cycleStart, DateTime cycleEnd)
         {
             List<ParameterCycleInfo> cycleDetailsList = new List<ParameterCycleInfo>();
@@ -3507,6 +3531,38 @@ namespace MachineConnectApplication
                 Logger.WriteErrorLog(ex);
             }
             return cycleProfileList;
+        }
+
+        public DataTable GetDataTableFromMongoBsonDocument(List<BsonDocument> bsonDocList)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                if (bsonDocList != null && bsonDocList.Count() > 0)
+                {
+                    foreach (BsonDocument doc in bsonDocList)
+                    {
+                        foreach (BsonElement elm in doc.Elements)
+                        {
+                            if (!dt.Columns.Contains(elm.Name))
+                            {
+                                dt.Columns.Add(new DataColumn(elm.Name));
+                            }
+                        }
+                        DataRow dr = dt.NewRow();
+                        foreach (BsonElement elm in doc.Elements)
+                        {
+                            dr[elm.Name] = elm.Value;
+                        }
+                        dt.Rows.Add(dr);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteDebugLog(ex.Message);
+            }
+            return dt;
         }
         #endregion
 

@@ -20,6 +20,21 @@ namespace MachineConnectApplication
         public string AxisNo { get; set; }
     }
 
+    public class SpindleInfo
+    {
+        public int Id { get; set; }
+        public string MachineId { get; set; }
+        public string CNCTimeStamp { get; set; }
+        public double SpindleSpeed { get; set; }
+        public double SpindleLoad { get; set; }
+        public double Temperature { get; set; }
+        public double FeedRate { get; set; }
+        public string ProgramNo { get; set; }
+        public string ToolNo { get; set; }
+        public double SpindleTorque { get; set; }
+        public string AxisNo { get; set; }
+    }
+
     public class CycleInfo
     {
         public object _id { get; set; }
