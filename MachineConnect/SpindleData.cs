@@ -48,6 +48,7 @@ namespace MachineConnectApplication
         public int IDD { get; set; }
         public string MachineID { get; set; }
         public string ParameterID { get; set; }
+        public string ParameterName { get; set; }
         public double ParameterValue { get; set; }
         [BsonElement]
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
@@ -71,6 +72,12 @@ namespace MachineConnectApplication
         public DateTime EventEnd { get; set; }
     }
 
+    public class EventTimestamp
+    {
+        public double ParameterValue { get; set; }
+        public DateTime EventTimeStamp { get; set; }
+    }
+
     public class EventStartEndTimes
     {
         public List<StartEndTimes> aprFeedRateStartEndTimes { get; set; }
@@ -79,5 +86,14 @@ namespace MachineConnectApplication
         public List<StartEndTimes> finFeedRateStartEndTimes { get; set; }
         public List<StartEndTimes> dreFeedRateStartEndTimes { get; set; }
         public List<StartEndTimes> sparkOutStartEndTimes { get; set; }
+    }
+
+    public class EventStartEndTimeStamps
+    {
+        public List<EventTimestamp> aprFeedRateStartEndTimes { get; set; }
+        public List<EventTimestamp> rufFeedRateStartEndTimes { get; set; }
+        public List<EventTimestamp> semiFinFeedRateStartEndTimes { get; set; }
+        public List<EventTimestamp> finFeedRateStartEndTimes { get; set; }
+        public List<EventTimestamp> dreFeedRateStartEndTimes { get; set; }
     }
 }

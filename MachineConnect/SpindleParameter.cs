@@ -250,7 +250,7 @@ namespace MachineConnectApplication
             string axis = cmbAxis.Text.ToString();
             fromDate = DatabaseAccess.GetShiftStartEndTimeForDay(1, dtpStartDate.Value.ToString("yyyy-MM-dd HH:mm:ss"));// DateTime.Now.AddHours(-24);
             toDate = Convert.ToDateTime(MainScreen.LOGICAL_DAY_END);//.AddHours(24);;//DateTime.Now;
-            //DataTable dtSpindleData = DatabaseAccess.GetSpindleLoadSpeedTempData(HomeScreen.selectedMachine, fromDate.ToString("yyyy-MM-dd HH:mm:ss"), toDate.ToString("yyyy-MM-dd HH:mm:ss"), axis);
+            DataTable dtSpindleData = DatabaseAccess.GetSpindleLoadSpeedTempData(HomeScreen.selectedMachine, fromDate, toDate);
             lastDuration = Convert.ToInt32(cmbDuration.Text.ToString()) * 60 * 60;
             int CompareDate = Convert.ToInt32((toDate.Ticks - fromDate.Ticks) / 10000000);
             if (lastDuration > CompareDate)

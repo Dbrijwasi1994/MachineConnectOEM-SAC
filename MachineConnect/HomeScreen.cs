@@ -222,6 +222,7 @@ namespace MachineConnectApplication
                 try
                 {
                     var tooltip = "title='" + val + " {value} " + type + "'";
+                    if(viewer.Chart != null)
                     viewer.ImageMap = viewer.Chart.getHTMLImageMap("clickable", "", tooltip);
                 }
                 catch (Exception ex)

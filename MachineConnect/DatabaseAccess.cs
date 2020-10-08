@@ -3477,17 +3477,17 @@ namespace MachineConnectApplication
         }
 
         #region "Bajaj IOT"
-        internal static DataTable GetSpindleLoadSpeedTempData(string selectedMachine, string fromDate, string toDate, string axis)
+        internal static DataTable GetSpindleLoadSpeedTempData(string selectedMachine, DateTime fromDate, DateTime toDate)
         {
             DataTable dtSpindleData = new DataTable();
             try
             {
                 IMongoDatabase db = dbClient.GetDatabase(MongoDatabaseName);
-                var focas_SpindleInfo = db.GetCollection<SpindleInfo>("Focas_SpindleInfo");
-                var filter = Builders<BsonDocument>.Filter;
-                var dataFilter = filter.Eq("MachineId", HomeScreen.selectedMachine) & filter.Eq("AxisNo", axis.Equals("Spindle") ? "" : axis) & filter.Gt("CNCTimeStamp", fromDate & filter.Lt("CNCTimeStamp", toDate));
-                //var dataFilter = filter.Eq("MachineId", HomeScreen.selectedMachine) & filter.Eq("AxisNo", axis.Equals("Spindle") ? "" : axis);
-                //var data = focas_SpindleInfo.Find(dataFilter).ToBsonDocument();
+                IMongoCollection<ParameterCycleInfo> collection = db.GetCollection<ParameterCycleInfo>("ProcessParameterTransaction_BajajIoT");
+                if (collection != null && collection.CountDocuments(Builders<ParameterCycleInfo>.Filter.Empty) > 0)
+                {
+                    var data = collection.AsQueryable().Where(x => x.MachineID.Equals(selectedMachine)).Where(x => x.UpdatedtimeStamp > fromDate.ToUniversalTime() && x.UpdatedtimeStamp < toDate.ToUniversalTime()).OrderBy(x => x.UpdatedtimeStamp).ToList();
+                }                   
                 //var data = focas_SpindleInfo.Find(dataFilter).Project("{_id: 0}").ToList();
                 //var results = BsonSerializer.Deserialize<SpindleInfo>(data);
                 //DataTable dataTable = GetDataTableFromMongoBsonDocument(data);
@@ -3508,7 +3508,7 @@ namespace MachineConnectApplication
                 IMongoCollection<ParameterCycleInfo> collection = db.GetCollection<ParameterCycleInfo>("ProcessParameterTransaction_BajajIoT");
                 if (collection != null && collection.CountDocuments(Builders<ParameterCycleInfo>.Filter.Empty) > 0)
                 {
-                    cycleDetailsList = db.GetCollection<ParameterCycleInfo>("ProcessParameterTransaction_BajajIoT").AsQueryable().Where(x => x.MachineID.Equals(machineID) && (x.ParameterID.Equals("P1") || x.ParameterID.Equals("P2"))).Where(x => x.UpdatedtimeStamp > cycleStart && x.UpdatedtimeStamp < cycleEnd).OrderBy(x => x.UpdatedtimeStamp).Take(10).ToList();
+                    cycleDetailsList = db.GetCollection<ParameterCycleInfo>("ProcessParameterTransaction_BajajIoT").AsQueryable().Where(x => x.MachineID.Equals(machineID) && (x.ParameterID.Equals("P1") || x.ParameterID.Equals("P2"))).Where(x => x.UpdatedtimeStamp > cycleStart.ToUniversalTime() && x.UpdatedtimeStamp < cycleEnd.ToUniversalTime()).OrderBy(x => x.UpdatedtimeStamp).ToList();
                 }
             }
             catch (Exception ex)

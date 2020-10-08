@@ -30,9 +30,11 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
             this.dgvCycleDetails = new System.Windows.Forms.DataGridView();
             this.SelectCycle = new System.Windows.Forms.DataGridViewButtonColumn();
@@ -118,14 +120,14 @@
             this.SelectCycle,
             this.MachineModel,
             this.IPAddress});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCycleDetails.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCycleDetails.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgvCycleDetails.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCycleDetails.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgvCycleDetails.EnableHeadersVisualStyles = false;
@@ -133,14 +135,14 @@
             this.dgvCycleDetails.Location = new System.Drawing.Point(0, 34);
             this.dgvCycleDetails.Margin = new System.Windows.Forms.Padding(0);
             this.dgvCycleDetails.Name = "dgvCycleDetails";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCycleDetails.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCycleDetails.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dgvCycleDetails.RowHeadersVisible = false;
             this.dgvCycleDetails.RowHeadersWidth = 40;
             this.dgvCycleDetails.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -176,22 +178,26 @@
             // MachineModel
             // 
             this.MachineModel.DataPropertyName = "CycleStart";
+            dataGridViewCellStyle4.Format = "yyyy-MM-dd HH:mm:ss ";
+            this.MachineModel.DefaultCellStyle = dataGridViewCellStyle4;
             this.MachineModel.HeaderText = "Cycle Start";
             this.MachineModel.MinimumWidth = 150;
             this.MachineModel.Name = "MachineModel";
             this.MachineModel.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.MachineModel.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.MachineModel.Width = 150;
+            this.MachineModel.Width = 200;
             // 
             // IPAddress
             // 
             this.IPAddress.DataPropertyName = "CycleEnd";
+            dataGridViewCellStyle5.Format = "yyyy-MM-dd HH:mm:ss ";
+            this.IPAddress.DefaultCellStyle = dataGridViewCellStyle5;
             this.IPAddress.HeaderText = "Cycle End";
             this.IPAddress.MinimumWidth = 150;
             this.IPAddress.Name = "IPAddress";
             this.IPAddress.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.IPAddress.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.IPAddress.Width = 150;
+            this.IPAddress.Width = 200;
             // 
             // tableLayoutPanel1
             // 
