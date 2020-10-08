@@ -485,8 +485,7 @@ namespace MachineConnectApplication
                     btnSpindleParameters_Click(null, EventArgs.Empty);
                 }
                 else if (type.Equals("RPM", StringComparison.OrdinalIgnoreCase))
-                {
-                    
+                {                    
                     Application.DoEvents(); Application.DoEvents(); Application.DoEvents(); Application.DoEvents(); Application.DoEvents();
                     btnMachineManual_Click(null, EventArgs.Empty);
                 }

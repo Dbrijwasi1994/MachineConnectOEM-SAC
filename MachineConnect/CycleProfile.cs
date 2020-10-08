@@ -181,7 +181,6 @@ namespace MachineConnectOEM
             string MachineID = cmbMachineId.SelectedItem != null ? cmbMachineId.SelectedValue.ToString() : "";
             try
             {
-                MachineID = "TEST01";
                 DateTime cycleStart = Convert.ToDateTime(dataGridViewRow.Cells[1].Value.ToString());
                 DateTime cycleEnd = Convert.ToDateTime(dataGridViewRow.Cells[2].Value.ToString());
                 if (!string.IsNullOrEmpty(MachineID))
