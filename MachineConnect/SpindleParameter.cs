@@ -99,7 +99,7 @@ namespace MachineConnectApplication
             List<SpindleData> valz = null;
             if (Convert.ToDateTime(MainScreen.CURRENT_DATE_TIME).ToString("yyyy-MM-dd") != (DatabaseAccess.GetShiftStartEndTimeForDay(1, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))).ToString("yyyy-MM-dd"))
             {
-                byte[] byteArray = DatabaseAccess.PreviousDatesSpindleLoadTemp(HomeScreen.selectedMachine, MainScreen.CURRENT_DATE_TIME, cmbAxis.Text.ToString());
+                byte[] byteArray = DatabaseAccess.PreviousDatesSpindleLoadTemp(HomeScreen.selectedMachine, MainScreen.CURRENT_DATE_TIME, "X");
                 if (byteArray != null)
                 {
                     valz = DeSerialize(Decompress(byteArray));
@@ -247,7 +247,6 @@ namespace MachineConnectApplication
             DateTime dataStarted = Convert.ToDateTime(MainScreen.CURRENT_DATE_TIME);//DateTime.Now;
             DateTime dataEnded = Convert.ToDateTime(MainScreen.CURRENT_DATE_TIME);// DateTime.Now;
             int lastDuration = 0;
-            string axis = cmbAxis.Text.ToString();
             fromDate = DatabaseAccess.GetShiftStartEndTimeForDay(1, dtpStartDate.Value.ToString("yyyy-MM-dd HH:mm:ss"));// DateTime.Now.AddHours(-24);
             toDate = Convert.ToDateTime(MainScreen.LOGICAL_DAY_END);//.AddHours(24);;//DateTime.Now;
             DataTable dtSpindleData = DatabaseAccess.GetSpindleLoadSpeedTempData(HomeScreen.selectedMachine, fromDate, toDate);
@@ -258,7 +257,7 @@ namespace MachineConnectApplication
                 lastDuration = CompareDate;
             }
 
-            DataTable dt = DatabaseAccess.GetSpindleLoadSpeedTemp(HomeScreen.selectedMachine, fromDate.ToString("yyyy-MM-dd HH:mm:ss"), toDate.ToString("yyyy-MM-dd HH:mm:ss"), axis);
+            DataTable dt = DatabaseAccess.GetSpindleLoadSpeedTemp(HomeScreen.selectedMachine, fromDate.ToString("yyyy-MM-dd HH:mm:ss"), toDate.ToString("yyyy-MM-dd HH:mm:ss"), "X");
 
             if (dt.Rows.Count > 1)
             {
@@ -297,7 +296,6 @@ namespace MachineConnectApplication
                 drnew["Temperature"] = "0.0";
                 drnew["CNCTimeStamp"] = toDate;
                 dt.Rows.Add(drnew);
-
             }
             return dt;
         }
@@ -398,35 +396,13 @@ namespace MachineConnectApplication
 
                 winChartViewer1_MouseEnter(null, EventArgs.Empty);
                 winChartViewer2_MouseEnter(null, EventArgs.Empty);
-                    
 
-                if (cmbAxis.SelectedItem.ToString() == "X")
+                if (cmbParameter.SelectedItem.ToString() == "FeedRate")
                 {
                     winChartViewer2.Hide();
-                    winChartViewer3.Show();
-                    pictureBoxSpindleLegend.Visible = false;
-                    pictureBoxSpindleLegend1.Visible = false;
-                }
-                if (cmbAxis.SelectedItem.ToString() == "C")
-                {
-                    winChartViewer2.Show();
-                    winChartViewer3.Show();
-                    pictureBoxSpindleLegend.Visible = false;
-                    pictureBoxSpindleLegend1.Visible = false;
-                }
-                if (cmbAxis.SelectedItem.ToString() == "Z")
-                {
-                    winChartViewer2.Hide();
-                    winChartViewer3.Show();
-                    pictureBoxSpindleLegend.Visible = false;
-                    pictureBoxSpindleLegend1.Visible = false;
-                }
-                if (cmbAxis.SelectedItem.ToString() == "Spindle")
-                {
-                    winChartViewer2.Show();
                     winChartViewer3.Hide();
-                    pictureBoxSpindleLegend.Visible = true;
-                    pictureBoxSpindleLegend1.Visible = true;
+                    pictureBoxSpindleLegend.Visible = false;
+                    pictureBoxSpindleLegend1.Visible = false;
                 }
             }
             catch (Exception ex)
@@ -442,7 +418,7 @@ namespace MachineConnectApplication
             DateTime toDate;
             fromDate = Convert.ToDateTime(MainScreen.CURRENT_DATE_TIME);
             toDate = Convert.ToDateTime(MainScreen.LOGICAL_DAY_END);
-            DataTable dt = DatabaseAccess.GetSpindleCycleStartEndTimes(HomeScreen.selectedMachine, fromDate.ToString("yyyy-MM-dd HH:mm:ss"), toDate.ToString("yyyy-MM-dd HH:mm:ss"), cmbAxis.Text.ToString());
+            DataTable dt = DatabaseAccess.GetSpindleCycleStartEndTimes(HomeScreen.selectedMachine, fromDate.ToString("yyyy-MM-dd HH:mm:ss"), toDate.ToString("yyyy-MM-dd HH:mm:ss"), cmbParameter.Text.ToString());
             if (dt != null && dt.Rows.Count > 0)
             {
                 return dt;
@@ -455,29 +431,21 @@ namespace MachineConnectApplication
 
         private void SetChartTitles()
         {
-            if (cmbAxis.SelectedItem.ToString() == "X")
+            if (cmbParameter.SelectedItem.ToString() == "Temperature")
+            {
+                chart1Title = "X-Axis Temperature";
+                chart2Title = "Z-Axis Temperature";
+                chart3Title = "C-Axis Temperature";
+            }
+            if (cmbParameter.SelectedItem.ToString() == "Load")
             {
                 chart1Title = "X-Axis Load";
-                chart2Title = "Work Head Speed";
-                chart3Title = "X- Axis Temperature";
+                chart2Title = "Z-Axis Load";
+                chart3Title = "C-Axis Load";
             }
-            if (cmbAxis.SelectedItem.ToString() == "C")
+            if (cmbParameter.SelectedItem.ToString() == "FeedRate")
             {
-                chart1Title = "Work Head Load";
-                chart2Title = "Work Head Speed";
-                chart3Title = "Work Head Temperature";
-            }
-            if (cmbAxis.SelectedItem.ToString() == "Z")
-            {
-                chart1Title = "Z-Axis Load";
-                chart2Title = "Work Head Speed";
-                chart3Title = "Z-Axis Temperature";
-            }
-            if (cmbAxis.SelectedItem.ToString() == "Spindle")
-            {
-                chart1Title = "Spindle Load";
-                chart2Title = "Spindle Speed";
-                chart3Title = "Spindle Temperature";
+                chart1Title = "Feed Rate";
             }
         }
 
@@ -502,11 +470,11 @@ namespace MachineConnectApplication
                 MTB = DatabaseAccess.GetMTB(HomeScreen.selectedMachine);
                 if (MTB.Equals("MGTL", StringComparison.OrdinalIgnoreCase))
                 {
-                    DrawLoadSpeedTempChart(winChartViewer1, panel1.Width, panel1.Height, chart1Title, cmbAxis.SelectedItem.ToString() == "Spindle" ? " kW " : " % ", dataSeriesA, 0x0000FF);
+                    DrawLoadSpeedTempChart(winChartViewer1, panel1.Width, panel1.Height, chart1Title, cmbParameter.SelectedItem.ToString() == "Spindle" ? " kW " : " % ", dataSeriesA, 0x0000FF);
                 }
                 else
                 {
-                    DrawLoadSpeedTempChart(winChartViewer1, panel1.Width, panel1.Height, "Spindle Load", cmbAxis.SelectedItem.ToString() == "Spindle" ? " kW " : " % ", dataSeriesA, 0x0000FF);
+                    DrawLoadSpeedTempChart(winChartViewer1, panel1.Width, panel1.Height, "Spindle Load", cmbParameter.SelectedItem.ToString() == "Spindle" ? " kW " : " % ", dataSeriesA, 0x0000FF);
                 }
             }
             //drawChart2(winChartViewer2);
@@ -651,46 +619,9 @@ namespace MachineConnectApplication
 
 
         private void RPM_Load(object sender, EventArgs e)
-        {            
+        {
             MTB = DatabaseAccess.GetMTB(HomeScreen.selectedMachine);
-            if (MTB.Equals("MGTL", StringComparison.OrdinalIgnoreCase))
-            {
-                btnUpgrade.Visible = true;
-            }
-            else
-            {
-                btnUpgrade.Visible = true;
-            }
-
-            int axisNumber = DatabaseAccess.GetSpindleAxisNumber(HomeScreen.selectedMachine);
-            if (axisNumber <= 1)
-            {
-                cmbAxis.Visible = false;
-                lblAxis.Visible = false;
-            }
-            else
-            {
-                cmbAxis.Visible = true;
-                lblAxis.Visible = true;
-            }
-
-            cmbAxis.Items.Clear();
-            if (axisNumber <= 2)
-            {
-                cmbAxis.Items.Add("X"); cmbAxis.Items.Add("Z");
-            }
-            else if (axisNumber <= 3)
-            {
-                cmbAxis.Items.Add("X"); cmbAxis.Items.Add("Y"); cmbAxis.Items.Add("Z"); cmbAxis.Items.Add("Spindle");
-            }
-
-            if (MTB.Equals("MGTL", StringComparison.OrdinalIgnoreCase))
-            {
-                cmbAxis.Items.Clear();
-                cmbAxis.Items.Add("X"); cmbAxis.Items.Add("C"); cmbAxis.Items.Add("Z"); cmbAxis.Items.Add("Spindle");
-            }
-
-            cmbAxis.SelectedIndex = 0;
+            cmbParameter.SelectedIndex = 0;
             cmbDurationType.SelectedIndex = Settings.CmbDurationTypeSelectedIndex;
             BindDuration();
             currentDurationSelected = cmbDuration.Text;
@@ -1032,21 +963,6 @@ namespace MachineConnectApplication
         }
 
         #endregion
-
-        private void btnUpgrade_Click(object sender, EventArgs e)
-        {
-            this.Cursor = Cursors.WaitCursor;
-
-            DisposePanelControls();
-            pnlContainer.Controls.Clear();
-            ProcessDoc ctrl = new ProcessDoc(this);
-            ctrl.userControl = this;
-            ctrl.Dock = DockStyle.Fill;
-            pnlContainer.Controls.Add(ctrl);
-
-            this.Cursor = Cursors.Default;
-
-        }
 
         private void DisposePanelControls()
         {

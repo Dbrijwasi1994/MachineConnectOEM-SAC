@@ -604,15 +604,16 @@ namespace MachineConnectApplication
 
                     layer.addDataSet(viewPortDataSeriesA, 0x3A72FF, " Power On Time").setDataSymbol(Chart.CircleSymbol, 9);
                     layer.addDataSet(viewPortDataSeriesB, 0xFFFF00, " Operating Time").setDataSymbol(Chart.CircleSymbol, 9);
-                    if (DatabaseAccess.GetMTB(HomeScreen.selectedMachine) == "MGTL")
-                    {
-                        layer.addDataSet(viewPortDataSeriesC, 0x40ff40, " Grinding Time").setDataSymbol(Chart.CircleSymbol, 9);
-                        layer.addDataSet(viewPortDataSeriesD, 0xEE82EE, " Dressing Time").setDataSymbol(Chart.CircleSymbol, 9);
-                    }
-                    else
-                    {
-                        layer.addDataSet(viewPortDataSeriesC, 0x40ff40, " Cutting Time").setDataSymbol(Chart.CircleSymbol, 9);
-                    }
+                    layer.addDataSet(viewPortDataSeriesC, 0x40ff40, " Cutting Time").setDataSymbol(Chart.CircleSymbol, 9);
+                    //if (DatabaseAccess.GetMTB(HomeScreen.selectedMachine) == "MGTL")
+                    //{
+                    //    layer.addDataSet(viewPortDataSeriesC, 0x40ff40, " Grinding Time").setDataSymbol(Chart.CircleSymbol, 9);
+                    //    layer.addDataSet(viewPortDataSeriesD, 0xEE82EE, " Dressing Time").setDataSymbol(Chart.CircleSymbol, 9);
+                    //}
+                    //else
+                    //{
+                    //    layer.addDataSet(viewPortDataSeriesC, 0x40ff40, " Cutting Time").setDataSymbol(Chart.CircleSymbol, 9);
+                    //}
                     layer.setLineWidth(3);
                     layer.setHTMLImageMap("", "", "");                
                 }
@@ -623,15 +624,16 @@ namespace MachineConnectApplication
 
                     layer.addDataSet(viewPortDataSeriesA, 0x3A72FF, " Power On Time").setDataSymbol(Chart.CircleSymbol, 9);
                     layer.addDataSet(viewPortDataSeriesB, 0xFFFF00, " Operating Time").setDataSymbol(Chart.CircleSymbol, 9);
-                    if (DatabaseAccess.GetMTB(HomeScreen.selectedMachine) == "MGTL")
-                    {
-                        layer.addDataSet(viewPortDataSeriesC, 0x40ff40, " Grinding Time").setDataSymbol(Chart.CircleSymbol, 9);
-                        layer.addDataSet(viewPortDataSeriesD, 0xEE82EE, " Dressing Time").setDataSymbol(Chart.CircleSymbol, 9);
-                    }
-                    else
-                    {
-                        layer.addDataSet(viewPortDataSeriesC, 0x40ff40, " Cutting Time").setDataSymbol(Chart.CircleSymbol, 9);
-                    }
+                    layer.addDataSet(viewPortDataSeriesC, 0x40ff40, " Cutting Time").setDataSymbol(Chart.CircleSymbol, 9);
+                    //if (DatabaseAccess.GetMTB(HomeScreen.selectedMachine) == "MGTL")
+                    //{
+                    //    layer.addDataSet(viewPortDataSeriesC, 0x40ff40, " Grinding Time").setDataSymbol(Chart.CircleSymbol, 9);
+                    //    layer.addDataSet(viewPortDataSeriesD, 0xEE82EE, " Dressing Time").setDataSymbol(Chart.CircleSymbol, 9);
+                    //}
+                    //else
+                    //{
+                    //    layer.addDataSet(viewPortDataSeriesC, 0x40ff40, " Cutting Time").setDataSymbol(Chart.CircleSymbol, 9);
+                    //}
                     layer.setLineWidth(3);
                     layer.setHTMLImageMap("", "", "");
                 }
@@ -686,16 +688,18 @@ namespace MachineConnectApplication
                 //double[] data5 = { NotCuttingTime, 0, 0 };
                 //double[] data6 = { DressingTime, 0, 0 };
                 string P1; string P2;
-                if (DatabaseAccess.GetMTB(HomeScreen.selectedMachine) == "MGTL")
-                {
-                    P1 = "GrindingTime/";
-                    P2 = "DressingTime";
-                }
-                else
-                {
-                    P1 = "CuttingTime/";
-                    P2 = "Non-Cutting";
-                }
+                P1 = "CuttingTime/";
+                P2 = "Non-Cutting";
+                //if (DatabaseAccess.GetMTB(HomeScreen.selectedMachine) == "MGTL")
+                //{
+                //    P1 = "GrindingTime/";
+                //    P2 = "DressingTime";
+                //}
+                //else
+                //{
+                //    P1 = "CuttingTime/";
+                //    P2 = "Non-Cutting";
+                //}
                 string[] labelsz = { P1 + "\n" + P2 + "\n" + "( " + GetTimeInHourMinutes(TimeSpan.FromHours(CuttingTime)) + " / " + GetTimeInHourMinutes(TimeSpan.FromHours(DressingTime)) + " )", "OperatingTime/" + "\n" + "Non-Operating" + "\n" + "( " + GetTimeInHourMinutes(TimeSpan.FromHours(OperatingTime)) + " / " + GetTimeInHourMinutes(TimeSpan.FromHours(NonOperatingTime)) + " )", "PowerOn/Off" + "\n" + "( " + GetTimeInHourMinutes(TimeSpan.FromHours(PowerOnTime)) + " / " + GetTimeInHourMinutes(TimeSpan.FromHours(PowerOffTime)) + " )" };
                 //string[] labelsz = { P1 + "\n" + P2 + "\n" + "( " + GetTimeInHourMinutes(TimeSpan.FromHours(CuttingTime)) + " / " + GetTimeInHourMinutes(TimeSpan.FromHours(NotCuttingTime)) + " )", "OperatingTime/" + "\n" + "Non-Operating" + "\n" + "( " + GetTimeInHourMinutes(TimeSpan.FromHours(operatingTime)) + " / " + GetTimeInHourMinutes(TimeSpan.FromHours(NonOperatingTime)) + " )", "PowerOn/Off" + "\n" + "( " + GetTimeInHourMinutes(TimeSpan.FromHours(PowerOnTime)) + " / " + GetTimeInHourMinutes(TimeSpan.FromHours(PowerOffTime)) + " )" };
 

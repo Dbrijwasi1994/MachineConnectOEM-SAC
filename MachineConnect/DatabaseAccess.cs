@@ -13,6 +13,7 @@ using MongoDB.Driver;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
+using FocasLibrary;
 
 namespace MachineConnectApplication
 {
@@ -3487,10 +3488,8 @@ namespace MachineConnectApplication
                 if (collection != null && collection.CountDocuments(Builders<ParameterCycleInfo>.Filter.Empty) > 0)
                 {
                     var data = collection.AsQueryable().Where(x => x.MachineID.Equals(selectedMachine)).Where(x => x.UpdatedtimeStamp > fromDate.ToUniversalTime() && x.UpdatedtimeStamp < toDate.ToUniversalTime()).OrderBy(x => x.UpdatedtimeStamp).ToList();
+                    dtSpindleData = data.ToDataTable();
                 }                   
-                //var data = focas_SpindleInfo.Find(dataFilter).Project("{_id: 0}").ToList();
-                //var results = BsonSerializer.Deserialize<SpindleInfo>(data);
-                //DataTable dataTable = GetDataTableFromMongoBsonDocument(data);
             }
             catch (Exception ex)
             {

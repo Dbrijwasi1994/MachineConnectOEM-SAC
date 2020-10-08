@@ -43,16 +43,15 @@
             this.winChartViewer1 = new ChartDirector.WinChartViewer();
             this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.label2 = new System.Windows.Forms.Label();
             this.btnCycleProfile = new System.Windows.Forms.Button();
-            this.btnUpgrade = new System.Windows.Forms.Button();
             this.cmbDuration = new System.Windows.Forms.ComboBox();
             this.cmbDurationType = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.lblAxis = new System.Windows.Forms.Label();
-            this.cmbAxis = new System.Windows.Forms.ComboBox();
+            this.lblParameter = new System.Windows.Forms.Label();
+            this.cmbParameter = new System.Windows.Forms.ComboBox();
             this.lblScrollRange = new System.Windows.Forms.Label();
             this.dtpStartDate = new System.Windows.Forms.DateTimePicker();
+            this.label2 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pnlContainer = new System.Windows.Forms.Panel();
             this.mainTbl.SuspendLayout();
@@ -231,27 +230,25 @@
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.BackColor = System.Drawing.Color.White;
-            this.tableLayoutPanel1.ColumnCount = 10;
+            this.tableLayoutPanel1.ColumnCount = 9;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 190F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 110F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 74F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 76F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 104F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65F));
             this.tableLayoutPanel1.Controls.Add(this.btnCycleProfile, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnUpgrade, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.cmbDuration, 9, 0);
-            this.tableLayoutPanel1.Controls.Add(this.cmbDurationType, 8, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 7, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lblAxis, 5, 0);
-            this.tableLayoutPanel1.Controls.Add(this.cmbAxis, 6, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lblScrollRange, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.dtpStartDate, 4, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.cmbDuration, 8, 0);
+            this.tableLayoutPanel1.Controls.Add(this.cmbDurationType, 7, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label1, 6, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lblParameter, 4, 0);
+            this.tableLayoutPanel1.Controls.Add(this.cmbParameter, 5, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lblScrollRange, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.dtpStartDate, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label2, 2, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -261,20 +258,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1504, 31);
             this.tableLayoutPanel1.TabIndex = 15;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.White;
-            this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.label2.Location = new System.Drawing.Point(943, 5);
-            this.label2.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(81, 20);
-            this.label2.TabIndex = 60;
-            this.label2.Text = "From Date";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // btnCycleProfile
             // 
@@ -288,35 +271,14 @@
             this.btnCycleProfile.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCycleProfile.ForeColor = System.Drawing.Color.Navy;
             this.btnCycleProfile.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCycleProfile.Location = new System.Drawing.Point(190, 0);
+            this.btnCycleProfile.Location = new System.Drawing.Point(0, 0);
             this.btnCycleProfile.Margin = new System.Windows.Forms.Padding(0);
             this.btnCycleProfile.Name = "btnCycleProfile";
-            this.btnCycleProfile.Size = new System.Drawing.Size(150, 31);
+            this.btnCycleProfile.Size = new System.Drawing.Size(190, 31);
             this.btnCycleProfile.TabIndex = 59;
             this.btnCycleProfile.Text = "CYCLE PROFILE";
             this.btnCycleProfile.UseVisualStyleBackColor = false;
             this.btnCycleProfile.Click += new System.EventHandler(this.btnCycleProfile_Click);
-            // 
-            // btnUpgrade
-            // 
-            this.btnUpgrade.BackColor = System.Drawing.SystemColors.Control;
-            this.btnUpgrade.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnUpgrade.FlatAppearance.BorderColor = System.Drawing.Color.OliveDrab;
-            this.btnUpgrade.FlatAppearance.BorderSize = 2;
-            this.btnUpgrade.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnUpgrade.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.btnUpgrade.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUpgrade.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpgrade.ForeColor = System.Drawing.Color.Navy;
-            this.btnUpgrade.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUpgrade.Location = new System.Drawing.Point(0, 0);
-            this.btnUpgrade.Margin = new System.Windows.Forms.Padding(0);
-            this.btnUpgrade.Name = "btnUpgrade";
-            this.btnUpgrade.Size = new System.Drawing.Size(190, 31);
-            this.btnUpgrade.TabIndex = 58;
-            this.btnUpgrade.Text = "APPLICATION PARAMETERS";
-            this.btnUpgrade.UseVisualStyleBackColor = false;
-            this.btnUpgrade.Click += new System.EventHandler(this.btnUpgrade_Click);
             // 
             // cmbDuration
             // 
@@ -360,33 +322,35 @@
             this.label1.Text = "Duration";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // lblAxis
+            // lblParameter
             // 
-            this.lblAxis.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.lblAxis.AutoSize = true;
-            this.lblAxis.BackColor = System.Drawing.Color.White;
-            this.lblAxis.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAxis.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.lblAxis.Location = new System.Drawing.Point(1143, 5);
-            this.lblAxis.Name = "lblAxis";
-            this.lblAxis.Size = new System.Drawing.Size(37, 20);
-            this.lblAxis.TabIndex = 18;
-            this.lblAxis.Text = "Axis";
-            this.lblAxis.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblParameter.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblParameter.AutoSize = true;
+            this.lblParameter.BackColor = System.Drawing.Color.White;
+            this.lblParameter.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblParameter.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.lblParameter.Location = new System.Drawing.Point(1052, 5);
+            this.lblParameter.Name = "lblParameter";
+            this.lblParameter.Size = new System.Drawing.Size(80, 20);
+            this.lblParameter.TabIndex = 18;
+            this.lblParameter.Text = "Parameter";
+            this.lblParameter.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // cmbAxis
+            // cmbParameter
             // 
-            this.cmbAxis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbAxis.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAxis.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbAxis.FormattingEnabled = true;
-            this.cmbAxis.Items.AddRange(new object[] {
-            "X"});
-            this.cmbAxis.Location = new System.Drawing.Point(1188, 3);
-            this.cmbAxis.Name = "cmbAxis";
-            this.cmbAxis.Size = new System.Drawing.Size(68, 25);
-            this.cmbAxis.TabIndex = 19;
-            this.cmbAxis.SelectionChangeCommitted += new System.EventHandler(this.cmbAxis_SelectionChangeCommitted);
+            this.cmbParameter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbParameter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbParameter.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbParameter.FormattingEnabled = true;
+            this.cmbParameter.Items.AddRange(new object[] {
+            "Temperature",
+            "Load",
+            "FeedRate"});
+            this.cmbParameter.Location = new System.Drawing.Point(1142, 3);
+            this.cmbParameter.Name = "cmbParameter";
+            this.cmbParameter.Size = new System.Drawing.Size(114, 25);
+            this.cmbParameter.TabIndex = 19;
+            this.cmbParameter.SelectionChangeCommitted += new System.EventHandler(this.cmbAxis_SelectionChangeCommitted);
             // 
             // lblScrollRange
             // 
@@ -395,7 +359,7 @@
             this.lblScrollRange.BackColor = System.Drawing.Color.White;
             this.lblScrollRange.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblScrollRange.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.lblScrollRange.Location = new System.Drawing.Point(616, 5);
+            this.lblScrollRange.Location = new System.Drawing.Point(495, 5);
             this.lblScrollRange.Name = "lblScrollRange";
             this.lblScrollRange.Size = new System.Drawing.Size(48, 20);
             this.lblScrollRange.TabIndex = 16;
@@ -408,10 +372,24 @@
             this.dtpStartDate.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dtpStartDate.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpStartDate.Location = new System.Drawing.Point(1033, 3);
+            this.dtpStartDate.Location = new System.Drawing.Point(942, 3);
             this.dtpStartDate.Name = "dtpStartDate";
             this.dtpStartDate.Size = new System.Drawing.Size(104, 25);
             this.dtpStartDate.TabIndex = 61;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.White;
+            this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.label2.Location = new System.Drawing.Point(852, 5);
+            this.label2.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(81, 20);
+            this.label2.TabIndex = 60;
+            this.label2.Text = "From Date";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // timer1
             // 
@@ -470,10 +448,9 @@
         private System.Windows.Forms.ComboBox cmbDuration;
         private System.Windows.Forms.ComboBox cmbDurationType;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label lblAxis;
-        private System.Windows.Forms.ComboBox cmbAxis;
+        private System.Windows.Forms.Label lblParameter;
+        private System.Windows.Forms.ComboBox cmbParameter;
         private System.Windows.Forms.Panel pnlContainer;
-        private System.Windows.Forms.Button btnUpgrade;
         private System.Windows.Forms.PictureBox pictureBoxSpindleLegend;
         private System.Windows.Forms.PictureBox pictureBoxSpindleLegend1;
         private System.Windows.Forms.Button btnCycleProfile;
