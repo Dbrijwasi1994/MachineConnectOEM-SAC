@@ -41,6 +41,8 @@
             this.MachineModel = new System.Windows.Forms.DataGridViewLinkColumn();
             this.IPAddress = new System.Windows.Forms.DataGridViewLinkColumn();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cmbInterval = new System.Windows.Forms.ComboBox();
             this.cmbParameter = new System.Windows.Forms.ComboBox();
             this.lblParameter = new System.Windows.Forms.Label();
             this.cmbMachineId = new System.Windows.Forms.ComboBox();
@@ -59,10 +61,9 @@
             this.chartViewer4 = new ChartDirector.WinChartViewer();
             this.chartViewer3 = new ChartDirector.WinChartViewer();
             this.chartViewer2 = new ChartDirector.WinChartViewer();
-            this.chartViewer1 = new ChartDirector.WinChartViewer();
             this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
-            this.cmbInterval = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.chartViewer1 = new ChartDirector.WinChartViewer();
+            this.btnGetCycles = new System.Windows.Forms.Button();
             this.tableLayoutPanelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCycleDetails)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
@@ -87,12 +88,12 @@
             this.tableLayoutPanelMain.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelMain.Margin = new System.Windows.Forms.Padding(1);
             this.tableLayoutPanelMain.Name = "tableLayoutPanelMain";
-            this.tableLayoutPanelMain.RowCount = 3;
+            this.tableLayoutPanelMain.RowCount = 4;
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanelMain.Size = new System.Drawing.Size(1607, 1234);
+            this.tableLayoutPanelMain.Size = new System.Drawing.Size(1668, 1234);
             this.tableLayoutPanelMain.TabIndex = 0;
             // 
             // dgvCycleDetails
@@ -158,7 +159,7 @@
             this.dgvCycleDetails.RowTemplate.ReadOnly = true;
             this.dgvCycleDetails.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvCycleDetails.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCycleDetails.Size = new System.Drawing.Size(1607, 200);
+            this.dgvCycleDetails.Size = new System.Drawing.Size(1668, 200);
             this.dgvCycleDetails.TabIndex = 21;
             this.dgvCycleDetails.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCycleDetails_CellContentDoubleClick);
             this.dgvCycleDetails.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvCycleDetails_DataBindingComplete);
@@ -204,7 +205,7 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 14;
+            this.tableLayoutPanel1.ColumnCount = 15;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
@@ -213,13 +214,15 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 110F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 140F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 104F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.label3, 8, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label3, 9, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnGetCycles, 8, 0);
             this.tableLayoutPanel1.Controls.Add(this.cmbInterval, 10, 0);
             this.tableLayoutPanel1.Controls.Add(this.cmbParameter, 7, 0);
             this.tableLayoutPanel1.Controls.Add(this.lblParameter, 6, 0);
@@ -229,17 +232,51 @@
             this.tableLayoutPanel1.Controls.Add(this.label1, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.lblAxis, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.dtpFromDate, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnView, 8, 0);
-            this.tableLayoutPanel1.Controls.Add(this.chkShowMarkers, 12, 0);
-            this.tableLayoutPanel1.Controls.Add(this.chkShowValues, 13, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnView, 11, 0);
+            this.tableLayoutPanel1.Controls.Add(this.chkShowMarkers, 13, 0);
+            this.tableLayoutPanel1.Controls.Add(this.chkShowValues, 14, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(1, 1);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(1);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1605, 32);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1666, 32);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // label3
+            // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.White;
+            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.label3.Location = new System.Drawing.Point(1099, 6);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(107, 20);
+            this.label3.TabIndex = 31;
+            this.label3.Text = "Interval (Sec): ";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // cmbInterval
+            // 
+            this.cmbInterval.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbInterval.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbInterval.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbInterval.FormattingEnabled = true;
+            this.cmbInterval.Items.AddRange(new object[] {
+            "2",
+            "4",
+            "10",
+            "20",
+            "30",
+            "60",
+            "120"});
+            this.cmbInterval.Location = new System.Drawing.Point(1213, 3);
+            this.cmbInterval.Name = "cmbInterval";
+            this.cmbInterval.Size = new System.Drawing.Size(74, 25);
+            this.cmbInterval.TabIndex = 30;
+            this.cmbInterval.SelectedIndexChanged += new System.EventHandler(this.cmbInterval_SelectedIndexChanged);
             // 
             // cmbParameter
             // 
@@ -353,7 +390,7 @@
             // 
             this.btnView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnView.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnView.Location = new System.Drawing.Point(988, 2);
+            this.btnView.Location = new System.Drawing.Point(1292, 2);
             this.btnView.Margin = new System.Windows.Forms.Padding(2);
             this.btnView.Name = "btnView";
             this.btnView.Size = new System.Drawing.Size(76, 28);
@@ -369,7 +406,7 @@
             this.chkShowMarkers.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkShowMarkers.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chkShowMarkers.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkShowMarkers.Location = new System.Drawing.Point(1404, 3);
+            this.chkShowMarkers.Location = new System.Drawing.Point(1465, 3);
             this.chkShowMarkers.Name = "chkShowMarkers";
             this.chkShowMarkers.Size = new System.Drawing.Size(98, 26);
             this.chkShowMarkers.TabIndex = 26;
@@ -384,7 +421,7 @@
             this.chkShowValues.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkShowValues.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chkShowValues.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkShowValues.Location = new System.Drawing.Point(1508, 3);
+            this.chkShowValues.Location = new System.Drawing.Point(1569, 3);
             this.chkShowValues.Name = "chkShowValues";
             this.chkShowValues.Size = new System.Drawing.Size(94, 26);
             this.chkShowValues.TabIndex = 27;
@@ -401,7 +438,7 @@
             this.ChartsPanel.Location = new System.Drawing.Point(2, 236);
             this.ChartsPanel.Margin = new System.Windows.Forms.Padding(2);
             this.ChartsPanel.Name = "ChartsPanel";
-            this.ChartsPanel.Size = new System.Drawing.Size(1603, 996);
+            this.ChartsPanel.Size = new System.Drawing.Size(1664, 976);
             this.ChartsPanel.TabIndex = 22;
             // 
             // tableLayoutPanelCharts
@@ -430,7 +467,7 @@
             this.tableLayoutPanelCharts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableLayoutPanelCharts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableLayoutPanelCharts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanelCharts.Size = new System.Drawing.Size(1603, 996);
+            this.tableLayoutPanelCharts.Size = new System.Drawing.Size(1664, 976);
             this.tableLayoutPanelCharts.TabIndex = 0;
             // 
             // chartViewer6
@@ -443,7 +480,7 @@
             this.chartViewer6.Location = new System.Drawing.Point(3, 1003);
             this.chartViewer6.Name = "chartViewer6";
             this.chartViewer6.ScrollDirection = ChartDirector.WinChartDirection.HorizontalVertical;
-            this.chartViewer6.Size = new System.Drawing.Size(1580, 194);
+            this.chartViewer6.Size = new System.Drawing.Size(1641, 194);
             this.chartViewer6.TabIndex = 31;
             this.chartViewer6.TabStop = false;
             this.chartViewer6.ZoomDirection = ChartDirector.WinChartDirection.HorizontalVertical;
@@ -459,7 +496,7 @@
             this.chartViewer5.Location = new System.Drawing.Point(3, 803);
             this.chartViewer5.Name = "chartViewer5";
             this.chartViewer5.ScrollDirection = ChartDirector.WinChartDirection.HorizontalVertical;
-            this.chartViewer5.Size = new System.Drawing.Size(1580, 194);
+            this.chartViewer5.Size = new System.Drawing.Size(1641, 194);
             this.chartViewer5.TabIndex = 30;
             this.chartViewer5.TabStop = false;
             this.chartViewer5.ZoomDirection = ChartDirector.WinChartDirection.HorizontalVertical;
@@ -475,7 +512,7 @@
             this.chartViewer4.Location = new System.Drawing.Point(3, 603);
             this.chartViewer4.Name = "chartViewer4";
             this.chartViewer4.ScrollDirection = ChartDirector.WinChartDirection.HorizontalVertical;
-            this.chartViewer4.Size = new System.Drawing.Size(1580, 194);
+            this.chartViewer4.Size = new System.Drawing.Size(1641, 194);
             this.chartViewer4.TabIndex = 29;
             this.chartViewer4.TabStop = false;
             this.chartViewer4.ZoomDirection = ChartDirector.WinChartDirection.HorizontalVertical;
@@ -491,7 +528,7 @@
             this.chartViewer3.Location = new System.Drawing.Point(3, 403);
             this.chartViewer3.Name = "chartViewer3";
             this.chartViewer3.ScrollDirection = ChartDirector.WinChartDirection.HorizontalVertical;
-            this.chartViewer3.Size = new System.Drawing.Size(1580, 194);
+            this.chartViewer3.Size = new System.Drawing.Size(1641, 194);
             this.chartViewer3.TabIndex = 28;
             this.chartViewer3.TabStop = false;
             this.chartViewer3.ZoomDirection = ChartDirector.WinChartDirection.HorizontalVertical;
@@ -507,11 +544,20 @@
             this.chartViewer2.Location = new System.Drawing.Point(3, 203);
             this.chartViewer2.Name = "chartViewer2";
             this.chartViewer2.ScrollDirection = ChartDirector.WinChartDirection.HorizontalVertical;
-            this.chartViewer2.Size = new System.Drawing.Size(1580, 194);
+            this.chartViewer2.Size = new System.Drawing.Size(1641, 194);
             this.chartViewer2.TabIndex = 27;
             this.chartViewer2.TabStop = false;
             this.chartViewer2.ZoomDirection = ChartDirector.WinChartDirection.HorizontalVertical;
             this.chartViewer2.ViewPortChanged += new ChartDirector.WinViewPortEventHandler(this.chartViewer1_ViewPortChanged);
+            // 
+            // hScrollBar1
+            // 
+            this.hScrollBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.hScrollBar1.Location = new System.Drawing.Point(0, 1213);
+            this.hScrollBar1.Name = "hScrollBar1";
+            this.hScrollBar1.Size = new System.Drawing.Size(1647, 17);
+            this.hScrollBar1.TabIndex = 32;
+            this.hScrollBar1.ValueChanged += new System.EventHandler(this.hScrollBar1_ValueChanged);
             // 
             // chartViewer1
             // 
@@ -523,54 +569,24 @@
             this.chartViewer1.Location = new System.Drawing.Point(3, 3);
             this.chartViewer1.Name = "chartViewer1";
             this.chartViewer1.ScrollDirection = ChartDirector.WinChartDirection.HorizontalVertical;
-            this.chartViewer1.Size = new System.Drawing.Size(1580, 194);
+            this.chartViewer1.Size = new System.Drawing.Size(1641, 194);
             this.chartViewer1.TabIndex = 26;
             this.chartViewer1.TabStop = false;
             this.chartViewer1.ZoomDirection = ChartDirector.WinChartDirection.HorizontalVertical;
             this.chartViewer1.ViewPortChanged += new ChartDirector.WinViewPortEventHandler(this.chartViewer1_ViewPortChanged);
             // 
-            // hScrollBar1
+            // btnGetCycles
             // 
-            this.hScrollBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.hScrollBar1.Location = new System.Drawing.Point(0, 1213);
-            this.hScrollBar1.Name = "hScrollBar1";
-            this.hScrollBar1.Size = new System.Drawing.Size(1586, 17);
-            this.hScrollBar1.TabIndex = 32;
-            this.hScrollBar1.ValueChanged += new System.EventHandler(this.hScrollBar1_ValueChanged);
-            // 
-            // cmbInterval
-            // 
-            this.cmbInterval.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbInterval.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbInterval.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbInterval.FormattingEnabled = true;
-            this.cmbInterval.Items.AddRange(new object[] {
-            "2",
-            "4",
-            "10",
-            "20",
-            "30",
-            "60",
-            "120"});
-            this.cmbInterval.Location = new System.Drawing.Point(1209, 3);
-            this.cmbInterval.Name = "cmbInterval";
-            this.cmbInterval.Size = new System.Drawing.Size(74, 25);
-            this.cmbInterval.TabIndex = 30;
-            this.cmbInterval.SelectedIndexChanged += new System.EventHandler(this.cmbInterval_SelectedIndexChanged);
-            // 
-            // label3
-            // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.White;
-            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.label3.Location = new System.Drawing.Point(1069, 6);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(107, 20);
-            this.label3.TabIndex = 31;
-            this.label3.Text = "Interval (Sec): ";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnGetCycles.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnGetCycles.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGetCycles.Location = new System.Drawing.Point(988, 2);
+            this.btnGetCycles.Margin = new System.Windows.Forms.Padding(2);
+            this.btnGetCycles.Name = "btnGetCycles";
+            this.btnGetCycles.Size = new System.Drawing.Size(106, 28);
+            this.btnGetCycles.TabIndex = 26;
+            this.btnGetCycles.Text = "Get Cycles";
+            this.btnGetCycles.UseVisualStyleBackColor = true;
+            this.btnGetCycles.Click += new System.EventHandler(this.btnGetCycles_Click);
             // 
             // CycleProfile
             // 
@@ -581,7 +597,7 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.tableLayoutPanelMain);
             this.Name = "CycleProfile";
-            this.Size = new System.Drawing.Size(1607, 1234);
+            this.Size = new System.Drawing.Size(1668, 1234);
             this.Load += new System.EventHandler(this.CycleProfile_Load);
             this.tableLayoutPanelMain.ResumeLayout(false);
             this.tableLayoutPanelMain.PerformLayout();
@@ -631,5 +647,6 @@
         private System.Windows.Forms.HScrollBar hScrollBar1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cmbInterval;
+        private System.Windows.Forms.Button btnGetCycles;
     }
 }

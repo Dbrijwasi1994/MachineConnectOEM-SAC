@@ -22,7 +22,7 @@ namespace MachineConnectOEM
         private DateTime minDate;
         private double currentDuration = 2;
         private double dateRange = 86400;
-        DataGridViewRow gridselect = new DataGridViewRow();
+        DataGridViewRow selectedRow = new DataGridViewRow();
         List<ParameterCycleInfo> cycleProfileData = null;
         Dictionary<string, string> parametersList = null;
         public CycleProfile()
@@ -41,8 +41,6 @@ namespace MachineConnectOEM
                 BindMachineIDs();
                 BindParameters();
                 BindCycleDetailsGrid();
-              
-               
             }
             catch (Exception ex)
             {
@@ -212,9 +210,32 @@ namespace MachineConnectOEM
             return cycleInfoList;
         }
 
-        private void btnView_Click(object sender, EventArgs e)
+        private void btnGetCycles_Click(object sender, EventArgs e)
         {
             BindCycleDetailsGrid();
+        }
+
+        private void btnView_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvCycleDetails.SelectedRows.Count > 0)
+                {
+                    selectedRow = dgvCycleDetails.SelectedRows[0] as DataGridViewRow;
+                    if (selectedRow != null)
+                    {
+                        BindParamCycleProfile(selectedRow);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please select a cycle to view.", "information!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void dgvCycleDetails_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -226,8 +247,8 @@ namespace MachineConnectOEM
                     DialogResult dlgConfirmation = MessageBox.Show("Are you sure you want to view charts for selected cycle ?", "Information Message", MessageBoxButtons.YesNo);
                     if (dlgConfirmation == DialogResult.Yes)
                     {
-                        gridselect = dgvCycleDetails.Rows[e.RowIndex];
-                        BindParamCycleProfile(dgvCycleDetails.Rows[e.RowIndex]);
+                        selectedRow = dgvCycleDetails.Rows[e.RowIndex];
+                        BindParamCycleProfile(selectedRow);
                     }
                 }
                 else
@@ -251,7 +272,7 @@ namespace MachineConnectOEM
                 if (!string.IsNullOrEmpty(MachineID))
                 {
                     cycleProfileData = DatabaseAccess.GetCycleProfileData(MachineID, cycleStart, cycleEnd);
-                   
+
                     if (cycleProfileData != null && cycleProfileData.Count > 0)
                     {
                         string selectedParam = cmbParameter.SelectedItem != null ? cmbParameter.Text : "";
@@ -280,12 +301,12 @@ namespace MachineConnectOEM
                             setchartfirstvalues("C-Axis Speed");
                             PlotCycleProfileChart(chartViewer6, "Feed Rate");
                             setchartfirstvalues("Feed Rate");
-                            winChartViewer_MouseEnter(null, EventArgs.Empty, chartViewer1);
-                            winChartViewer_MouseEnter(null, EventArgs.Empty, chartViewer2);
-                            winChartViewer_MouseEnter(null, EventArgs.Empty, chartViewer3);
-                            winChartViewer_MouseEnter(null, EventArgs.Empty, chartViewer5);
-                            winChartViewer_MouseEnter(null, EventArgs.Empty, chartViewer5);
-                            winChartViewer_MouseEnter(null, EventArgs.Empty, chartViewer6);
+                            chartViewer1.MouseEnter += (sender, e) => winChartViewer_MouseEnter(sender, EventArgs.Empty, chartViewer1, "Work Head Temperature");
+                            chartViewer2.MouseEnter += (sender, e) => winChartViewer_MouseEnter(sender, EventArgs.Empty, chartViewer2, "X-Axis Load");
+                            chartViewer3.MouseEnter += (sender, e) => winChartViewer_MouseEnter(sender, EventArgs.Empty, chartViewer3, "Z-Axis Load");
+                            chartViewer4.MouseEnter += (sender, e) => winChartViewer_MouseEnter(sender, EventArgs.Empty, chartViewer4, "C-Axis Load");
+                            chartViewer5.MouseEnter += (sender, e) => winChartViewer_MouseEnter(sender, EventArgs.Empty, chartViewer5, "C-Axis Speed");
+                            chartViewer6.MouseEnter += (sender, e) => winChartViewer_MouseEnter(sender, EventArgs.Empty, chartViewer6, "Feed Rate");
                         }
                         else
                         {
@@ -301,7 +322,7 @@ namespace MachineConnectOEM
                             tableLayoutPanelCharts.RowStyles[4].Height = 0;
                             tableLayoutPanelCharts.RowStyles[5].Height = 0;
                             PlotCycleProfileChart(chartViewer1, selectedParam);
-                            winChartViewer_MouseEnter(null, EventArgs.Empty, chartViewer1);
+                            chartViewer1.MouseEnter += (sender, e) => winChartViewer_MouseEnter(sender, EventArgs.Empty, chartViewer1, selectedParam);
                         }
                     }
                 }
@@ -368,7 +389,7 @@ namespace MachineConnectOEM
                     }
                 }
 
-                DateTime viewPortStartDate = minDate.AddSeconds(Math.Round(winChartViewer.ViewPortLeft * dateRange)); 
+                DateTime viewPortStartDate = minDate.AddSeconds(Math.Round(winChartViewer.ViewPortLeft * dateRange));
                 DateTime viewPortEndDate = viewPortStartDate.AddSeconds(Math.Round(winChartViewer.ViewPortWidth * dateRange));
                 //DateTime viewPortStartDate = minDate;
                 //DateTime viewPortEndDate = timeStamps[timeStamps.Length-1];
@@ -381,10 +402,10 @@ namespace MachineConnectOEM
                 double[] viewPortDataSeries = new double[noOfPoints];
                 Array.Copy(timeStamps, startIndex, viewPortTimeStamps, 0, noOfPoints);
                 Array.Copy(dataSeries, startIndex, viewPortDataSeries, 0, noOfPoints);
-                
+
                 XYChart c;
                 winChartViewer.Location = new Point(5, 25);
-               
+
                 c = new XYChart(tableLayoutPanelMain.Width, (int)tableLayoutPanelCharts.RowStyles[0].Height);
                 c.addTitle(parameter, "Segoe UI Bold", 12, 0x2A58A3).setBackground(0xFFFFFF, 0xFFFFFF);
                 c.setBackground(Chart.metalColor(0xFFFFFF), 0xFFFFFF);
@@ -685,7 +706,7 @@ namespace MachineConnectOEM
                     }
                 }
                 winChartViewer.Chart = c;
-               
+
             }
             catch (Exception ex)
             {
@@ -727,16 +748,16 @@ namespace MachineConnectOEM
             return YAxisTitle;
         }
 
-        private void winChartViewer_MouseEnter(object sender, EventArgs e, WinChartViewer winChartViewer)
+        private void winChartViewer_MouseEnter(object sender, EventArgs e, WinChartViewer winChartViewer, string param = "Feed Rate")
         {
-            GetToolTipInformation(winChartViewer, "%");
+            GetToolTipInformation(winChartViewer, RPM.GetUnitType(param));
         }
 
         private void GetToolTipInformation(WinChartViewer viewer, string type)
         {
             try
             {
-                if (viewer.ImageMap == null)
+                if (viewer != null)
                 {
                     var tooltip = "title='{dataSetName}: {value|2} " + type + "'";
                     if (viewer.Chart != null)
@@ -751,41 +772,15 @@ namespace MachineConnectOEM
 
         private void chkShowMarkers_CheckedChanged(object sender, EventArgs e)
         {
-            try
-            {
-                List<WinChartViewer> chartControlsList = tableLayoutPanelCharts.Controls.OfType<WinChartViewer>().Where(x => x.Visible).ToList();
-                if (chartControlsList != null && chartControlsList.Count > 0)
-                {
-                    string selectedParam = cmbParameter.SelectedItem != null ? cmbParameter.Text : "";
-                    if (chartControlsList.Count > 1)
-                    {
-                        PlotCycleProfileChart(chartViewer1, "Work Head Temperature");
-                        PlotCycleProfileChart(chartViewer2, "X-Axis Load");
-                        PlotCycleProfileChart(chartViewer3, "Z-Axis Load");
-                        PlotCycleProfileChart(chartViewer4, "C-Axis Load");
-                        PlotCycleProfileChart(chartViewer5, "C-Axis Speed");
-                        PlotCycleProfileChart(chartViewer6, "Feed Rate");
-                        winChartViewer_MouseEnter(null, EventArgs.Empty, chartViewer1);
-                        winChartViewer_MouseEnter(null, EventArgs.Empty, chartViewer2);
-                        winChartViewer_MouseEnter(null, EventArgs.Empty, chartViewer3);
-                        winChartViewer_MouseEnter(null, EventArgs.Empty, chartViewer5);
-                        winChartViewer_MouseEnter(null, EventArgs.Empty, chartViewer5);
-                        winChartViewer_MouseEnter(null, EventArgs.Empty, chartViewer6);
-                    }
-                    else
-                    {
-                        PlotCycleProfileChart(chartViewer1, selectedParam);
-                        winChartViewer_MouseEnter(null, EventArgs.Empty, chartViewer1);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            ShowHideMarkersAndValues();
         }
 
         private void chkShowValues_CheckedChanged(object sender, EventArgs e)
+        {
+            ShowHideMarkersAndValues();
+        }
+
+        private void ShowHideMarkersAndValues()
         {
             try
             {
@@ -801,17 +796,10 @@ namespace MachineConnectOEM
                         PlotCycleProfileChart(chartViewer4, "C-Axis Load");
                         PlotCycleProfileChart(chartViewer5, "C-Axis Speed");
                         PlotCycleProfileChart(chartViewer6, "Feed Rate");
-                        winChartViewer_MouseEnter(null, EventArgs.Empty, chartViewer1);
-                        winChartViewer_MouseEnter(null, EventArgs.Empty, chartViewer2);
-                        winChartViewer_MouseEnter(null, EventArgs.Empty, chartViewer3);
-                        winChartViewer_MouseEnter(null, EventArgs.Empty, chartViewer5);
-                        winChartViewer_MouseEnter(null, EventArgs.Empty, chartViewer5);
-                        winChartViewer_MouseEnter(null, EventArgs.Empty, chartViewer6);
                     }
                     else
                     {
                         PlotCycleProfileChart(chartViewer1, selectedParam);
-                        winChartViewer_MouseEnter(null, EventArgs.Empty, chartViewer1);
                     }
                 }
             }
@@ -1157,24 +1145,17 @@ namespace MachineConnectOEM
 
         private void hScrollBar1_ValueChanged(object sender, EventArgs e)
         {
-            chartViewer1.ViewPortLeft = ((double)(hScrollBar1.Value - hScrollBar1.Minimum))
-                 / (hScrollBar1.Maximum - hScrollBar1.Minimum);
+            chartViewer1.ViewPortLeft = ((double)(hScrollBar1.Value - hScrollBar1.Minimum)) / (hScrollBar1.Maximum - hScrollBar1.Minimum);
             chartViewer1.updateViewPort(true, false);
-            chartViewer2.ViewPortLeft = ((double)(hScrollBar1.Value - hScrollBar1.Minimum))
-                 / (hScrollBar1.Maximum - hScrollBar1.Minimum);
+            chartViewer2.ViewPortLeft = ((double)(hScrollBar1.Value - hScrollBar1.Minimum)) / (hScrollBar1.Maximum - hScrollBar1.Minimum);
             chartViewer2.updateViewPort(true, false);
-
-            chartViewer3.ViewPortLeft = ((double)(hScrollBar1.Value - hScrollBar1.Minimum))
-               / (hScrollBar1.Maximum - hScrollBar1.Minimum);
+            chartViewer3.ViewPortLeft = ((double)(hScrollBar1.Value - hScrollBar1.Minimum)) / (hScrollBar1.Maximum - hScrollBar1.Minimum);
             chartViewer3.updateViewPort(true, false);
-            chartViewer4.ViewPortLeft = ((double)(hScrollBar1.Value - hScrollBar1.Minimum))
-                 / (hScrollBar1.Maximum - hScrollBar1.Minimum);
+            chartViewer4.ViewPortLeft = ((double)(hScrollBar1.Value - hScrollBar1.Minimum)) / (hScrollBar1.Maximum - hScrollBar1.Minimum);
             chartViewer4.updateViewPort(true, false);
-            chartViewer5.ViewPortLeft = ((double)(hScrollBar1.Value - hScrollBar1.Minimum))
-               / (hScrollBar1.Maximum - hScrollBar1.Minimum);
+            chartViewer5.ViewPortLeft = ((double)(hScrollBar1.Value - hScrollBar1.Minimum)) / (hScrollBar1.Maximum - hScrollBar1.Minimum);
             chartViewer5.updateViewPort(true, false);
-            chartViewer6.ViewPortLeft = ((double)(hScrollBar1.Value - hScrollBar1.Minimum))
-                 / (hScrollBar1.Maximum - hScrollBar1.Minimum);
+            chartViewer6.ViewPortLeft = ((double)(hScrollBar1.Value - hScrollBar1.Minimum)) / (hScrollBar1.Maximum - hScrollBar1.Minimum);
             chartViewer6.updateViewPort(true, false);
         }
 
@@ -1183,13 +1164,10 @@ namespace MachineConnectOEM
             WinChartViewer winChartViewer1 = sender as WinChartViewer;
             currentDuration = Math.Round(winChartViewer1.ViewPortWidth * dateRange);
             hScrollBar1.Enabled = winChartViewer1.ViewPortWidth < 1;
-            hScrollBar1.LargeChange = (int)Math.Ceiling(winChartViewer1.ViewPortWidth *
-                (hScrollBar1.Maximum - hScrollBar1.Minimum));
+            hScrollBar1.LargeChange = (int)Math.Ceiling(winChartViewer1.ViewPortWidth * (hScrollBar1.Maximum - hScrollBar1.Minimum));
             hScrollBar1.SmallChange = (int)Math.Ceiling(hScrollBar1.LargeChange * 0.1);
-            //hasFinishedInitialization = false;
-            hScrollBar1.Value = (int)Math.Round(winChartViewer1.ViewPortLeft *
-                (hScrollBar1.Maximum - hScrollBar1.Minimum)) + hScrollBar1.Minimum;
-            switch(winChartViewer1.Name)
+            hScrollBar1.Value = (int)Math.Round(winChartViewer1.ViewPortLeft * (hScrollBar1.Maximum - hScrollBar1.Minimum)) + hScrollBar1.Minimum;
+            switch (winChartViewer1.Name)
             {
                 case "chartViewer1":
                     PlotCycleProfileChart(chartViewer1, "Work Head Temperature");
@@ -1210,13 +1188,13 @@ namespace MachineConnectOEM
                     PlotCycleProfileChart(chartViewer6, "Feed Rate");
                     break;
             }
-            //PlotCycleProfileChart(winChartViewer1);
         }
 
         private void cmbInterval_SelectedIndexChanged(object sender, EventArgs e)
         {
             currentDuration = Convert.ToInt32(cmbInterval.SelectedItem.ToString());
-            BindParamCycleProfile(gridselect);
+            if (selectedRow != null && selectedRow.Cells.Count > 1)
+                BindParamCycleProfile(selectedRow);
         }
     }
 }

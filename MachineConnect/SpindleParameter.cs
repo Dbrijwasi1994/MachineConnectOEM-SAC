@@ -1260,16 +1260,20 @@ namespace MachineConnectApplication
             this.Cursor = Cursors.Default;
         }
 
-        private string GetUnitType(string parameter)
+        public static string GetUnitType(string parameter)
         {
             string UnitType;
-            if (parameter.Equals("Temperature", StringComparison.OrdinalIgnoreCase))
+            if (parameter.Contains("Temperature"))
             {
                 UnitType = "°C";
             }
-            else if (parameter.Equals("Load", StringComparison.OrdinalIgnoreCase))
+            else if (parameter.Contains("Load"))
             {
                 UnitType = "KW";
+            }
+            else if (parameter.Contains("Speed"))
+            {
+                UnitType = "RPM";
             }
             else
             {
