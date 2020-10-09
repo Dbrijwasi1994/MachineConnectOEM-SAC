@@ -54,6 +54,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pnlContainer = new System.Windows.Forms.Panel();
+            this.btnView = new System.Windows.Forms.Button();
             this.mainTbl.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.winChartViewer3)).BeginInit();
@@ -230,15 +231,16 @@
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.BackColor = System.Drawing.Color.White;
-            this.tableLayoutPanel1.ColumnCount = 9;
+            this.tableLayoutPanel1.ColumnCount = 10;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 190F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 110F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 76F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 104F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65F));
             this.tableLayoutPanel1.Controls.Add(this.btnCycleProfile, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.cmbDuration, 8, 0);
@@ -249,6 +251,7 @@
             this.tableLayoutPanel1.Controls.Add(this.lblScrollRange, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.dtpStartDate, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnView, 9, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -286,7 +289,7 @@
             this.cmbDuration.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDuration.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbDuration.FormattingEnabled = true;
-            this.cmbDuration.Location = new System.Drawing.Point(1442, 3);
+            this.cmbDuration.Location = new System.Drawing.Point(1377, 3);
             this.cmbDuration.Name = "cmbDuration";
             this.cmbDuration.Size = new System.Drawing.Size(59, 25);
             this.cmbDuration.TabIndex = 16;
@@ -302,7 +305,7 @@
             "Hour",
             "Minute",
             "Seconds"});
-            this.cmbDurationType.Location = new System.Drawing.Point(1338, 3);
+            this.cmbDurationType.Location = new System.Drawing.Point(1273, 3);
             this.cmbDurationType.Name = "cmbDurationType";
             this.cmbDurationType.Size = new System.Drawing.Size(98, 25);
             this.cmbDurationType.TabIndex = 15;
@@ -315,7 +318,7 @@
             this.label1.BackColor = System.Drawing.Color.White;
             this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.label1.Location = new System.Drawing.Point(1262, 5);
+            this.label1.Location = new System.Drawing.Point(1197, 5);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(70, 20);
             this.label1.TabIndex = 17;
@@ -329,7 +332,7 @@
             this.lblParameter.BackColor = System.Drawing.Color.White;
             this.lblParameter.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblParameter.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.lblParameter.Location = new System.Drawing.Point(1052, 5);
+            this.lblParameter.Location = new System.Drawing.Point(987, 5);
             this.lblParameter.Name = "lblParameter";
             this.lblParameter.Size = new System.Drawing.Size(80, 20);
             this.lblParameter.TabIndex = 18;
@@ -346,7 +349,7 @@
             "Temperature",
             "Load",
             "FeedRate"});
-            this.cmbParameter.Location = new System.Drawing.Point(1142, 3);
+            this.cmbParameter.Location = new System.Drawing.Point(1077, 3);
             this.cmbParameter.Name = "cmbParameter";
             this.cmbParameter.Size = new System.Drawing.Size(114, 25);
             this.cmbParameter.TabIndex = 19;
@@ -359,7 +362,7 @@
             this.lblScrollRange.BackColor = System.Drawing.Color.White;
             this.lblScrollRange.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblScrollRange.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.lblScrollRange.Location = new System.Drawing.Point(495, 5);
+            this.lblScrollRange.Location = new System.Drawing.Point(443, 5);
             this.lblScrollRange.Name = "lblScrollRange";
             this.lblScrollRange.Size = new System.Drawing.Size(48, 20);
             this.lblScrollRange.TabIndex = 16;
@@ -369,12 +372,13 @@
             // dtpStartDate
             // 
             this.dtpStartDate.CalendarFont = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpStartDate.CustomFormat = "dd-MM-yyyy HH:mm";
             this.dtpStartDate.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dtpStartDate.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpStartDate.Location = new System.Drawing.Point(942, 3);
+            this.dtpStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpStartDate.Location = new System.Drawing.Point(837, 3);
             this.dtpStartDate.Name = "dtpStartDate";
-            this.dtpStartDate.Size = new System.Drawing.Size(104, 25);
+            this.dtpStartDate.Size = new System.Drawing.Size(144, 25);
             this.dtpStartDate.TabIndex = 61;
             // 
             // label2
@@ -383,7 +387,7 @@
             this.label2.BackColor = System.Drawing.Color.White;
             this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.label2.Location = new System.Drawing.Point(852, 5);
+            this.label2.Location = new System.Drawing.Point(747, 5);
             this.label2.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(81, 20);
@@ -403,6 +407,19 @@
             this.pnlContainer.Name = "pnlContainer";
             this.pnlContainer.Size = new System.Drawing.Size(1504, 704);
             this.pnlContainer.TabIndex = 15;
+            // 
+            // btnView
+            // 
+            this.btnView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnView.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnView.Location = new System.Drawing.Point(1441, 2);
+            this.btnView.Margin = new System.Windows.Forms.Padding(2);
+            this.btnView.Name = "btnView";
+            this.btnView.Size = new System.Drawing.Size(61, 27);
+            this.btnView.TabIndex = 62;
+            this.btnView.Text = "View";
+            this.btnView.UseVisualStyleBackColor = true;
+            this.btnView.Click += new System.EventHandler(this.btnView_Click);
             // 
             // RPM
             // 
@@ -456,5 +473,6 @@
         private System.Windows.Forms.Button btnCycleProfile;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dtpStartDate;
+        private System.Windows.Forms.Button btnView;
     }
 }

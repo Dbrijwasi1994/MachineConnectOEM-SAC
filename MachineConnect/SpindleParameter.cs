@@ -29,6 +29,9 @@ namespace MachineConnectApplication
     {
         int flag;
         private DateTime[] timeStamps;
+        private DateTime[] timeStampsA;
+        private DateTime[] timeStampsB;
+        private DateTime[] timeStampsC;
         private double[] dataSeriesA;
         private double maxLoad = 0.0;
         private double[] dataSeriesB;
@@ -36,7 +39,13 @@ namespace MachineConnectApplication
         private double[] dataSeriesC;
         private double maxTemp = 0.0;
         private DateTime minDate;
+        private DateTime minDateA;
+        private DateTime minDateB;
+        private DateTime minDateC;
         private double dateRange;
+        private double dateRangeA;
+        private double dateRangeB;
+        private double dateRangeC;
         private double maxValue = 0;
         private double minValue = 0;
         public ProcessDoc userControl = null;
@@ -48,7 +57,7 @@ namespace MachineConnectApplication
         string chart2Title = string.Empty;
         string chart3Title = string.Empty;
         string MTB = "ACE";
-
+        DataTable parameterData = null;
 
         public RPM()
         {
@@ -96,77 +105,154 @@ namespace MachineConnectApplication
 
             currentDuration = lastDate.Subtract(firstDate.AddHours(-8)).TotalSeconds;
             DataTable dt = new DataTable();
-            List<SpindleData> valz = null;
-            if (Convert.ToDateTime(MainScreen.CURRENT_DATE_TIME).ToString("yyyy-MM-dd") != (DatabaseAccess.GetShiftStartEndTimeForDay(1, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))).ToString("yyyy-MM-dd"))
+            dt = CheckData();
+            if (dt != null && dt.Rows.Count > 0)
             {
-                byte[] byteArray = DatabaseAccess.PreviousDatesSpindleLoadTemp(HomeScreen.selectedMachine, MainScreen.CURRENT_DATE_TIME, "X");
-                if (byteArray != null)
+                parameterData = dt.Copy();
+                if (cmbParameter.SelectedItem.ToString() == "Temperature")
                 {
-                    valz = DeSerialize(Decompress(byteArray));
-                }
-                if (valz == null || valz.Count == 0)
-                {
-                    dt = CheckData();
-                    timeStamps = new DateTime[dt.Rows.Count];
-                    dataSeriesA = new double[dt.Rows.Count];
-                    dataSeriesB = new double[dt.Rows.Count];
-                    dataSeriesC = new double[dt.Rows.Count];
-
-                    for (int i = 0; i < dt.Rows.Count; i++)
+                    DataTable dtXAxisTemperature = dt.AsEnumerable().Where(x => x.Field<string>("ParameterID").Equals("X-AxisTemp")).CopyToDataTable();
+                    DataTable dtZAxisTemperature = dt.AsEnumerable().Where(x => x.Field<string>("ParameterID").Equals("Z-AxisTemp")).CopyToDataTable();
+                    DataTable dtCAxisTemperature = dt.AsEnumerable().Where(x => x.Field<string>("ParameterID").Equals("C-AxisTemp")).CopyToDataTable();
+                    if (dtXAxisTemperature != null && dtXAxisTemperature.Rows.Count > 0)
                     {
-                        timeStamps.SetValue(Convert.ToDateTime(dt.Rows[i]["CNCTimeStamp"]), i);
-                        dataSeriesA.SetValue(Convert.ToDouble(dt.Rows[i]["SpindleLoad"].ToString()), i);
-                        dataSeriesB.SetValue(Convert.ToDouble(dt.Rows[i]["SpindleSpeed"].ToString()), i);
-                        dataSeriesC.SetValue(Convert.ToDouble(dt.Rows[i]["Temperature"].ToString()), i);
+                        timeStampsA = new DateTime[dtXAxisTemperature.Rows.Count];
+                        dataSeriesA = new double[dtXAxisTemperature.Rows.Count];
+                        for (int i = 0; i < dtXAxisTemperature.Rows.Count; i++)
+                        {
+                            timeStampsA.SetValue(Convert.ToDateTime(dtXAxisTemperature.Rows[i]["UpdatedtimeStamp"]), i);
+                            dataSeriesA.SetValue(Convert.ToDouble(dtXAxisTemperature.Rows[i]["ParameterValue"].ToString()), i);
+                        }
                     }
-
-                    //CustomDialogBox cmb = new CustomDialogBox("Information Message","No Data Found for the selected date");
-                    //cmb.ShowDialog();
-                }
-                else
-                {
-                    //DeserailizeByteArrayToDataTable(dataTbl);
-                    //var valz =  DeSerialize(Decompress(byteArray));
-                    if (valz != null && valz.Count > 0)
+                    else
                     {
-                        try
+                        timeStampsA = new DateTime[1] { dtpStartDate.Value };
+                        dataSeriesA = new double[1] { 0.0 };
+                    }
+                    if (dtZAxisTemperature != null && dtZAxisTemperature.Rows.Count > 0)
+                    {
+                        timeStampsB = new DateTime[dtZAxisTemperature.Rows.Count];
+                        dataSeriesB = new double[dtZAxisTemperature.Rows.Count];
+                        for (int i = 0; i < dtZAxisTemperature.Rows.Count; i++)
                         {
-                            timeStamps = new DateTime[valz.Count];
-                            dataSeriesA = new double[valz.Count];
-                            dataSeriesB = new double[valz.Count];
-                            dataSeriesC = new double[valz.Count];
-
-                            for (int i = 0; i < valz.Count; i++)
-                            {
-                                timeStamps.SetValue((valz[i].ts), i);
-                                dataSeriesA.SetValue(valz[i].sl, i);
-                                dataSeriesB.SetValue((valz[i].ss), i);
-                                dataSeriesC.SetValue((valz[i].st), i);
-                            }
+                            timeStampsB.SetValue(Convert.ToDateTime(dtXAxisTemperature.Rows[i]["UpdatedtimeStamp"]), i);
+                            dataSeriesB.SetValue(Convert.ToDouble(dtXAxisTemperature.Rows[i]["ParameterValue"].ToString()), i);
                         }
-                        catch (Exception ex)
+                    }
+                    else
+                    {
+                        timeStampsB = new DateTime[1] { dtpStartDate.Value };
+                        dataSeriesB = new double[1] { 0.0 };
+                    }
+                    if (dtCAxisTemperature != null && dtCAxisTemperature.Rows.Count > 0)
+                    {
+                        timeStampsC = new DateTime[dtCAxisTemperature.Rows.Count];
+                        dataSeriesC = new double[dtCAxisTemperature.Rows.Count];
+                        for (int i = 0; i < dtCAxisTemperature.Rows.Count; i++)
                         {
-                            Logger.WriteErrorLog(ex.ToString());
+                            timeStampsC.SetValue(Convert.ToDateTime(dtCAxisTemperature.Rows[i]["UpdatedtimeStamp"]), i);
+                            dataSeriesC.SetValue(Convert.ToDouble(dtCAxisTemperature.Rows[i]["ParameterValue"].ToString()), i);
                         }
+                    }
+                    else
+                    {
+                        timeStampsC = new DateTime[1] { dtpStartDate.Value };
+                        dataSeriesC = new double[1] { 0.0 };
+                    }
+                }
+                if (cmbParameter.SelectedItem.ToString() == "Load")
+                {
+                    DataTable dtXAxisLoad = dt.AsEnumerable().Where(x => x.Field<string>("ParameterID").Equals("X-AxisLoad")).CopyToDataTable();
+                    DataTable dtZAxisLoad = dt.AsEnumerable().Where(x => x.Field<string>("ParameterID").Equals("Z-AxisLoad")).CopyToDataTable();
+                    DataTable dtCAxisLoad = dt.AsEnumerable().Where(x => x.Field<string>("ParameterID").Equals("C-AxisLoad")).CopyToDataTable();
+                    if (dtXAxisLoad != null && dtXAxisLoad.Rows.Count > 0)
+                    {
+                        timeStampsA = new DateTime[dtXAxisLoad.Rows.Count];
+                        dataSeriesA = new double[dtXAxisLoad.Rows.Count];
+                        for (int i = 0; i < dtXAxisLoad.Rows.Count; i++)
+                        {
+                            timeStampsA.SetValue(Convert.ToDateTime(dtXAxisLoad.Rows[i]["UpdatedtimeStamp"]), i);
+                            dataSeriesA.SetValue(Convert.ToDouble(dtXAxisLoad.Rows[i]["ParameterValue"].ToString()), i);
+                        }
+                    }
+                    else
+                    {
+                        timeStampsA = new DateTime[1] { dtpStartDate.Value };
+                        dataSeriesA = new double[1] { 0.0 };
+                    }
+                    if (dtZAxisLoad != null && dtZAxisLoad.Rows.Count > 0)
+                    {
+                        timeStampsB = new DateTime[dtZAxisLoad.Rows.Count];
+                        dataSeriesB = new double[dtZAxisLoad.Rows.Count];
+                        for (int i = 0; i < dtZAxisLoad.Rows.Count; i++)
+                        {
+                            timeStampsB.SetValue(Convert.ToDateTime(dtZAxisLoad.Rows[i]["UpdatedtimeStamp"]), i);
+                            dataSeriesB.SetValue(Convert.ToDouble(dtZAxisLoad.Rows[i]["ParameterValue"].ToString()), i);
+                        }
+                    }
+                    else
+                    {
+                        timeStampsB = new DateTime[1] { dtpStartDate.Value };
+                        dataSeriesB = new double[1] { 0.0 };
+                    }
+                    if (dtCAxisLoad != null && dtCAxisLoad.Rows.Count > 0)
+                    {
+                        timeStampsC = new DateTime[dtCAxisLoad.Rows.Count];
+                        dataSeriesC = new double[dtCAxisLoad.Rows.Count];
+                        for (int i = 0; i < dtCAxisLoad.Rows.Count; i++)
+                        {
+                            timeStampsC.SetValue(Convert.ToDateTime(dtCAxisLoad.Rows[i]["UpdatedtimeStamp"]), i);
+                            dataSeriesC.SetValue(Convert.ToDouble(dtCAxisLoad.Rows[i]["ParameterValue"].ToString()), i);
+                        }
+                    }
+                    else
+                    {
+                        timeStampsC = new DateTime[1] { dtpStartDate.Value };
+                        dataSeriesC = new double[1] { 0.0 };
+                    }
+                }
+                if (cmbParameter.SelectedItem.ToString() == "FeedRate")
+                {
+                    DataTable dtFeedRate = dt.AsEnumerable().Where(x => x.Field<string>("ParameterID").Equals("FeedRate")).CopyToDataTable();
+                    if (dtFeedRate != null && dtFeedRate.Rows.Count > 0)
+                    {
+                        timeStampsA = new DateTime[dtFeedRate.Rows.Count];
+                        dataSeriesA = new double[dtFeedRate.Rows.Count];
+                        for (int i = 0; i < dtFeedRate.Rows.Count; i++)
+                        {
+                            timeStampsA.SetValue(Convert.ToDateTime(dtFeedRate.Rows[i]["UpdatedtimeStamp"]), i);
+                            dataSeriesA.SetValue(Convert.ToDouble(dtFeedRate.Rows[i]["ParameterValue"].ToString()), i);
+                        }
+                    }
+                    else
+                    {
+                        timeStampsA = new DateTime[1] { dtpStartDate.Value };
+                        dataSeriesA = new double[1] { 0.0 };
                     }
                 }
             }
             else
             {
-                dt = CheckData();
-                timeStamps = new DateTime[dt.Rows.Count];
-                dataSeriesA = new double[dt.Rows.Count];
-                dataSeriesB = new double[dt.Rows.Count];
-                dataSeriesC = new double[dt.Rows.Count];
-
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    timeStamps.SetValue(Convert.ToDateTime(dt.Rows[i]["CNCTimeStamp"]), i);
-                    dataSeriesA.SetValue(Convert.ToDouble(dt.Rows[i]["SpindleLoad"].ToString()), i);
-                    dataSeriesB.SetValue(Convert.ToDouble(dt.Rows[i]["SpindleSpeed"].ToString()), i);
-                    dataSeriesC.SetValue(Convert.ToDouble(dt.Rows[i]["Temperature"].ToString()), i);
-                }
+                timeStampsA = new DateTime[1] { dtpStartDate.Value };
+                timeStampsB = new DateTime[1] { dtpStartDate.Value };
+                timeStampsC = new DateTime[1] { dtpStartDate.Value };
+                dataSeriesA = new double[1] { 0.0 };
+                dataSeriesB = new double[1] { 0.0 };
+                dataSeriesC = new double[1] { 0.0 };
             }
+
+            //timeStamps = new DateTime[dt.Rows.Count];
+            //dataSeriesA = new double[dt.Rows.Count];
+            //dataSeriesB = new double[dt.Rows.Count];
+            //dataSeriesC = new double[dt.Rows.Count];
+
+            //for (int i = 0; i < dt.Rows.Count; i++)
+            //{
+            //    timeStamps.SetValue(Convert.ToDateTime(dt.Rows[i]["CNCTimeStamp"]), i);
+            //    dataSeriesA.SetValue(Convert.ToDouble(dt.Rows[i]["SpindleLoad"].ToString()), i);
+            //    dataSeriesB.SetValue(Convert.ToDouble(dt.Rows[i]["SpindleSpeed"].ToString()), i);
+            //    dataSeriesC.SetValue(Convert.ToDouble(dt.Rows[i]["Temperature"].ToString()), i);
+            //}
 
             //currentDuration = Convert.ToInt32(cmbDuration.Text) * 60 * 60;         //DurationSettings.DurationSelected  
 
@@ -247,57 +333,57 @@ namespace MachineConnectApplication
             DateTime dataStarted = Convert.ToDateTime(MainScreen.CURRENT_DATE_TIME);//DateTime.Now;
             DateTime dataEnded = Convert.ToDateTime(MainScreen.CURRENT_DATE_TIME);// DateTime.Now;
             int lastDuration = 0;
-            fromDate = DatabaseAccess.GetShiftStartEndTimeForDay(1, dtpStartDate.Value.ToString("yyyy-MM-dd HH:mm:ss"));// DateTime.Now.AddHours(-24);
+            fromDate = DatabaseAccess.GetShiftStartEndTimeForDay(1, MainScreen.CURRENT_DATE_TIME);// DateTime.Now.AddHours(-24);
             toDate = Convert.ToDateTime(MainScreen.LOGICAL_DAY_END);//.AddHours(24);;//DateTime.Now;
-            DataTable dtSpindleData = DatabaseAccess.GetSpindleLoadSpeedTempData(HomeScreen.selectedMachine, fromDate, toDate);
             lastDuration = Convert.ToInt32(cmbDuration.Text.ToString()) * 60 * 60;
             int CompareDate = Convert.ToInt32((toDate.Ticks - fromDate.Ticks) / 10000000);
             if (lastDuration > CompareDate)
             {
                 lastDuration = CompareDate;
             }
+            DataTable dtSpindleData = DatabaseAccess.GetSpindleLoadSpeedTempData(HomeScreen.selectedMachine, fromDate, toDate);
 
-            DataTable dt = DatabaseAccess.GetSpindleLoadSpeedTemp(HomeScreen.selectedMachine, fromDate.ToString("yyyy-MM-dd HH:mm:ss"), toDate.ToString("yyyy-MM-dd HH:mm:ss"), "X");
+            //DataTable dt = DatabaseAccess.GetSpindleLoadSpeedTemp(HomeScreen.selectedMachine, fromDate.ToString("yyyy-MM-dd HH:mm:ss"), toDate.ToString("yyyy-MM-dd HH:mm:ss"), "X");
 
-            if (dt.Rows.Count > 1)
-            {
-                dataStarted = Convert.ToDateTime(dt.Rows[0]["CNCTimeStamp"].ToString());
-                dataEnded = Convert.ToDateTime(dt.Rows[dt.Rows.Count - 1]["CNCTimeStamp"].ToString());
-                if ((Convert.ToDateTime(MainScreen.CURRENT_DATE_TIME) - dataEnded).TotalMinutes > 1)
-                {
-                    //DataRow drnew = dt.NewRow();
-                    //drnew["SpindleLoad"] = "0.0";
-                    //drnew["SpindleSpeed"] = "0.0";
-                    //drnew["Temperature"] = "0.0";
-                    //drnew["CNCTimeStamp"] = dataEnded.AddSeconds(1);
-                    //dt.Rows.Add(drnew);
-                    //drnew = dt.NewRow();
-                    //drnew["SpindleLoad"] = "0.0";
-                    //drnew["SpindleSpeed"] = "0.0";
-                    //drnew["Temperature"] = "0.0";
-                    //drnew["CNCTimeStamp"] = toDate;
-                    //dt.Rows.Add(drnew);
-                }
-            }
-            else
-            {
-                dataEnded = Convert.ToDateTime(toDate);
-                dataStarted = Convert.ToDateTime(toDate).AddSeconds(-lastDuration);
-                DataRow dr1 = dt.NewRow();
-                dr1["SpindleLoad"] = "0.0";
-                dr1["SpindleSpeed"] = "0.0";
-                dr1["CNCTimeStamp"] = fromDate;
-                dr1["Temperature"] = "0.0";
-                dt.Rows.Add(dr1);
+            //if (dtSpindleData.Rows.Count > 1)
+            //{
+            //    dataStarted = Convert.ToDateTime(dtSpindleData.Rows[0]["UpdatedtimeStamp"].ToString());
+            //    dataEnded = Convert.ToDateTime(dtSpindleData.Rows[dtSpindleData.Rows.Count - 1]["UpdatedtimeStamp"].ToString());
+            //    if ((Convert.ToDateTime(MainScreen.CURRENT_DATE_TIME) - dataEnded).TotalMinutes > 1)
+            //    {
+            //        //DataRow drnew = dt.NewRow();
+            //        //drnew["SpindleLoad"] = "0.0";
+            //        //drnew["SpindleSpeed"] = "0.0";
+            //        //drnew["Temperature"] = "0.0";
+            //        //drnew["CNCTimeStamp"] = dataEnded.AddSeconds(1);
+            //        //dt.Rows.Add(drnew);
+            //        //drnew = dt.NewRow();
+            //        //drnew["SpindleLoad"] = "0.0";
+            //        //drnew["SpindleSpeed"] = "0.0";
+            //        //drnew["Temperature"] = "0.0";
+            //        //drnew["CNCTimeStamp"] = toDate;
+            //        //dt.Rows.Add(drnew);
+            //    }
+            //}
+            //else
+            //{
+            //    dataEnded = Convert.ToDateTime(toDate);
+            //    dataStarted = Convert.ToDateTime(toDate).AddSeconds(-lastDuration);
+            //    DataRow dr1 = dt.NewRow();
+            //    dr1["SpindleLoad"] = "0.0";
+            //    dr1["SpindleSpeed"] = "0.0";
+            //    dr1["CNCTimeStamp"] = fromDate;
+            //    dr1["Temperature"] = "0.0";
+            //    dt.Rows.Add(dr1);
 
-                DataRow drnew = dt.NewRow();
-                drnew["SpindleLoad"] = "0.0";
-                drnew["SpindleSpeed"] = "0.0";
-                drnew["Temperature"] = "0.0";
-                drnew["CNCTimeStamp"] = toDate;
-                dt.Rows.Add(drnew);
-            }
-            return dt;
+            //    DataRow drnew = dt.NewRow();
+            //    drnew["SpindleLoad"] = "0.0";
+            //    drnew["SpindleSpeed"] = "0.0";
+            //    drnew["Temperature"] = "0.0";
+            //    drnew["CNCTimeStamp"] = toDate;
+            //    dt.Rows.Add(drnew);
+            //}
+            return dtSpindleData;
         }
 
         private void BindDuration()
@@ -374,29 +460,29 @@ namespace MachineConnectApplication
                 SetChartTitles();
                 loadData();
                 setMaxLimitChart();
-                minDate = timeStamps[0];
-                dateRange = timeStamps[timeStamps.Length - 1].Subtract(minDate).TotalSeconds;
+                minDateA = timeStampsA[0];
+                dateRangeA = timeStampsA[timeStampsA.Length - 1].Subtract(minDateA).TotalSeconds;
+                minDateB = timeStampsB[0];
+                dateRangeB = timeStampsB[timeStampsB.Length - 1].Subtract(minDateB).TotalSeconds;
+                minDateC = timeStampsC[0];
+                dateRangeC = timeStampsC[timeStampsC.Length - 1].Subtract(minDateC).TotalSeconds;
 
                 hasFinishedInitialization = true;
-                winChartViewer1.ViewPortWidth = currentDuration / dateRange;
+                winChartViewer1.ViewPortWidth = currentDuration / dateRangeA;
                 winChartViewer1.ViewPortLeft = 1 - winChartViewer1.ViewPortWidth;
                 winChartViewer1.updateViewPort(true, true);
 
                 hasFinishedInitialization = true;
-                winChartViewer2.ViewPortWidth = currentDuration / dateRange;
+                winChartViewer2.ViewPortWidth = currentDuration / dateRangeB;
                 winChartViewer2.ViewPortLeft = 1 - winChartViewer2.ViewPortWidth;
                 winChartViewer2.updateViewPort(true, true);
 
                 hasFinishedInitialization = true;
-                winChartViewer3.ViewPortWidth = currentDuration / dateRange;
+                winChartViewer3.ViewPortWidth = currentDuration / dateRangeC;
                 winChartViewer3.ViewPortLeft = 1 - winChartViewer3.ViewPortWidth;
                 winChartViewer3.updateViewPort(true, true);
 
                 hasFinishedInitialization = true;
-
-                winChartViewer1_MouseEnter(null, EventArgs.Empty);
-                winChartViewer2_MouseEnter(null, EventArgs.Empty);
-
                 if (cmbParameter.SelectedItem.ToString() == "FeedRate")
                 {
                     winChartViewer2.Hide();
@@ -404,12 +490,19 @@ namespace MachineConnectApplication
                     pictureBoxSpindleLegend.Visible = false;
                     pictureBoxSpindleLegend1.Visible = false;
                 }
+                else
+                {
+                    winChartViewer2.Show();
+                    winChartViewer3.Show();
+                    winChartViewer2_MouseEnter(null, EventArgs.Empty);
+                    winChartViewer3_MouseEnter(null, EventArgs.Empty);
+                }
+                winChartViewer1_MouseEnter(null, EventArgs.Empty);
             }
             catch (Exception ex)
             {
                 Settings.WriteErrorMsg(ex.ToString());
             }
-
         }
 
         private DataTable GetChartMarkersData()
@@ -455,8 +548,7 @@ namespace MachineConnectApplication
 
         private void winChartViewer1_ViewPortChanged(object sender, WinViewPortEventArgs e)
         {
-            currentDuration = Math.Round(winChartViewer1.ViewPortWidth * dateRange);
-
+            currentDuration = Math.Round(winChartViewer1.ViewPortWidth * dateRangeA);
             hScrollBar1.Enabled = winChartViewer1.ViewPortWidth < 1;
             hScrollBar1.LargeChange = (int)Math.Ceiling(winChartViewer1.ViewPortWidth *
                 (hScrollBar1.Maximum - hScrollBar1.Minimum));
@@ -470,24 +562,21 @@ namespace MachineConnectApplication
                 MTB = DatabaseAccess.GetMTB(HomeScreen.selectedMachine);
                 if (MTB.Equals("MGTL", StringComparison.OrdinalIgnoreCase))
                 {
-                    DrawLoadSpeedTempChart(winChartViewer1, panel1.Width, panel1.Height, chart1Title, cmbParameter.SelectedItem.ToString() == "Spindle" ? " kW " : " % ", dataSeriesA, 0x0000FF);
+                    DrawLoadSpeedTempChart(winChartViewer1, panel1.Width, panel1.Height, chart1Title, cmbParameter.SelectedItem.ToString(), minDateA, dateRangeA, timeStampsA, dataSeriesA, 0x0000FF);
                 }
                 else
                 {
-                    DrawLoadSpeedTempChart(winChartViewer1, panel1.Width, panel1.Height, "Spindle Load", cmbParameter.SelectedItem.ToString() == "Spindle" ? " kW " : " % ", dataSeriesA, 0x0000FF);
+                    DrawLoadSpeedTempChart(winChartViewer1, panel1.Width, panel1.Height, "Spindle Load", cmbParameter.SelectedItem.ToString(), minDateA, dateRangeA, timeStampsA, dataSeriesA, 0x0000FF);
                 }
             }
-            //drawChart2(winChartViewer2);
             if (e.NeedUpdateImageMap)
-                GetToolTipInformation(winChartViewer1, "%");
-            // updateImageMap2(winChartViewer2);
-
+                GetToolTipInformation(winChartViewer1, GetUnitType(cmbParameter.SelectedItem.ToString()));
         }
 
         private void winChartViewer2_ViewPortChanged(object sender, WinViewPortEventArgs e)
         {
             //DateTime currentStartDate = minDate.AddSeconds(Math.Round(winChartViewer2.ViewPortLeft * dateRange));
-            currentDuration = Math.Round(winChartViewer1.ViewPortWidth * dateRange);
+            currentDuration = Math.Round(winChartViewer1.ViewPortWidth * dateRangeB);
             hScrollBar2.Enabled = winChartViewer2.ViewPortWidth < 1;
             hScrollBar2.LargeChange = (int)Math.Ceiling(winChartViewer2.ViewPortWidth *
                 (hScrollBar2.Maximum - hScrollBar2.Minimum));
@@ -501,22 +590,21 @@ namespace MachineConnectApplication
                 MTB = DatabaseAccess.GetMTB(HomeScreen.selectedMachine);
                 if (MTB.Equals("MGTL", StringComparison.OrdinalIgnoreCase))
                 {
-                    DrawLoadSpeedTempChart(winChartViewer2, panel2.Width, panel2.Height, chart2Title, " RPM ", dataSeriesB, 0x990000);
+                    DrawLoadSpeedTempChart(winChartViewer2, panel2.Width, panel2.Height, chart2Title, cmbParameter.SelectedItem.ToString(), minDateB, dateRangeB, timeStampsB, dataSeriesB, 0x990000);
                 }
                 else
                 {
-                    DrawLoadSpeedTempChart(winChartViewer2, panel2.Width, panel2.Height, "Spindle Speed", " RPM ", dataSeriesB, 0x990000);
+                    DrawLoadSpeedTempChart(winChartViewer2, panel2.Width, panel2.Height, "Spindle Speed", " RPM ", minDateB, dateRangeB, timeStampsB, dataSeriesB, 0x990000);
                 }
             }
             if (e.NeedUpdateImageMap)
-                GetToolTipInformation(winChartViewer2, "RPM");
-
+                GetToolTipInformation(winChartViewer2, GetUnitType(cmbParameter.SelectedItem.ToString()));
         }
 
         private void winChartViewer3_ViewPortChanged(object sender, WinViewPortEventArgs e)
         {
             //DateTime currentStartDate = minDate.AddSeconds(Math.Round(winChartViewer3.ViewPortLeft * dateRange));
-            currentDuration = Math.Round(winChartViewer1.ViewPortWidth * dateRange);
+            currentDuration = Math.Round(winChartViewer1.ViewPortWidth * dateRangeC);
 
             hScrollBar3.Enabled = winChartViewer3.ViewPortWidth < 1;
             hScrollBar3.LargeChange = (int)Math.Ceiling(winChartViewer3.ViewPortWidth *
@@ -531,15 +619,15 @@ namespace MachineConnectApplication
                 MTB = DatabaseAccess.GetMTB(HomeScreen.selectedMachine);
                 if (MTB.Equals("MGTL", StringComparison.OrdinalIgnoreCase))
                 {
-                    DrawLoadSpeedTempChart(winChartViewer3, panel3.Width, panel3.Height, chart3Title, " Celsius ", dataSeriesC, 0xFFC000);
+                    DrawLoadSpeedTempChart(winChartViewer3, panel3.Width, panel3.Height, chart3Title, cmbParameter.SelectedItem.ToString(), minDateC, dateRangeC, timeStampsC, dataSeriesC, 0xFFC000);
                 }
                 else
                 {
-                    DrawLoadSpeedTempChart(winChartViewer3, panel3.Width, panel3.Height, "Temperature", " Celsius ", dataSeriesC, 0xFFC000);
+                    DrawLoadSpeedTempChart(winChartViewer3, panel3.Width, panel3.Height, "Temperature", " Celsius ", minDateC, dateRangeC, timeStampsC, dataSeriesC, 0xFFC000);
                 }
             }
             if (e.NeedUpdateImageMap)
-                GetToolTipInformation(winChartViewer3, "Celsius");
+                GetToolTipInformation(winChartViewer3, GetUnitType(cmbParameter.SelectedItem.ToString()));
         }
 
         #endregion
@@ -548,17 +636,17 @@ namespace MachineConnectApplication
 
         private void winChartViewer1_MouseEnter(object sender, EventArgs e)
         {
-            GetToolTipInformation(winChartViewer1, "%");
+            GetToolTipInformation(winChartViewer1, GetUnitType(cmbParameter.SelectedItem.ToString()));
         }
 
         private void winChartViewer2_MouseEnter(object sender, EventArgs e)
         {
-            GetToolTipInformation(winChartViewer2, "RPM");
+            GetToolTipInformation(winChartViewer2, GetUnitType(cmbParameter.SelectedItem.ToString()));
         }
 
         private void winChartViewer3_MouseEnter(object sender, EventArgs e)
         {
-            GetToolTipInformation(winChartViewer3, "Celsius");
+            GetToolTipInformation(winChartViewer3, GetUnitType(cmbParameter.SelectedItem.ToString()));
         }
 
         #endregion
@@ -607,9 +695,11 @@ namespace MachineConnectApplication
             {
                 try
                 {
-                    var tooltip = "title='{dataSetName}: {value|2} " + type + "'";
-                    if (viewer != null && viewer.Chart != null)
+                    if (viewer.Chart != null)
+                    {
+                        var tooltip = "title='{dataSetName}: {value|2} " + type + "'";
                         viewer.ImageMap = viewer.Chart.getHTMLImageMap("clickable", "", tooltip);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -623,6 +713,7 @@ namespace MachineConnectApplication
         {
             MTB = DatabaseAccess.GetMTB(HomeScreen.selectedMachine);
             cmbParameter.SelectedIndex = 0;
+            dtpStartDate.Value = DatabaseAccess.GetShiftStartEndTimeForDay(1, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             cmbDurationType.SelectedIndex = Settings.CmbDurationTypeSelectedIndex;
             BindDuration();
             currentDurationSelected = cmbDuration.Text;
@@ -677,13 +768,14 @@ namespace MachineConnectApplication
             this.Cursor = Cursors.Default;
         }
 
-        private void DrawLoadSpeedTempChart(WinChartViewer viewer, int width, int height, string chartTitle, string yAxisLabel, double[] dataSeries, int seriesColor)
+        private void DrawLoadSpeedTempChart(WinChartViewer viewer, int width, int height, string chartTitle, string yAxisLabel, DateTime minDate, double dateRange, DateTime[] timeStamps, double[] dataSeries, int seriesColor)
         {
             DateTime viewPortStartDate = minDate.AddSeconds(Math.Round(viewer.ViewPortLeft * dateRange));
             DateTime viewPortEndDate = viewPortStartDate.AddSeconds(Math.Round(viewer.ViewPortWidth * dateRange));
-
+            if (yAxisLabel.Equals("Temperature")) yAxisLabel = "Temperature (°C)";
+            else if (yAxisLabel.Equals("Load")) yAxisLabel = "Load (KW)";
+            else yAxisLabel = "Feed Rate (MPM)";
             int startIndex = Array.BinarySearch(timeStamps, viewPortStartDate);
-
             if (startIndex < 0) startIndex = (~startIndex) - 1;
 
             int endIndex = Array.BinarySearch(timeStamps, viewPortEndDate);
@@ -745,7 +837,6 @@ namespace MachineConnectApplication
             }
 
             #region
-
             c.xAxis().setDateScale(viewPortStartDate, viewPortEndDate);
             c.xAxis().setFormatCondition("align", 360 * 86400);
             c.xAxis().setLabelFormat("{value|yyyy}");
@@ -769,59 +860,12 @@ namespace MachineConnectApplication
 
             //c.yAxis().setLinearScale(axisLowerLimit, axisUpperLimit);
             c.yAxis().setRounding(false, false);
-
-            DataTable dt = GetChartMarkersData();
-            if (dt != null && dt.Rows.Count > 0)
+            if (parameterData != null && parameterData.Rows.Count > 0)
             {
-                foreach (DataRow dr in dt.Rows)
+                PlotCycleStartEndMarkers(parameterData, c);
+                if (chartTitle.Contains("Feed"))
                 {
-                    if (dr["OperationType"].ToString().Equals("Dressing", StringComparison.OrdinalIgnoreCase))
-                    {
-                        if (!string.IsNullOrEmpty(dr["cyclestart"].ToString()) && !string.IsNullOrEmpty(dr["cycleend"].ToString()))
-                        {
-                            Mark markCycleStartTime = c.xAxis2().addMark(Chart.CTime(Convert.ToDateTime(dr["cyclestart"])), 0x8000, "Start", "Arial", 7);
-                            markCycleStartTime.setLineWidth(2);
-                            markCycleStartTime.setFontAngle(90);
-                            markCycleStartTime.setAlignment(Chart.TopRight2); // right
-
-                            Mark markCycleEndTime = c.xAxis2().addMark(Chart.CTime(Convert.ToDateTime(dr["cycleend"])), 0x8000, "End", "Arial", 7);
-                            markCycleEndTime.setLineWidth(2);
-                            markCycleEndTime.setFontAngle(90);
-                            markCycleEndTime.setAlignment(Chart.BottomRight);// right
-                        }
-                    }
-
-                    if (dr["OperationType"].ToString().Equals("Grinding", StringComparison.OrdinalIgnoreCase))
-                    {
-                        if (!string.IsNullOrEmpty(dr["cyclestart"].ToString()) && !string.IsNullOrEmpty(dr["cycleend"].ToString()))
-                        {
-                            Mark markCycleStartTime = c.xAxis2().addMark(Chart.CTime(Convert.ToDateTime(dr["cyclestart"])), 0x80FF, "Start", "Arial", 7);
-                            markCycleStartTime.setLineWidth(2);
-                            markCycleStartTime.setFontAngle(90);
-                            markCycleStartTime.setAlignment(Chart.TopRight2);
-
-                            Mark markCycleEndTime = c.xAxis2().addMark(Chart.CTime(Convert.ToDateTime(dr["cycleend"])), 0x80FF, "End", "Arial", 7);
-                            markCycleEndTime.setLineWidth(2);
-                            markCycleEndTime.setFontAngle(90);
-                            markCycleEndTime.setAlignment(Chart.BottomRight);
-                        }
-                    }
-
-                    if (dr["OperationType"].ToString().Equals("Cycle", StringComparison.OrdinalIgnoreCase))
-                    {
-                        if (!string.IsNullOrEmpty(dr["cyclestart"].ToString()) && !string.IsNullOrEmpty(dr["cycleend"].ToString()))
-                        {
-                            Mark markCycleStartTime = c.xAxis2().addMark(Chart.CTime(Convert.ToDateTime(dr["cyclestart"])), 0x0, "Start", "Arial", 7);
-                            markCycleStartTime.setLineWidth(2);
-                            markCycleStartTime.setFontAngle(90);
-                            markCycleStartTime.setAlignment(Chart.TopLeft);
-
-                            Mark markCycleEndTime = c.xAxis2().addMark(Chart.CTime(Convert.ToDateTime(dr["cycleend"])), 0x0, "End", "Arial", 7);
-                            markCycleEndTime.setLineWidth(2);
-                            markCycleEndTime.setFontAngle(90);
-                            markCycleEndTime.setAlignment(Chart.BottomLeft);
-                        }
-                    }
+                    PlotFeedRateMarkers(parameterData, c);
                 }
             }
             viewer.Chart = c;
@@ -965,6 +1009,228 @@ namespace MachineConnectApplication
 
         #endregion
 
+        private void PlotCycleStartEndMarkers(DataTable parameterData, XYChart c)
+        {
+            try
+            {
+                List<string> parameterIDList = new List<string>() { "P1", "P2", "P3", "P4", "P5", "P6" };
+                DataTable dt = parameterData.AsEnumerable().Where(x => parameterIDList.Contains(x.Field<string>("ParameterID"))).CopyToDataTable();
+                foreach (DataRow dr in dt.Rows)
+                {
+                    if (dr["ParameterID"].ToString().Equals("P1", StringComparison.OrdinalIgnoreCase))
+                    {
+                        if (!string.IsNullOrEmpty(dr["UpdatedtimeStamp"].ToString()))
+                        {
+                            Mark markCycleStartTime = c.xAxis2().addMark(Chart.CTime(Convert.ToDateTime(dr["UpdatedtimeStamp"])), 0x4860, "Cycle Start", "Arial", 7);
+                            markCycleStartTime.setLineWidth(2);
+                            markCycleStartTime.setFontAngle(90);
+                            markCycleStartTime.setAlignment(Chart.TopRight2);
+                        }
+                    }
+                    if (dr["ParameterID"].ToString().Equals("P2", StringComparison.OrdinalIgnoreCase))
+                    {
+                        if (!string.IsNullOrEmpty(dr["UpdatedtimeStamp"].ToString()))
+                        {
+                            Mark markCycleEndTime = c.xAxis2().addMark(Chart.CTime(Convert.ToDateTime(dr["UpdatedtimeStamp"])), 0x4860, "Cycle End", "Arial", 7);
+                            markCycleEndTime.setLineWidth(2);
+                            markCycleEndTime.setFontAngle(90);
+                            markCycleEndTime.setAlignment(Chart.BottomRight);
+                        }
+                    }
+                    if (dr["ParameterID"].ToString().Equals("P3", StringComparison.OrdinalIgnoreCase))
+                    {
+                        if (!string.IsNullOrEmpty(dr["UpdatedtimeStamp"].ToString()))
+                        {
+                            Mark grindingStartTime = c.xAxis2().addMark(Chart.CTime(Convert.ToDateTime(dr["UpdatedtimeStamp"])), 0x8000, "Grinding Start", "Arial", 7);
+                            grindingStartTime.setLineWidth(2);
+                            grindingStartTime.setFontAngle(90);
+                            grindingStartTime.setAlignment(Chart.BottomRight);
+                        }
+                    }
+                    if (dr["ParameterID"].ToString().Equals("P4", StringComparison.OrdinalIgnoreCase))
+                    {
+                        if (!string.IsNullOrEmpty(dr["UpdatedtimeStamp"].ToString()))
+                        {
+                            Mark grindingEndTime = c.xAxis2().addMark(Chart.CTime(Convert.ToDateTime(dr["UpdatedtimeStamp"])), 0x8000, "Grinding End", "Arial", 7);
+                            grindingEndTime.setLineWidth(2);
+                            grindingEndTime.setFontAngle(90);
+                            grindingEndTime.setAlignment(Chart.BottomRight);
+                        }
+                    }
+                    if (dr["ParameterID"].ToString().Equals("P5", StringComparison.OrdinalIgnoreCase))
+                    {
+                        if (!string.IsNullOrEmpty(dr["UpdatedtimeStamp"].ToString()))
+                        {
+                            Mark dressingStartTime = c.xAxis2().addMark(Chart.CTime(Convert.ToDateTime(dr["UpdatedtimeStamp"])), 0x800000, "Dressing Start", "Arial", 7);
+                            dressingStartTime.setLineWidth(2);
+                            dressingStartTime.setFontAngle(90);
+                            dressingStartTime.setAlignment(Chart.BottomRight);
+                        }
+                    }
+                    if (dr["ParameterID"].ToString().Equals("P6", StringComparison.OrdinalIgnoreCase))
+                    {
+                        if (!string.IsNullOrEmpty(dr["UpdatedtimeStamp"].ToString()))
+                        {
+                            Mark dressingEndTime = c.xAxis2().addMark(Chart.CTime(Convert.ToDateTime(dr["UpdatedtimeStamp"])), 0x800000, "Dressing End", "Arial", 7);
+                            dressingEndTime.setLineWidth(2);
+                            dressingEndTime.setFontAngle(90);
+                            dressingEndTime.setAlignment(Chart.BottomRight);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteDebugLog(ex.Message);
+            }
+        }
+
+        private void PlotFeedRateMarkers(DataTable parameterData, XYChart c)
+        {
+            EventStartEndTimeStamps eventStartEndTimestamps = new EventStartEndTimeStamps();
+            eventStartEndTimestamps = GetEventStartEndTimestamps(parameterData);
+            try
+            {
+                if (eventStartEndTimestamps.aprFeedRateStartEndTimes != null && eventStartEndTimestamps.aprFeedRateStartEndTimes.Count > 0)
+                {
+                    foreach (EventTimestamp startEndTime in eventStartEndTimestamps.aprFeedRateStartEndTimes.Where(x => x != null))
+                    {
+                        if (startEndTime.ParameterValue.Equals(1))
+                        {
+                            Mark markAprFeedRateStart = c.xAxis2().addMark(Chart.CTime(startEndTime.EventTimeStamp), 0x4860, "Approach feed rate", "Arial", 7);
+                            markAprFeedRateStart.setLineWidth(2);
+                            markAprFeedRateStart.setFontAngle(90);
+                            markAprFeedRateStart.setAlignment(Chart.BottomRight);
+                        }
+                        if (startEndTime.ParameterValue.Equals(0))
+                        {
+                            Mark markAprFeedRateEnd = c.xAxis2().addMark(Chart.CTime(startEndTime.EventTimeStamp), 0x4860, "Approach feed rate", "Arial", 7);
+                            markAprFeedRateEnd.setLineWidth(2);
+                            markAprFeedRateEnd.setFontAngle(90);
+                            markAprFeedRateEnd.setAlignment(Chart.BottomRight);
+                        }
+                    }
+                }
+                if (eventStartEndTimestamps.rufFeedRateStartEndTimes != null && eventStartEndTimestamps.rufFeedRateStartEndTimes.Count > 0)
+                {
+                    foreach (EventTimestamp startEndTime in eventStartEndTimestamps.rufFeedRateStartEndTimes.Where(x => x != null))
+                    {
+                        if (startEndTime.ParameterValue.Equals(1))
+                        {
+                            Mark markRoughingFeedRateStart = c.xAxis2().addMark(Chart.CTime(startEndTime.EventTimeStamp), 0x80FF, "Roughing feed rate", "Arial", 7);
+                            markRoughingFeedRateStart.setLineWidth(2);
+                            markRoughingFeedRateStart.setFontAngle(90);
+                            markRoughingFeedRateStart.setAlignment(Chart.BottomRight);
+                        }
+                        if (startEndTime.ParameterValue.Equals(0))
+                        {
+                            Mark markRoughingFeedRateEnd = c.xAxis2().addMark(Chart.CTime(startEndTime.EventTimeStamp), 0x80FF, "Roughing feed rate", "Arial", 7);
+                            markRoughingFeedRateEnd.setLineWidth(2);
+                            markRoughingFeedRateEnd.setFontAngle(90);
+                            markRoughingFeedRateEnd.setAlignment(Chart.BottomRight);
+                        }
+                    }
+                }
+                if (eventStartEndTimestamps.semiFinFeedRateStartEndTimes != null && eventStartEndTimestamps.semiFinFeedRateStartEndTimes.Count > 0)
+                {
+                    foreach (EventTimestamp startEndTime in eventStartEndTimestamps.semiFinFeedRateStartEndTimes.Where(x => x != null))
+                    {
+                        if (startEndTime.ParameterValue.Equals(1))
+                        {
+                            Mark markSemiFinFeedRateStart = c.xAxis2().addMark(Chart.CTime(startEndTime.EventTimeStamp), 0xFFFF, "Semi finishing feed rate", "Arial", 7);
+                            markSemiFinFeedRateStart.setLineWidth(2);
+                            markSemiFinFeedRateStart.setFontAngle(90);
+                            markSemiFinFeedRateStart.setAlignment(Chart.BottomRight);
+                        }
+                        if (startEndTime.ParameterValue.Equals(0))
+                        {
+                            Mark markSemiFinFeedRateEnd = c.xAxis2().addMark(Chart.CTime(startEndTime.EventTimeStamp), 0xFFFF, "Semi finishing feed rate", "Arial", 7);
+                            markSemiFinFeedRateEnd.setLineWidth(2);
+                            markSemiFinFeedRateEnd.setFontAngle(90);
+                            markSemiFinFeedRateEnd.setAlignment(Chart.BottomRight);
+                        }
+                    }
+                }
+                if (eventStartEndTimestamps.finFeedRateStartEndTimes != null && eventStartEndTimestamps.finFeedRateStartEndTimes.Count > 0)
+                {
+                    foreach (EventTimestamp startEndTime in eventStartEndTimestamps.finFeedRateStartEndTimes.Where(x => x != null))
+                    {
+                        if (startEndTime.ParameterValue.Equals(1))
+                        {
+                            Mark markFinishingFeedRateStart = c.xAxis2().addMark(Chart.CTime(startEndTime.EventTimeStamp), 0xFF00, "Finishing feed rate", "Arial", 7);
+                            markFinishingFeedRateStart.setLineWidth(2);
+                            markFinishingFeedRateStart.setFontAngle(90);
+                            markFinishingFeedRateStart.setAlignment(Chart.BottomRight);
+                        }
+                        if (startEndTime.ParameterValue.Equals(0))
+                        {
+                            Mark markFinishingFeedRateEnd = c.xAxis2().addMark(Chart.CTime(startEndTime.EventTimeStamp), 0xFF00, "Finishing feed rate", "Arial", 7);
+                            markFinishingFeedRateEnd.setLineWidth(2);
+                            markFinishingFeedRateEnd.setFontAngle(90);
+                            markFinishingFeedRateEnd.setAlignment(Chart.BottomRight);
+                        }
+                    }
+                }
+                if (eventStartEndTimestamps.dreFeedRateStartEndTimes != null && eventStartEndTimestamps.dreFeedRateStartEndTimes.Count > 0)
+                {
+                    foreach (EventTimestamp startEndTime in eventStartEndTimestamps.dreFeedRateStartEndTimes.Where(x => x != null))
+                    {
+                        if (startEndTime.ParameterValue.Equals(1))
+                        {
+                            Mark markDressingFeedRateStart = c.xAxis2().addMark(Chart.CTime(startEndTime.EventTimeStamp), 0xFFFF00, "Dressing feed rate", "Arial", 7);
+                            markDressingFeedRateStart.setLineWidth(2);
+                            markDressingFeedRateStart.setFontAngle(90);
+                            markDressingFeedRateStart.setAlignment(Chart.BottomRight);
+                        }
+                        if (startEndTime.ParameterValue.Equals(0))
+                        {
+                            Mark markDressingFeedRateEnd = c.xAxis2().addMark(Chart.CTime(startEndTime.EventTimeStamp), 0xFFFF00, "Dressing feed rate", "Arial", 7);
+                            markDressingFeedRateEnd.setLineWidth(2);
+                            markDressingFeedRateEnd.setFontAngle(90);
+                            markDressingFeedRateEnd.setAlignment(Chart.BottomRight);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteDebugLog(ex.Message);
+            }
+        }
+
+        private EventStartEndTimeStamps GetEventStartEndTimestamps(DataTable parameterData)
+        {
+            List<EventTimestamp> aprFeedRateTimestamps = new List<EventTimestamp>();
+            List<EventTimestamp> rufFeedRateTimestamps = new List<EventTimestamp>();
+            List<EventTimestamp> semiFinFeedRateTimestamps = new List<EventTimestamp>();
+            List<EventTimestamp> finFeedRateTimestamps = new List<EventTimestamp>();
+            List<EventTimestamp> dreFeedRateTimestamps = new List<EventTimestamp>();
+            EventStartEndTimeStamps eventStartEndTimes = new EventStartEndTimeStamps();
+            try
+            {
+                List<string> parameterIDList = new List<string>() { "P7", "P8", "P9", "P10", "P11" };
+                DataTable parameterCycleInfos = parameterData.AsEnumerable().Where(x => parameterIDList.Contains(x.Field<string>("ParameterID"))).CopyToDataTable();
+                if (parameterCycleInfos != null && parameterCycleInfos.Rows.Count > 0)
+                {
+                    aprFeedRateTimestamps = parameterCycleInfos.AsEnumerable().Where(x => x.Field<string>("ParameterID").Equals("P7")).Select(x => new EventTimestamp() { ParameterValue = Convert.ToDouble(x.Field<string>("ParameterID")), EventTimeStamp = x.Field<DateTime>("UpdatedtimeStamp") }).ToList();
+                    rufFeedRateTimestamps = parameterCycleInfos.AsEnumerable().Where(x => x.Field<string>("ParameterID").Equals("P8")).Select(x => new EventTimestamp() { ParameterValue = Convert.ToDouble(x.Field<string>("ParameterID")), EventTimeStamp = x.Field<DateTime>("UpdatedtimeStamp") }).ToList();
+                    semiFinFeedRateTimestamps = parameterCycleInfos.AsEnumerable().Where(x => x.Field<string>("ParameterID").Equals("P9")).Select(x => new EventTimestamp() { ParameterValue = Convert.ToDouble(x.Field<string>("ParameterID")), EventTimeStamp = x.Field<DateTime>("UpdatedtimeStamp") }).ToList();
+                    finFeedRateTimestamps = parameterCycleInfos.AsEnumerable().Where(x => x.Field<string>("ParameterID").Equals("P10")).Select(x => new EventTimestamp() { ParameterValue = Convert.ToDouble(x.Field<string>("ParameterID")), EventTimeStamp = x.Field<DateTime>("UpdatedtimeStamp") }).ToList();
+                    dreFeedRateTimestamps = parameterCycleInfos.AsEnumerable().Where(x => x.Field<string>("ParameterID").Equals("P11")).Select(x => new EventTimestamp() { ParameterValue = Convert.ToDouble(x.Field<string>("ParameterID")), EventTimeStamp = x.Field<DateTime>("UpdatedtimeStamp") }).ToList();
+                }
+                eventStartEndTimes.aprFeedRateStartEndTimes = aprFeedRateTimestamps;
+                eventStartEndTimes.rufFeedRateStartEndTimes = rufFeedRateTimestamps;
+                eventStartEndTimes.semiFinFeedRateStartEndTimes = semiFinFeedRateTimestamps;
+                eventStartEndTimes.finFeedRateStartEndTimes = finFeedRateTimestamps;
+                eventStartEndTimes.dreFeedRateStartEndTimes = dreFeedRateTimestamps;
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteDebugLog(ex.Message);
+            }
+            return eventStartEndTimes;
+        }
+
         private void DisposePanelControls()
         {
             foreach (Control p in pnlContainer.Controls)
@@ -992,6 +1258,37 @@ namespace MachineConnectApplication
             control.Dock = DockStyle.Fill;
             pnlContainer.Controls.Add(control);
             this.Cursor = Cursors.Default;
+        }
+
+        private string GetUnitType(string parameter)
+        {
+            string UnitType;
+            if (parameter.Equals("Temperature", StringComparison.OrdinalIgnoreCase))
+            {
+                UnitType = "°C";
+            }
+            else if (parameter.Equals("Load", StringComparison.OrdinalIgnoreCase))
+            {
+                UnitType = "KW";
+            }
+            else
+            {
+                UnitType = "MPM";
+            }
+            return UnitType;
+        }
+
+        private void btnView_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                MainScreen.CURRENT_DATE_TIME = dtpStartDate.Value.ToString("yyyy-MM-dd HH:mm:ss");
+                LoadRunningParameter();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
