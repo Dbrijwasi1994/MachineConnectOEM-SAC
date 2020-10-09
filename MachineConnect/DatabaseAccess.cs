@@ -397,15 +397,15 @@ namespace MachineConnectApplication
                             chartVals.OperatingTime.Add(Math.Round(Convert.ToDouble(rdr["Operating time"]), 2));
                         }
 
-                        if (!Convert.IsDBNull(rdr["GrindingTime"]))
+                        if (!Convert.IsDBNull(rdr["Cutting time"]))
                         {
-                            chartVals.cuttingTime.Add(Math.Round(Convert.ToDouble(rdr["GrindingTime"]), 2));
+                            chartVals.cuttingTime.Add(Math.Round(Convert.ToDouble(rdr["Cutting time"]), 2));
                         }
 
-                        if (!Convert.IsDBNull(rdr["DressingTime"]))
-                        {
-                            chartVals.dressingTime.Add(Math.Round(Convert.ToDouble(rdr["DressingTime"]), 2));
-                        }
+                        //if (!Convert.IsDBNull(rdr["DressingTime"]))
+                        //{
+                        //    chartVals.dressingTime.Add(Math.Round(Convert.ToDouble(rdr["DressingTime"]), 2));
+                        //}
                     }
                     rdr.NextResult();
                     while (rdr.Read())
@@ -415,15 +415,15 @@ namespace MachineConnectApplication
                             Summaryresult.PowerOnTime = Convert.ToDouble(rdr["PowerOnTime"]);
                         }
 
-                        if (!Convert.IsDBNull(rdr["GrindingTime"]))
+                        if (!Convert.IsDBNull(rdr["Cutting time"]))
                         {
-                            Summaryresult.CuttingTime = Convert.ToDouble(rdr["GrindingTime"]);
+                            Summaryresult.CuttingTime = Convert.ToDouble(rdr["Cutting time"]);
                         }
 
-                        if (!Convert.IsDBNull(rdr["DressingTime"]))
-                        {
-                            Summaryresult.DressingTime = Convert.ToDouble(rdr["DressingTime"]);
-                        }
+                        //if (!Convert.IsDBNull(rdr["DressingTime"]))
+                        //{
+                        //    Summaryresult.DressingTime = Convert.ToDouble(rdr["DressingTime"]);
+                        //}
 
                         if (!Convert.IsDBNull(rdr["TotalTime"]))
                         {

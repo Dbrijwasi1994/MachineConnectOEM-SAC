@@ -608,7 +608,8 @@ namespace MachineConnectApplication
                 try
                 {
                     var tooltip = "title='{dataSetName}: {value|2} " + type + "'";
-                    viewer.ImageMap = viewer.Chart.getHTMLImageMap("clickable", "", tooltip);
+                    if (viewer != null && viewer.Chart != null)
+                        viewer.ImageMap = viewer.Chart.getHTMLImageMap("clickable", "", tooltip);
                 }
                 catch (Exception ex)
                 {
