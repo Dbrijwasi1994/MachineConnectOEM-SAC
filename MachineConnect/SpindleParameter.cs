@@ -27,7 +27,6 @@ namespace MachineConnectApplication
 {
     public partial class RPM : UserControl
     {
-        int flag;
         private DateTime[] timeStamps;
         private DateTime[] timeStampsA;
         private DateTime[] timeStampsB;
@@ -38,11 +37,9 @@ namespace MachineConnectApplication
         private double maxSpeed = 0.0;
         private double[] dataSeriesC;
         private double maxTemp = 0.0;
-        private DateTime minDate;
         private DateTime minDateA;
         private DateTime minDateB;
         private DateTime minDateC;
-        private double dateRange;
         private double dateRangeA;
         private double dateRangeB;
         private double dateRangeC;
@@ -213,21 +210,72 @@ namespace MachineConnectApplication
                 }
                 if (cmbParameter.SelectedItem.ToString() == "FeedRate")
                 {
-                    DataTable dtFeedRate = dt.AsEnumerable().Where(x => x.Field<string>("ParameterID").Equals("FeedRate")).CopyToDataTable();
-                    if (dtFeedRate != null && dtFeedRate.Rows.Count > 0)
+                    DataTable dtActualFeedRate = dt.AsEnumerable().Where(x => x.Field<string>("ParameterID").Equals("ActualFeedRate")).CopyToDataTable();
+                    DataTable dtProgramFeedRate = dt.AsEnumerable().Where(x => x.Field<string>("ParameterID").Equals("ProgramFeedRate")).CopyToDataTable();
+                    if (dtActualFeedRate != null && dtActualFeedRate.Rows.Count > 0)
                     {
-                        timeStampsA = new DateTime[dtFeedRate.Rows.Count];
-                        dataSeriesA = new double[dtFeedRate.Rows.Count];
-                        for (int i = 0; i < dtFeedRate.Rows.Count; i++)
+                        timeStampsA = new DateTime[dtActualFeedRate.Rows.Count];
+                        dataSeriesA = new double[dtActualFeedRate.Rows.Count];
+                        for (int i = 0; i < dtActualFeedRate.Rows.Count; i++)
                         {
-                            timeStampsA.SetValue(Convert.ToDateTime(dtFeedRate.Rows[i]["UpdatedtimeStamp"]), i);
-                            dataSeriesA.SetValue(Convert.ToDouble(dtFeedRate.Rows[i]["ParameterValue"].ToString()), i);
+                            timeStampsA.SetValue(Convert.ToDateTime(dtActualFeedRate.Rows[i]["UpdatedtimeStamp"]), i);
+                            dataSeriesA.SetValue(Convert.ToDouble(dtActualFeedRate.Rows[i]["ParameterValue"].ToString()), i);
                         }
                     }
                     else
                     {
                         timeStampsA = new DateTime[1] { dtpStartDate.Value };
                         dataSeriesA = new double[1] { 0.0 };
+                    }
+                    if (dtProgramFeedRate != null && dtProgramFeedRate.Rows.Count > 0)
+                    {
+                        timeStampsB = new DateTime[dtProgramFeedRate.Rows.Count];
+                        dataSeriesB = new double[dtProgramFeedRate.Rows.Count];
+                        for (int i = 0; i < dtProgramFeedRate.Rows.Count; i++)
+                        {
+                            timeStampsB.SetValue(Convert.ToDateTime(dtProgramFeedRate.Rows[i]["UpdatedtimeStamp"]), i);
+                            dataSeriesB.SetValue(Convert.ToDouble(dtProgramFeedRate.Rows[i]["ParameterValue"].ToString()), i);
+                        }
+                    }
+                    else
+                    {
+                        timeStampsB = new DateTime[1] { dtpStartDate.Value };
+                        dataSeriesB = new double[1] { 0.0 };
+                    }
+                }
+                if (cmbParameter.SelectedItem.ToString() == "Spindle")
+                {
+                    DataTable dtSpindleSpeed = dt.AsEnumerable().Where(x => x.Field<string>("ParameterID").Equals("WheelSpindleRPM")).CopyToDataTable();
+                    DataTable dtSpindleLoad = dt.AsEnumerable().Where(x => x.Field<string>("ParameterID").Equals("WheelMotorKW")).CopyToDataTable();
+                    if (dtSpindleSpeed != null && dtSpindleSpeed.Rows.Count > 0)
+                    {
+                        timeStampsA = new DateTime[dtSpindleSpeed.Rows.Count];
+                        dataSeriesA = new double[dtSpindleSpeed.Rows.Count];
+                        for (int i = 0; i < dtSpindleSpeed.Rows.Count; i++)
+                        {
+                            timeStampsA.SetValue(Convert.ToDateTime(dtSpindleSpeed.Rows[i]["UpdatedtimeStamp"]), i);
+                            dataSeriesA.SetValue(Convert.ToDouble(dtSpindleSpeed.Rows[i]["ParameterValue"].ToString()), i);
+                        }
+                    }
+                    else
+                    {
+                        timeStampsA = new DateTime[1] { dtpStartDate.Value };
+                        dataSeriesA = new double[1] { 0.0 };
+                    }
+                    if (dtSpindleLoad != null && dtSpindleLoad.Rows.Count > 0)
+                    {
+                        timeStampsB = new DateTime[dtSpindleLoad.Rows.Count];
+                        dataSeriesB = new double[dtSpindleLoad.Rows.Count];
+                        for (int i = 0; i < dtSpindleLoad.Rows.Count; i++)
+                        {
+                            timeStampsB.SetValue(Convert.ToDateTime(dtSpindleLoad.Rows[i]["UpdatedtimeStamp"]), i);
+                            dataSeriesB.SetValue(Convert.ToDouble(dtSpindleLoad.Rows[i]["ParameterValue"].ToString()), i);
+                        }
+                    }
+                    else
+                    {
+                        timeStampsB = new DateTime[1] { dtpStartDate.Value };
+                        dataSeriesB = new double[1] { 0.0 };
                     }
                 }
             }
@@ -271,7 +319,6 @@ namespace MachineConnectApplication
             }
         }
 
-
         private void DeserailizeByteArrayToDataTable(byte[] byteArrayData)
         {
             string csvData = string.Empty;
@@ -312,7 +359,7 @@ namespace MachineConnectApplication
                                 }
                                 catch (Exception ex)
                                 {
-                                    int aa = 0;
+                                    Logger.WriteErrorLog(ex.Message);
                                 }
                             }
                         }
@@ -321,7 +368,7 @@ namespace MachineConnectApplication
             }
             catch (Exception ex)
             {
-
+                Logger.WriteErrorLog(ex.Message);
             }
         }
 
@@ -455,7 +502,6 @@ namespace MachineConnectApplication
         {
             try
             {
-                flag = 1;
                 currentDuration = 360 * 86400;
                 SetChartTitles();
                 loadData();
@@ -483,12 +529,10 @@ namespace MachineConnectApplication
                 winChartViewer3.updateViewPort(true, true);
 
                 hasFinishedInitialization = true;
-                if (cmbParameter.SelectedItem.ToString() == "FeedRate")
+                if (cmbParameter.SelectedItem.ToString() == "FeedRate"|| cmbParameter.SelectedItem.ToString() == "Spindle")
                 {
-                    winChartViewer2.Hide();
+                    winChartViewer2.Show();
                     winChartViewer3.Hide();
-                    pictureBoxSpindleLegend.Visible = false;
-                    pictureBoxSpindleLegend1.Visible = false;
                 }
                 else
                 {
@@ -498,6 +542,8 @@ namespace MachineConnectApplication
                     winChartViewer3_MouseEnter(null, EventArgs.Empty);
                 }
                 winChartViewer1_MouseEnter(null, EventArgs.Empty);
+                pictureBoxSpindleLegend.Visible = false;
+                pictureBoxSpindleLegend1.Visible = false;
             }
             catch (Exception ex)
             {
@@ -536,9 +582,15 @@ namespace MachineConnectApplication
                 chart2Title = "Z-Axis Load";
                 chart3Title = "C-Axis Load";
             }
+            if (cmbParameter.SelectedItem.ToString() == "Spindle")
+            {
+                chart1Title = "Spindle Speed";
+                chart2Title = "Spindle Load";
+            }
             if (cmbParameter.SelectedItem.ToString() == "FeedRate")
             {
-                chart1Title = "Feed Rate";
+                chart1Title = "Actual Feed Rate";
+                chart2Title = "Program Feed Rate";
             }
         }
 
@@ -578,19 +630,17 @@ namespace MachineConnectApplication
             //DateTime currentStartDate = minDate.AddSeconds(Math.Round(winChartViewer2.ViewPortLeft * dateRange));
             currentDuration = Math.Round(winChartViewer1.ViewPortWidth * dateRangeB);
             hScrollBar2.Enabled = winChartViewer2.ViewPortWidth < 1;
-            hScrollBar2.LargeChange = (int)Math.Ceiling(winChartViewer2.ViewPortWidth *
-                (hScrollBar2.Maximum - hScrollBar2.Minimum));
+            hScrollBar2.LargeChange = (int)Math.Ceiling(winChartViewer2.ViewPortWidth * (hScrollBar2.Maximum - hScrollBar2.Minimum));
             hScrollBar2.SmallChange = (int)Math.Ceiling(hScrollBar2.LargeChange * 0.1);
             //hasFinishedInitialization = false;
-            hScrollBar2.Value = (int)Math.Round(winChartViewer2.ViewPortLeft *
-                (hScrollBar2.Maximum - hScrollBar2.Minimum)) + hScrollBar2.Minimum;
+            hScrollBar2.Value = (int)Math.Round(winChartViewer2.ViewPortLeft * (hScrollBar2.Maximum - hScrollBar2.Minimum)) + hScrollBar2.Minimum;
 
             if (e.NeedUpdateChart)
             {
                 MTB = DatabaseAccess.GetMTB(HomeScreen.selectedMachine);
                 if (MTB.Equals("MGTL", StringComparison.OrdinalIgnoreCase))
                 {
-                    DrawLoadSpeedTempChart(winChartViewer2, panel2.Width, panel2.Height, chart2Title, cmbParameter.SelectedItem.ToString(), minDateB, dateRangeB, timeStampsB, dataSeriesB, 0x990000);
+                    DrawLoadSpeedTempChart(winChartViewer2, panel2.Width, panel2.Height, chart2Title, cmbParameter.SelectedItem.ToString().Equals("Spindle") ? "Load" : cmbParameter.SelectedItem.ToString(), minDateB, dateRangeB, timeStampsB, dataSeriesB, 0x990000);
                 }
                 else
                 {
@@ -774,7 +824,8 @@ namespace MachineConnectApplication
             DateTime viewPortEndDate = viewPortStartDate.AddSeconds(Math.Round(viewer.ViewPortWidth * dateRange));
             if (yAxisLabel.Equals("Temperature")) yAxisLabel = "Temperature (°C)";
             else if (yAxisLabel.Equals("Load")) yAxisLabel = "Load (KW)";
-            else yAxisLabel = "Feed Rate (MPM)";
+            else if (yAxisLabel.Equals("Spindle")) yAxisLabel = "Speed (RPM)";
+            else yAxisLabel = "Feed Rate (mm/min)";
             int startIndex = Array.BinarySearch(timeStamps, viewPortStartDate);
             if (startIndex < 0) startIndex = (~startIndex) - 1;
 
@@ -972,6 +1023,7 @@ namespace MachineConnectApplication
             }
             catch (Exception ex)
             {
+                Logger.WriteErrorLog(ex.Message);
             }
             return list;
         }
@@ -1275,9 +1327,13 @@ namespace MachineConnectApplication
             {
                 UnitType = "RPM";
             }
+            else if (parameter.Contains("Spindle"))
+            {
+                UnitType = "RPM";
+            }
             else
             {
-                UnitType = "MPM";
+                UnitType = "mm/min";
             }
             return UnitType;
         }

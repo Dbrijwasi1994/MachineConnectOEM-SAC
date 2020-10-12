@@ -3489,7 +3489,7 @@ namespace MachineConnectApplication
                 {
                     var data = collection.AsQueryable().Where(x => x.MachineID.Equals(selectedMachine)).Where(x => x.UpdatedtimeStamp > fromDate.ToUniversalTime() && x.UpdatedtimeStamp < toDate.ToUniversalTime()).OrderBy(x => x.UpdatedtimeStamp).ToList();
                     dtSpindleData = data.ToDataTable();
-                }                   
+                }
             }
             catch (Exception ex)
             {
@@ -3612,6 +3612,15 @@ namespace MachineConnectApplication
                             model.IsVisible = false;
                         if (rdr["SortOrder"] != DBNull.Value)
                             model.SortOrder = Convert.ToInt32(rdr["SortOrder"].ToString());
+                        if (rdr["Divisor"] != null)
+                        {
+                            if (int.TryParse(rdr["Divisor"].ToString(), out int result))
+                                model.DivideBy = result;
+                            else
+                                model.DivideBy = null;
+                        }
+                        else
+                            model.DivideBy = null;
                         listProcess.Add(model);
                     }
                 }
@@ -3628,7 +3637,7 @@ namespace MachineConnectApplication
             return listProcess;
         }
 
-        internal static void SaveProcessParameterData(int iDD, string groupId, string parameterId, string parameterName, string displayText, string lowerValue, string higherValue, string highRedLimit, string lowRedLimit, string dBDataType, string highGreenLimit, string lowGreenLimit, string highYellowLimit, string lowYellowLimit, string unit, bool isVisible, int sortOrder, double freq, string Register, string TemplateType, out bool isUpdated)
+        internal static void SaveProcessParameterData(int iDD, string groupId, string parameterId, string parameterName, string displayText, string lowerValue, string higherValue, string highRedLimit, string lowRedLimit, string dBDataType, string highGreenLimit, string lowGreenLimit, string highYellowLimit, string lowYellowLimit, string unit, bool isVisible, int sortOrder, double freq, string Register, string TemplateType, int? divideBy, out bool isUpdated)
         {
             isUpdated = false;
             SqlConnection sqlConn = ConnectionManager.GetConnection();
@@ -3636,12 +3645,12 @@ namespace MachineConnectApplication
             {
                 string query = @"if not exists(select * from ProcessParameterMaster_BajajIoT where idd=IDD and ParameterID=@ParameterID)
                                         begin 
-                                        insert into ProcessParameterMaster_BajajIoT (ParameterID,ParameterName,DataScreenGroup,DisplayText,DataReadAddress,PullingFreq,Unit,LowerValue,HigherValue,HighRedLimit,LowerRedLimit,HighGreenLimit,LowerGreenLimt,HighYellowLimit,LowerYellowLimit,DBDataType,IsEnabled,SortOrder,TemplateType)
-                                        values(@ParameterID,@ParameterName,@groupId,@displayText,@DataReadAddress,@PullingFreq,@Unit,@lowerValue,@higherValue,@HRL,@LRL,@HGL,@LGL,@HYL,@LYL,@DBtype,@IsVisible,@SortOrder,@TemplateType)
+                                        insert into ProcessParameterMaster_BajajIoT (ParameterID,ParameterName,DataScreenGroup,DisplayText,DataReadAddress,PullingFreq,Unit,LowerValue,HigherValue,HighRedLimit,LowerRedLimit,HighGreenLimit,LowerGreenLimt,HighYellowLimit,LowerYellowLimit,DBDataType,IsEnabled,SortOrder,TemplateType,Divisor)
+                                        values(@ParameterID,@ParameterName,@groupId,@displayText,@DataReadAddress,@PullingFreq,@Unit,@lowerValue,@higherValue,@HRL,@LRL,@HGL,@LGL,@HYL,@LYL,@DBtype,@IsVisible,@SortOrder,@TemplateType,@Divisor)
                                         end 
                                         else
                                         begin
-                                        update ProcessParameterMaster_BajajIoT set ParameterName=@ParameterName,DataScreenGroup=@groupId,DisplayText=@displayText,TemplateType=@TemplateType,DataReadAddress=@DataReadAddress,PullingFreq=@PullingFreq,Unit=@Unit,LowerValue=@LowerValue,HigherValue=@HigherValue,HighRedLimit=@HRL,LowerRedLimit=@LRL,HighGreenLimit=@HGL,LowerGreenLimt=@LGL,HighYellowLimit=@HYL,LowerYellowLimit=@LYL,DBDataType=@DBtype,IsEnabled=@IsVisible,SortOrder=@SortOrder where IDD=IDD and ParameterID=@ParameterID
+                                        update ProcessParameterMaster_BajajIoT set ParameterName=@ParameterName,DataScreenGroup=@groupId,DisplayText=@displayText,TemplateType=@TemplateType,DataReadAddress=@DataReadAddress,PullingFreq=@PullingFreq,Unit=@Unit,LowerValue=@LowerValue,HigherValue=@HigherValue,HighRedLimit=@HRL,LowerRedLimit=@LRL,HighGreenLimit=@HGL,LowerGreenLimt=@LGL,HighYellowLimit=@HYL,LowerYellowLimit=@LYL,DBDataType=@DBtype,IsEnabled=@IsVisible,SortOrder=@SortOrder,Divisor=@Divisor where IDD=IDD and ParameterID=@ParameterID
                                         end";
                 SqlCommand cmd = new SqlCommand(query, sqlConn);
                 cmd.Parameters.Add(new SqlParameter("@IDD", iDD));
@@ -3664,6 +3673,7 @@ namespace MachineConnectApplication
                 cmd.Parameters.Add(new SqlParameter("@TemplateType", TemplateType));
                 cmd.Parameters.Add(new SqlParameter("@IsVisible", isVisible));
                 cmd.Parameters.Add(new SqlParameter("@SortOrder", sortOrder));
+                cmd.Parameters.Add(new SqlParameter("@Divisor", divideBy));
                 int rowsAffected = cmd.ExecuteNonQuery();
                 if (rowsAffected > 0)
                     isUpdated = true;

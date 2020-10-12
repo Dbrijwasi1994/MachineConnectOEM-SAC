@@ -24,8 +24,6 @@ namespace MachineConnectApplication
         string PreventiveAlarmCount = string.Empty;
         public static string CURRENT_DATE_TIME = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         public DateTime NEXT_REFRESH_DATE_TIME = DateTime.Now.Date.AddDays(1);
-        bool isHomeScreenView = false;
-        bool formLoad = true;
 
         public static bool RunChartDateTime = true;
         Task backgroundTask = null;
@@ -177,8 +175,6 @@ namespace MachineConnectApplication
             timerANDON.Interval = Settings.ANDONFlipInterval < 10 ? (int)TimeSpan.FromSeconds(10).TotalMilliseconds : (int)TimeSpan.FromSeconds(Settings.ANDONFlipInterval).TotalMilliseconds;
             timer1.Enabled = false;
             timerANDON.Enabled = false;
-
-            formLoad = false;
         }
 
         private void LoadHomeScreen()
@@ -221,7 +217,6 @@ namespace MachineConnectApplication
         private void btnHome_Click(object sender, EventArgs e)
         {
             SetButonsDefaultForeColor();
-            isHomeScreenView = false;
             SetButonsDefaultForeColor();
 
             DisposePanelControls();
@@ -276,7 +271,6 @@ namespace MachineConnectApplication
         private void btnPredectiveAlerts_Click(object sender, EventArgs e)
         {
             this.Cursor = Cursors.WaitCursor;
-            isHomeScreenView = false;
             SetButonsDefaultForeColor();
             btnPredectiveAlerts.BackColor = ColorTranslator.FromHtml("0x4040A0");
             btnPredectiveAlerts.ForeColor = Color.Orange;
@@ -292,7 +286,6 @@ namespace MachineConnectApplication
         private void btnSpindleParameters_Click(object sender, EventArgs e)
         {
             SetButonsDefaultForeColor();
-            isHomeScreenView = false;
             SetButonsDefaultForeColor();
             btnSpindleParameters.ForeColor = Color.Orange;
             btnSpindleParameters.BackColor = ColorTranslator.FromHtml("0x4040A0");
@@ -307,7 +300,6 @@ namespace MachineConnectApplication
         private void btnMachineManual_Click(object sender, EventArgs e)
         {
             this.Cursor = Cursors.WaitCursor;
-            isHomeScreenView = false;
             SetButonsDefaultForeColor();
             btnMachineManual.BackColor = ColorTranslator.FromHtml("0x4040A0");
             btnMachineManual.ForeColor = Color.Orange;
@@ -406,7 +398,6 @@ namespace MachineConnectApplication
 
         private void btnMaintenanceSchedule_Click(object sender, EventArgs e)
         {
-            isHomeScreenView = false;
             this.Cursor = Cursors.WaitCursor;
             SetButonsDefaultForeColor();
             btnMaintenanceSchedule.BackColor = ColorTranslator.FromHtml("0x4040A0");
@@ -558,11 +549,9 @@ namespace MachineConnectApplication
         private void btnProgramTransfer_Click(object sender, EventArgs e)
         {
             SetButonsDefaultForeColor();
-            isHomeScreenView = false;
             SetButonsDefaultForeColor();
             btnProgramTransfer.ForeColor = Color.Orange;
             btnProgramTransfer.BackColor = ColorTranslator.FromHtml("0x4040A0");
-
             DisposePanelControls();
             pnlContainer.Controls.Clear();
             ProcessDoc ctrl = new ProcessDoc();
@@ -624,7 +613,6 @@ namespace MachineConnectApplication
             LOGICAL_DAY_END = (DatabaseAccess.GetShiftStartEndTimeForDay(0, dateVal)).ToString("yyyy-MM-dd HH:mm:ss");
             btnPrev1.BackgroundImage = Image.FromFile(Path.Combine(Settings.APP_PATH, "Images", "SelectedDate.png"));
             btnPrev1.ForeColor = Color.White;
-
             timer1.Enabled = false;
             LoadDataForTheSelectedDate();
             LoadRespectiveUserControl();
@@ -640,7 +628,6 @@ namespace MachineConnectApplication
             LOGICAL_DAY_END = (DatabaseAccess.GetShiftStartEndTimeForDay(0, dateVal)).ToString("yyyy-MM-dd HH:mm:ss");
             btnPrev2.BackgroundImage = Image.FromFile(Path.Combine(Settings.APP_PATH, "Images", "SelectedDate.png"));
             btnPrev2.ForeColor = Color.White;
-
             timer1.Enabled = false;
             LoadDataForTheSelectedDate();
             LoadRespectiveUserControl();
@@ -651,10 +638,8 @@ namespace MachineConnectApplication
         {
             btnPrev2.BackgroundImage = Image.FromFile(Path.Combine(Settings.APP_PATH, "Images", "DateBtn.png"));
             btnPrev2.ForeColor = Color.Black;
-
             btnPrev1.BackgroundImage = Image.FromFile(Path.Combine(Settings.APP_PATH, "Images", "DateBtn.png"));
             btnPrev1.ForeColor = Color.Black;
-
             btnCurent.BackgroundImage = Image.FromFile(Path.Combine(Settings.APP_PATH, "Images", "DateBtn.png"));
             btnCurent.ForeColor = Color.Black;
         }
@@ -666,10 +651,8 @@ namespace MachineConnectApplication
             SetButonsDefaultForeColor();
             btnUpgrade.BackColor = Color.Black;
             btnUpgrade.ForeColor = Color.Orange;
-
             DisposePanelControls();
             pnlContainer.Controls.Clear();
-
             UpgradeOEM ctrl = new UpgradeOEM();
             ctrl.Dock = DockStyle.Fill;
             pnlContainer.Controls.Add(ctrl);
@@ -766,7 +749,6 @@ namespace MachineConnectApplication
         private void btnMenuIcon_Click(object sender, EventArgs e)
         {
             this.Cursor = Cursors.WaitCursor;
-            isHomeScreenView = false;
             SetButonsDefaultForeColor();
             //btnMenuIcon.BackColor = ColorTranslator.FromHtml("0x4040A0");
             //btnMenuIcon.ForeColor = Color.Orange;
@@ -788,11 +770,9 @@ namespace MachineConnectApplication
         private void btnPRGP7_Click(object sender, EventArgs e)
         {
             SetButonsDefaultForeColor();
-            isHomeScreenView = false;
             SetButonsDefaultForeColor();
             btnPRGP7.ForeColor = Color.Orange;
             btnPRGP7.BackColor = ColorTranslator.FromHtml("0x4040A0");
-
             DisposePanelControls();
             pnlContainer.Controls.Clear();
             ProgramTransferControl ctrl = new ProgramTransferControl();
@@ -804,9 +784,7 @@ namespace MachineConnectApplication
         private void button1_Click(object sender, EventArgs e)
         {
             SetButonsDefaultForeColor();
-            isHomeScreenView = false;
             SetButonsDefaultForeColor();
-
             DisposePanelControls();
             pnlContainer.Controls.Clear();
             IRSchedule_Win ctrl = new IRSchedule_Win();

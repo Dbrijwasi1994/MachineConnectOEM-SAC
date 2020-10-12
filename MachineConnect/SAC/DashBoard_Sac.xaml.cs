@@ -26,7 +26,7 @@ namespace MachineConnectOEM.SAC
     {
         public static ObservableCollection<DTO> processParamDashboardData = null;
         public static ObservableCollection<NotificationData> allPendingList = null;
-        ObservableCollection<Frequency> freqList = null;
+        //ObservableCollection<Frequency> freqList = null;
         NotificationDetails notificationData = null;
         public DispatcherTimer paramRefreshTimer = new DispatcherTimer();
         public DateTime pendingActivityStartDate = Convert.ToDateTime(ConfigurationManager.AppSettings["PendingActivitiesStartDate"]);

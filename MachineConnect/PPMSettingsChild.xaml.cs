@@ -200,7 +200,7 @@ namespace MachineConnectOEM
                             dialog.ShowDialog();
                             return;
                         }
-                        DatabaseAccess.SaveProcessParameterData(item.IDD, item.GroupId, item.ParameterId, item.ParameterName, item.DisplayText, item.LowerValue, item.HigherValue, item.HighRedLimit, item.LowRedLimit, item.DBDataType, item.HighGreenLimit, item.LowGreenLimit, item.HighYellowLimit, item.LowYellowLimit, item.Unit, item.IsVisible, item.SortOrder, item.Freqency, item.Register,item.TemplateType, out IsUpdated);
+                        DatabaseAccess.SaveProcessParameterData(item.IDD, item.GroupId, item.ParameterId, item.ParameterName, item.DisplayText, item.LowerValue, item.HigherValue, item.HighRedLimit, item.LowRedLimit, item.DBDataType, item.HighGreenLimit, item.LowGreenLimit, item.HighYellowLimit, item.LowYellowLimit, item.Unit, item.IsVisible, item.SortOrder, item.Freqency, item.Register, item.TemplateType, item.DivideBy, out IsUpdated);
                     }
                 }
                 if (IsUpdated)
@@ -285,15 +285,34 @@ namespace MachineConnectOEM
             cmb.ItemsSource = DataTypeList;
         }
 
-        private void DataGridMGT_GotFocus(object sender, RoutedEventArgs e)
+        private void TextBlockDecimal_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-
+            int count = 0;
+            if (e.Source is System.Windows.Controls.TextBox)
+            {
+                string text = (e.Source as System.Windows.Controls.TextBox).Text + e.Text;
+                char ch = e.Text.ToCharArray().Last();
+                if (ch.Equals('.'))
+                    count = text.ToCharArray().Where(x => x.Equals('.')).Count();
+                if ((char.IsDigit(ch) || ch.Equals('.')) && count <= 1)
+                {
+                    e.Handled = false;
+                }
+                else
+                {
+                    e.Handled = true;
+                }
+            }
+            else
+            {
+                e.Handled = true;
+            }
         }
 
-        private void TextBlock_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void TextBoxNumeric_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            char c = e.Text.ToCharArray().Last();
-            if (char.IsDigit(c))
+            char ch = e.Text.ToCharArray().Last();
+            if (char.IsDigit(ch))
             {
                 e.Handled = false;
             }
@@ -307,6 +326,12 @@ namespace MachineConnectOEM
         {
             ComboBox cmb = sender as ComboBox;
             cmb.ItemsSource = TemplateTypeList;
+        }
+
+        private void cmbDivideBy_Loaded(object sender, RoutedEventArgs e)
+        {
+            ComboBox cmb = sender as ComboBox;
+            cmb.ItemsSource = new List<int>() { 10, 100, 1000, 10000 };
         }
     }
 }

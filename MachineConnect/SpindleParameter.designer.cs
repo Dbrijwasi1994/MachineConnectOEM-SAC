@@ -52,9 +52,9 @@
             this.lblScrollRange = new System.Windows.Forms.Label();
             this.dtpStartDate = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnView = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pnlContainer = new System.Windows.Forms.Panel();
-            this.btnView = new System.Windows.Forms.Button();
             this.mainTbl.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.winChartViewer3)).BeginInit();
@@ -348,7 +348,8 @@
             this.cmbParameter.Items.AddRange(new object[] {
             "Temperature",
             "Load",
-            "FeedRate"});
+            "FeedRate",
+            "Spindle"});
             this.cmbParameter.Location = new System.Drawing.Point(1077, 3);
             this.cmbParameter.Name = "cmbParameter";
             this.cmbParameter.Size = new System.Drawing.Size(114, 25);
@@ -395,19 +396,6 @@
             this.label2.Text = "From Date";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // timer1
-            // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // pnlContainer
-            // 
-            this.pnlContainer.Controls.Add(this.mainTbl);
-            this.pnlContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlContainer.Location = new System.Drawing.Point(0, 0);
-            this.pnlContainer.Name = "pnlContainer";
-            this.pnlContainer.Size = new System.Drawing.Size(1504, 704);
-            this.pnlContainer.TabIndex = 15;
-            // 
             // btnView
             // 
             this.btnView.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -420,6 +408,19 @@
             this.btnView.Text = "View";
             this.btnView.UseVisualStyleBackColor = true;
             this.btnView.Click += new System.EventHandler(this.btnView_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // pnlContainer
+            // 
+            this.pnlContainer.Controls.Add(this.mainTbl);
+            this.pnlContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlContainer.Location = new System.Drawing.Point(0, 0);
+            this.pnlContainer.Name = "pnlContainer";
+            this.pnlContainer.Size = new System.Drawing.Size(1504, 704);
+            this.pnlContainer.TabIndex = 15;
             // 
             // RPM
             // 

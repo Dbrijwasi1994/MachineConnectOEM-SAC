@@ -298,6 +298,13 @@ namespace MachineConnectOEM.DTO
             set { if (_SortOrder != value) { _SortOrder = value; RaisePropertyChanged("_SortOrder"); } }
         }
 
+        private int? _DivideBy;
+        public int? DivideBy
+        {
+            get { return _DivideBy; }
+            set { if (_DivideBy != value) { _DivideBy = value; RaisePropertyChanged("_DivideBy"); } }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void RaisePropertyChanged(string name)
         {
