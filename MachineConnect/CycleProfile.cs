@@ -260,30 +260,6 @@ namespace MachineConnectOEM
             }
         }
 
-        private void dgvCycleDetails_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            try
-            {
-                if (e.ColumnIndex.Equals(0))
-                {
-                    DialogResult dlgConfirmation = MessageBox.Show("Are you sure you want to view charts for selected cycle ?", "Information Message", MessageBoxButtons.YesNo);
-                    if (dlgConfirmation == DialogResult.Yes)
-                    {
-                        selectedRow = dgvCycleDetails.Rows[e.RowIndex];
-                        BindParamCycleProfile(selectedRow);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show($"{dgvCycleDetails.Columns[e.ColumnIndex].HeaderText} : {dgvCycleDetails.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         private void BindParamCycleProfile(DataGridViewRow dataGridViewRow)
         {
             string MachineID = cmbMachineId.SelectedItem != null ? cmbMachineId.SelectedValue.ToString() : "";
@@ -1115,6 +1091,8 @@ namespace MachineConnectOEM
                 {
                     DataGridViewButtonCell cell = row.Cells[0] as DataGridViewButtonCell;
                     cell.Value = "Select";
+                    cell.Style.BackColor = Color.FromArgb(24, 96, 156);
+                    cell.Style.ForeColor = Color.White;
                 }
             }
             catch (Exception ex)
