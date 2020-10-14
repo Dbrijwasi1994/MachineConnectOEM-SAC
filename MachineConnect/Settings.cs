@@ -20,7 +20,7 @@ namespace MachineConnectApplication
         public static int StatusUpdateTimerIntervalInSec = Convert.ToInt32(ConfigurationManager.AppSettings["StatusUpdateTimerIntervalInSec"].ToString());
         public static int ANDONFlipInterval = Convert.ToInt32(ConfigurationManager.AppSettings["ANDONFlipInterval"].ToString());
         public static int ParamRefreshInterval = Convert.ToInt32(ConfigurationManager.AppSettings["ParamRefreshInterval"].ToString());
-        public static int CmbDurationSelectedIndex = 3;
+        public static int CmbDurationSelectedIndex = 0;
         public static int CmbDurationTypeSelectedIndex = 0;
 
         public static string ERROR_MSG = "Error Message";

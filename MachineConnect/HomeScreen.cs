@@ -582,7 +582,7 @@ namespace MachineConnectApplication
                 Array.Copy((chartArrays.powerOnTime).ToArray(), StartIndex, viewPortDataSeriesA, 0, EndIndex - StartIndex);
                 Array.Copy((chartArrays.OperatingTime).ToArray(), StartIndex, viewPortDataSeriesB, 0, EndIndex - StartIndex);
                 Array.Copy((chartArrays.cuttingTime).ToArray(), StartIndex, viewPortDataSeriesC, 0, EndIndex - StartIndex);
-                Array.Copy((chartArrays.dressingTime).ToArray(), StartIndex, viewPortDataSeriesD, 0, EndIndex - StartIndex);
+                //Array.Copy((chartArrays.dressingTime).ToArray(), StartIndex, viewPortDataSeriesD, 0, EndIndex - StartIndex);
 
                 Array.Copy((chartArrays.startTime).ToArray(), StartIndex, viewPortDataVals, 0, EndIndex - StartIndex);
 
@@ -593,7 +593,6 @@ namespace MachineConnectApplication
                 POT.addTitle("Hourly Run Times", "Segoe UI Bold", 12, 0x2A58A3).setBackground(0xFFFFFF, 0xFFFFFF);
                 POT.setBackground(Chart.metalColor(0xFFFFFF), 0xFFFFFF);//, 1);
                 POT.setPlotArea(44, 44, pnlPartsCountChart.Width - 75, pnlPartsCountChart.Height - 95, 0xffffff, 0xFFFFFF, 0xC6C6C8, POT.dashLineColor(0xcccccc, Chart.DotLine), POT.dashLineColor(0xFFFFFF, Chart.DotLine));
-
 
                 POT.xAxis().setLabels((viewPortDataVals).ToArray());
                 POT.yAxis().setLinearScale(0, 69, 20);

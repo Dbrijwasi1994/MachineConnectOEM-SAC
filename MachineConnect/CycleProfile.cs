@@ -12,6 +12,8 @@ using MongoDB.Driver;
 using MongoDB.Bson;
 using System.Globalization;
 using ChartDirector;
+using MachineConnectOEM.Properties;
+using Settings = MachineConnectApplication.Settings;
 
 namespace MachineConnectOEM
 {
@@ -28,7 +30,7 @@ namespace MachineConnectOEM
         public CycleProfile()
         {
             InitializeComponent();
-            parametersList = new Dictionary<string, string>() { { "All", "All" }, { "Work Head Temperature", "C-AxisTemp" }, { "X-Axis Load", "X-AxisLoad" }, { "Z-Axis Load", "Z-AxisLoad" }, { "C-Axis Load", "C-AxisLoad" }, { "C-Axis Speed", "C-AxisSpeed" }, { "Feed Rate", "FeedRate" } };
+            parametersList = new Dictionary<string, string>() { { "All", "All" }, { "Work Head Temperature", "C-AxisTemp" }, { "X-Axis Load", "X-AxisLoad" }, { "Z-Axis Load", "Z-AxisLoad" }, { "C-Axis Load", "C-AxisLoad" }, { "C-Axis Speed", "C-AxisSpeed" }, { "Spindle Speed", "WheelSpindleRPM" }, { "Spindle Load", "WheelMotorKW" }, { "Actual Feed Rate", "ActualFeedRate" }, { "Program Feed Rate", "ProgramFeedRate" } };
         }
 
         private void CycleProfile_Load(object sender, EventArgs e)
@@ -48,11 +50,12 @@ namespace MachineConnectOEM
             }
         }
 
-        private void setchartfirstvalues(string Type)
+        private void SetChartValues(string Parameter)
         {
             try
             {
-                string paramId = parametersList != null ? parametersList.Where(x => x.Key.Equals(Type, StringComparison.OrdinalIgnoreCase)).First().Value : Type;
+                string prm = Parameter.Contains("SingleParam") ? Parameter.Replace("SingleParam-", "") : Parameter;
+                string paramId = parametersList != null ? parametersList.Where(x => x.Key.Equals(prm, StringComparison.OrdinalIgnoreCase)).First().Value : prm;
                 if (cycleProfileData.Any(x => x.ParameterID.Equals(paramId)))
                 {
                     List<ParameterCycleInfo> parameterCycleData = cycleProfileData.Where(x => x.ParameterID.Equals(paramId)).ToList();
@@ -65,7 +68,7 @@ namespace MachineConnectOEM
                 dateRange = timeStamps[timeStamps.Length - 1].Subtract(minDate).TotalSeconds;
                 if (timeStamps != null)
                 {
-                    switch (Type)
+                    switch (Parameter)
                     {
                         case "Work Head Temperature":
                             chartViewer1.ViewPortWidth = currentDuration / dateRange;
@@ -92,10 +95,30 @@ namespace MachineConnectOEM
                             chartViewer5.ViewPortLeft = 1 - chartViewer5.ViewPortWidth;
                             chartViewer5.updateViewPort(true, true);
                             break;
-                        case "Feed Rate":
+                        case "Spindle Speed":
                             chartViewer6.ViewPortWidth = currentDuration / dateRange;
                             chartViewer6.ViewPortLeft = 1 - chartViewer6.ViewPortWidth;
                             chartViewer6.updateViewPort(true, true);
+                            break;
+                        case "Spindle Load":
+                            chartViewer7.ViewPortWidth = currentDuration / dateRange;
+                            chartViewer7.ViewPortLeft = 1 - chartViewer7.ViewPortWidth;
+                            chartViewer7.updateViewPort(true, true);
+                            break;
+                        case "Actual Feed Rate":
+                            chartViewer8.ViewPortWidth = currentDuration / dateRange;
+                            chartViewer8.ViewPortLeft = 1 - chartViewer8.ViewPortWidth;
+                            chartViewer8.updateViewPort(true, true);
+                            break;
+                        case "Program Feed Rate":
+                            chartViewer9.ViewPortWidth = currentDuration / dateRange;
+                            chartViewer9.ViewPortLeft = 1 - chartViewer9.ViewPortWidth;
+                            chartViewer9.updateViewPort(true, true);
+                            break;
+                        default:
+                            chartViewer1.ViewPortWidth = currentDuration / dateRange;
+                            chartViewer1.ViewPortLeft = 1 - chartViewer1.ViewPortWidth;
+                            chartViewer1.updateViewPort(true, true);
                             break;
                     }
                 }
@@ -146,7 +169,6 @@ namespace MachineConnectOEM
             try
             {
                 string MachineID = cmbMachineId.SelectedItem != null ? cmbMachineId.SelectedValue.ToString() : "";
-                MachineID = "TEST01";
                 if (!string.IsNullOrEmpty(MachineID))
                 {
                     var parameterCyclesData = DatabaseAccess.GetCycleDetailsData(MachineID, dtpFromDate.Value, dtpToDate.Value);
@@ -156,7 +178,7 @@ namespace MachineConnectOEM
                         if (focas_CycleInfo != null && focas_CycleInfo.Count > 0)
                         {
                             dgvCycleDetails.AutoGenerateColumns = false;
-                            dgvCycleDetails.DataSource = focas_CycleInfo;
+                            dgvCycleDetails.DataSource = focas_CycleInfo.OrderByDescending(x => x.CycleStart).Take(10).ToList();
                         }
                     }
                 }
@@ -272,56 +294,20 @@ namespace MachineConnectOEM
                 if (!string.IsNullOrEmpty(MachineID))
                 {
                     cycleProfileData = DatabaseAccess.GetCycleProfileData(MachineID, cycleStart, cycleEnd);
-
                     if (cycleProfileData != null && cycleProfileData.Count > 0)
                     {
                         string selectedParam = cmbParameter.SelectedItem != null ? cmbParameter.Text : "";
                         if (string.IsNullOrEmpty(selectedParam) || selectedParam.Equals("All"))
                         {
-                            chartViewer2.Visible = true;
-                            chartViewer3.Visible = true;
-                            chartViewer4.Visible = true;
-                            chartViewer5.Visible = true;
-                            chartViewer6.Visible = true;
-                            tableLayoutPanelCharts.RowStyles[0].Height = 200;
-                            tableLayoutPanelCharts.RowStyles[1].Height = 200;
-                            tableLayoutPanelCharts.RowStyles[2].Height = 200;
-                            tableLayoutPanelCharts.RowStyles[3].Height = 200;
-                            tableLayoutPanelCharts.RowStyles[4].Height = 200;
-                            tableLayoutPanelCharts.RowStyles[5].Height = 200;
-                            PlotCycleProfileChart(chartViewer1, "Work Head Temperature");
-                            setchartfirstvalues("Work Head Temperature");
-                            PlotCycleProfileChart(chartViewer2, "X-Axis Load");
-                            setchartfirstvalues("X-Axis Load");
-                            PlotCycleProfileChart(chartViewer3, "Z-Axis Load");
-                            setchartfirstvalues("Z-Axis Load");
-                            PlotCycleProfileChart(chartViewer4, "C-Axis Load");
-                            setchartfirstvalues("C-Axis Load");
-                            PlotCycleProfileChart(chartViewer5, "C-Axis Speed");
-                            setchartfirstvalues("C-Axis Speed");
-                            PlotCycleProfileChart(chartViewer6, "Feed Rate");
-                            setchartfirstvalues("Feed Rate");
-                            chartViewer1.MouseEnter += (sender, e) => winChartViewer_MouseEnter(sender, EventArgs.Empty, chartViewer1, "Work Head Temperature");
-                            chartViewer2.MouseEnter += (sender, e) => winChartViewer_MouseEnter(sender, EventArgs.Empty, chartViewer2, "X-Axis Load");
-                            chartViewer3.MouseEnter += (sender, e) => winChartViewer_MouseEnter(sender, EventArgs.Empty, chartViewer3, "Z-Axis Load");
-                            chartViewer4.MouseEnter += (sender, e) => winChartViewer_MouseEnter(sender, EventArgs.Empty, chartViewer4, "C-Axis Load");
-                            chartViewer5.MouseEnter += (sender, e) => winChartViewer_MouseEnter(sender, EventArgs.Empty, chartViewer5, "C-Axis Speed");
-                            chartViewer6.MouseEnter += (sender, e) => winChartViewer_MouseEnter(sender, EventArgs.Empty, chartViewer6, "Feed Rate");
+                            ShowAllCharts();
+                            PlotAllCharts();
+                            SetMouseEnterEventForAllCharts();
                         }
                         else
                         {
-                            chartViewer2.Visible = false;
-                            chartViewer3.Visible = false;
-                            chartViewer4.Visible = false;
-                            chartViewer5.Visible = false;
-                            chartViewer6.Visible = false;
-                            tableLayoutPanelCharts.RowStyles[0].Height = 600;
-                            tableLayoutPanelCharts.RowStyles[1].Height = 0;
-                            tableLayoutPanelCharts.RowStyles[2].Height = 0;
-                            tableLayoutPanelCharts.RowStyles[3].Height = 0;
-                            tableLayoutPanelCharts.RowStyles[4].Height = 0;
-                            tableLayoutPanelCharts.RowStyles[5].Height = 0;
+                            HideCharts();
                             PlotCycleProfileChart(chartViewer1, selectedParam);
+                            SetChartValues($"SingleParam-{selectedParam}");
                             chartViewer1.MouseEnter += (sender, e) => winChartViewer_MouseEnter(sender, EventArgs.Empty, chartViewer1, selectedParam);
                         }
                     }
@@ -333,49 +319,11 @@ namespace MachineConnectOEM
             }
         }
 
-        private void RemoveChartControl(DataGridViewRow dataGridViewRow)
+        private void PlotCycleProfileChart(WinChartViewer winChartViewer, string parameter = "Actual Feed Rate")
         {
             try
             {
-                DateTime cycleStart = Convert.ToDateTime(dataGridViewRow.Cells[1].Value.ToString());
-                DateTime cycleEnd = Convert.ToDateTime(dataGridViewRow.Cells[2].Value.ToString());
-                string controlName = $"ChartViewer{cycleStart:ddMMyyyyHHmmss}";
-                List<WinChartViewer> chartControlsList = ChartsPanel.Controls.OfType<WinChartViewer>().ToList();
-                if (chartControlsList != null && chartControlsList.Count > 0)
-                {
-                    Control controlToRemove = chartControlsList.Where(x => x.Name.Equals(controlName)).First();
-                    if (controlToRemove != null)
-                    {
-                        ChartsPanel.Controls.Remove(controlToRemove);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void WinChartViewer_ViewPortChanged(object sender, WinViewPortEventArgs e, WinChartViewer winChartViewer)
-        {
-            try
-            {
-                if (e.NeedUpdateChart)
-                {
-                    PlotCycleProfileChart(winChartViewer);
-                }
-            }
-            catch (Exception ex)
-            {
-                Settings.WriteErrorMsg(ex.ToString());
-            }
-        }
-
-        private void PlotCycleProfileChart(WinChartViewer winChartViewer, string parameter = "Feed Rate")
-        {
-            try
-            {
-                string paramId = parametersList != null ? parametersList.Where(x => x.Key.Equals(parameter, StringComparison.OrdinalIgnoreCase)).First().Value : "FeedRate";
+                string paramId = parametersList != null ? parametersList.Where(x => x.Key.Equals(parameter, StringComparison.OrdinalIgnoreCase)).First().Value : "ActualFeedRate";
                 if (cycleProfileData.Any(x => x.ParameterID.Equals(paramId)))
                 {
                     List<ParameterCycleInfo> parameterCycleData = cycleProfileData.Where(x => x.ParameterID.Equals(paramId)).ToList();
@@ -426,11 +374,28 @@ namespace MachineConnectOEM
 
                 if (chkShowValues.Checked)
                 {
-                    LineLayer layer = c.addLineLayer();
-                    layer.setLineWidth(3);
-                    layer.setXData(viewPortTimeStamps);
-                    layer.addDataSet(viewPortDataSeries, 0x0000FF, parameter);
-                    layer.setHTMLImageMap("", "", "");
+                    if (parameter.Contains("Temperature"))
+                    {
+                        AreaLayer layer = c.addAreaLayer();
+                        layer.setGapColor(0xffffff);
+                        layer.setLineWidth(0);
+                        layer.setXData(viewPortTimeStamps);
+                        layer.addDataSet(viewPortDataSeries, 0x0000FF, parameter);
+                        layer.setHTMLImageMap("", "", "");
+
+                        TrendLayer trendLayer = c.addTrendLayer(viewPortDataSeries, 0x008080, "TrendLine " + parameter, 1);
+                        trendLayer.setLineWidth(3);
+                        trendLayer.setXData(viewPortTimeStamps);
+                        trendLayer.setHTMLImageMap("", "", "");
+                    }
+                    else
+                    {
+                        LineLayer layer = c.addLineLayer();
+                        layer.setLineWidth(3);
+                        layer.setXData(viewPortTimeStamps);
+                        layer.addDataSet(viewPortDataSeries, 0x0000FF, parameter);
+                        layer.setHTMLImageMap("", "", "");
+                    }
                 }
 
                 double axisLowerLimit = winChartViewer.ViewPortTop + winChartViewer.ViewPortHeight;
@@ -443,12 +408,32 @@ namespace MachineConnectOEM
                 {
                     if (cycleProfileData != null && cycleProfileData.Count > 0)
                     {
-                        List<string> parameterIDList = new List<string>() { "P3", "P4", "P5", "P6" };
+                        List<string> parameterIDList = new List<string>() { "P1", "P2", "P3", "P4", "P5", "P6" };
                         List<ParameterCycleInfo> parameterCycleInfos = cycleProfileData.Where(x => parameterIDList.Contains(x.ParameterID)).ToList();
                         if (parameterCycleInfos != null && parameterCycleInfos.Count > 0)
                         {
                             foreach (ParameterCycleInfo parameterCycleInfo in parameterCycleInfos)
                             {
+                                if (parameterCycleInfo.ParameterID.Equals("P1"))
+                                {
+                                    if (parameterCycleInfo.UpdatedtimeStamp != null)
+                                    {
+                                        Mark markCycleStartTime = c.xAxis2().addMark(Chart.CTime(parameterCycleInfo.UpdatedtimeStamp), 0x4860, "Cycle Start", "Arial", 7);
+                                        markCycleStartTime.setLineWidth(2);
+                                        markCycleStartTime.setFontAngle(90);
+                                        markCycleStartTime.setAlignment(Chart.TopRight2);
+                                    }
+                                }
+                                if (parameterCycleInfo.ParameterID.Equals("P2"))
+                                {
+                                    if (parameterCycleInfo.UpdatedtimeStamp != null)
+                                    {
+                                        Mark markCycleEndTime = c.xAxis2().addMark(Chart.CTime(parameterCycleInfo.UpdatedtimeStamp), 0x4860, "Cycle End", "Arial", 7);
+                                        markCycleEndTime.setLineWidth(2);
+                                        markCycleEndTime.setFontAngle(90);
+                                        markCycleEndTime.setAlignment(Chart.BottomRight);
+                                    }
+                                }
                                 if (parameterCycleInfo.ParameterID.Equals("P3"))
                                 {
                                     if (parameterCycleInfo.UpdatedtimeStamp != null)
@@ -491,7 +476,7 @@ namespace MachineConnectOEM
                                 }
                             }
                         }
-                        if (parameter.Equals("Feed Rate", StringComparison.OrdinalIgnoreCase))
+                        if (parameter.Contains("Feed Rate"))
                         {
                             string PlotMethod = "Marker";
                             if (PlotMethod.Equals("Marker"))
@@ -721,29 +706,21 @@ namespace MachineConnectOEM
             {
                 YAxisTitle = "Temperature (°C)";
             }
-            else if (parameter.Equals("X-Axis Load", StringComparison.OrdinalIgnoreCase))
+            else if (parameter.Contains("Load"))
             {
                 YAxisTitle = "Load (KW)";
             }
-            else if (parameter.Equals("Z-Axis Load", StringComparison.OrdinalIgnoreCase))
-            {
-                YAxisTitle = "Load (KW)";
-            }
-            else if (parameter.Equals("C-Axis Load", StringComparison.OrdinalIgnoreCase))
-            {
-                YAxisTitle = "Load (KW )";
-            }
-            else if (parameter.Equals("C-Axis Speed", StringComparison.OrdinalIgnoreCase))
+            else if (parameter.Contains("Speed"))
             {
                 YAxisTitle = "Speed (RPM)";
             }
-            else if (parameter.Equals("Feed Rate", StringComparison.OrdinalIgnoreCase))
+            else if (parameter.Contains("Feed Rate"))
             {
-                YAxisTitle = "Feed Rate (MPM)";
+                YAxisTitle = "Feed Rate (mm/min)";
             }
             else
             {
-                YAxisTitle = "Feed Rate (MPM)";
+                YAxisTitle = "Feed Rate (mm/min)";
             }
             return YAxisTitle;
         }
@@ -795,7 +772,10 @@ namespace MachineConnectOEM
                         PlotCycleProfileChart(chartViewer3, "Z-Axis Load");
                         PlotCycleProfileChart(chartViewer4, "C-Axis Load");
                         PlotCycleProfileChart(chartViewer5, "C-Axis Speed");
-                        PlotCycleProfileChart(chartViewer6, "Feed Rate");
+                        PlotCycleProfileChart(chartViewer6, "Spindle Speed");
+                        PlotCycleProfileChart(chartViewer7, "Spindle Load");
+                        PlotCycleProfileChart(chartViewer8, "Actual Feed Rate");
+                        PlotCycleProfileChart(chartViewer9, "Program Feed Rate");
                     }
                     else
                     {
@@ -1157,17 +1137,23 @@ namespace MachineConnectOEM
             chartViewer5.updateViewPort(true, false);
             chartViewer6.ViewPortLeft = ((double)(hScrollBar1.Value - hScrollBar1.Minimum)) / (hScrollBar1.Maximum - hScrollBar1.Minimum);
             chartViewer6.updateViewPort(true, false);
+            chartViewer7.ViewPortLeft = ((double)(hScrollBar1.Value - hScrollBar1.Minimum)) / (hScrollBar1.Maximum - hScrollBar1.Minimum);
+            chartViewer7.updateViewPort(true, false);
+            chartViewer8.ViewPortLeft = ((double)(hScrollBar1.Value - hScrollBar1.Minimum)) / (hScrollBar1.Maximum - hScrollBar1.Minimum);
+            chartViewer8.updateViewPort(true, false);
+            chartViewer9.ViewPortLeft = ((double)(hScrollBar1.Value - hScrollBar1.Minimum)) / (hScrollBar1.Maximum - hScrollBar1.Minimum);
+            chartViewer9.updateViewPort(true, false);
         }
 
         private void chartViewer1_ViewPortChanged(object sender, WinViewPortEventArgs e)
         {
-            WinChartViewer winChartViewer1 = sender as WinChartViewer;
-            currentDuration = Math.Round(winChartViewer1.ViewPortWidth * dateRange);
-            hScrollBar1.Enabled = winChartViewer1.ViewPortWidth < 1;
-            hScrollBar1.LargeChange = (int)Math.Ceiling(winChartViewer1.ViewPortWidth * (hScrollBar1.Maximum - hScrollBar1.Minimum));
+            WinChartViewer winChartViewer = sender as WinChartViewer;
+            currentDuration = Math.Round(winChartViewer.ViewPortWidth * dateRange);
+            hScrollBar1.Enabled = winChartViewer.ViewPortWidth < 1;
+            hScrollBar1.LargeChange = (int)Math.Ceiling(winChartViewer.ViewPortWidth * (hScrollBar1.Maximum - hScrollBar1.Minimum));
             hScrollBar1.SmallChange = (int)Math.Ceiling(hScrollBar1.LargeChange * 0.1);
-            hScrollBar1.Value = (int)Math.Round(winChartViewer1.ViewPortLeft * (hScrollBar1.Maximum - hScrollBar1.Minimum)) + hScrollBar1.Minimum;
-            switch (winChartViewer1.Name)
+            hScrollBar1.Value = (int)Math.Round(winChartViewer.ViewPortLeft * (hScrollBar1.Maximum - hScrollBar1.Minimum)) + hScrollBar1.Minimum;
+            switch (winChartViewer.Name)
             {
                 case "chartViewer1":
                     PlotCycleProfileChart(chartViewer1, "Work Head Temperature");
@@ -1185,7 +1171,19 @@ namespace MachineConnectOEM
                     PlotCycleProfileChart(chartViewer5, "C-Axis Speed");
                     break;
                 case "chartViewer6":
-                    PlotCycleProfileChart(chartViewer6, "Feed Rate");
+                    PlotCycleProfileChart(chartViewer6, "Spindle Speed");
+                    break;
+                case "chartViewer7":
+                    PlotCycleProfileChart(chartViewer6, "Spindle Load");
+                    break;
+                case "chartViewer8":
+                    PlotCycleProfileChart(chartViewer8, "Actual Feed Rate");
+                    break;
+                case "chartViewer9":
+                    PlotCycleProfileChart(chartViewer9, "Program Feed Rate");
+                    break;
+                default:
+                    PlotCycleProfileChart(chartViewer8, "Actual Feed Rate");
                     break;
             }
         }
@@ -1195,6 +1193,123 @@ namespace MachineConnectOEM
             currentDuration = Convert.ToInt32(cmbInterval.SelectedItem.ToString());
             if (selectedRow != null && selectedRow.Cells.Count > 1)
                 BindParamCycleProfile(selectedRow);
+            else
+            {
+                if (dgvCycleDetails.SelectedRows.Count > 0)
+                {
+                    selectedRow = dgvCycleDetails.SelectedRows[0] as DataGridViewRow;
+                    if (selectedRow != null)
+                    {
+                        BindParamCycleProfile(selectedRow);
+                    }
+                }
+            }
+        }
+
+        private void ShowAllCharts()
+        {
+            chartViewer1.Visible = true;
+            chartViewer2.Visible = true;
+            chartViewer3.Visible = true;
+            chartViewer4.Visible = true;
+            chartViewer5.Visible = true;
+            chartViewer6.Visible = true;
+            chartViewer7.Visible = true;
+            chartViewer8.Visible = true;
+            chartViewer9.Visible = true;
+            tableLayoutPanelCharts.RowStyles[0].Height = 200;
+            tableLayoutPanelCharts.RowStyles[1].Height = 200;
+            tableLayoutPanelCharts.RowStyles[2].Height = 200;
+            tableLayoutPanelCharts.RowStyles[3].Height = 200;
+            tableLayoutPanelCharts.RowStyles[4].Height = 200;
+            tableLayoutPanelCharts.RowStyles[5].Height = 200;
+            tableLayoutPanelCharts.RowStyles[6].Height = 200;
+            tableLayoutPanelCharts.RowStyles[7].Height = 200;
+            tableLayoutPanelCharts.RowStyles[8].Height = 200;
+        }
+
+        private void HideCharts()
+        {
+            chartViewer2.Visible = false;
+            chartViewer3.Visible = false;
+            chartViewer4.Visible = false;
+            chartViewer5.Visible = false;
+            chartViewer6.Visible = false;
+            chartViewer7.Visible = false;
+            chartViewer8.Visible = false;
+            chartViewer9.Visible = false;
+            tableLayoutPanelCharts.RowStyles[0].Height = 500;
+            tableLayoutPanelCharts.RowStyles[1].Height = 0;
+            tableLayoutPanelCharts.RowStyles[2].Height = 0;
+            tableLayoutPanelCharts.RowStyles[3].Height = 0;
+            tableLayoutPanelCharts.RowStyles[4].Height = 0;
+            tableLayoutPanelCharts.RowStyles[5].Height = 0;
+            tableLayoutPanelCharts.RowStyles[6].Height = 0;
+            tableLayoutPanelCharts.RowStyles[7].Height = 0;
+            tableLayoutPanelCharts.RowStyles[8].Height = 0;
+        }
+
+        private void PlotAllCharts()
+        {
+            try
+            {
+                PlotCycleProfileChart(chartViewer1, "Work Head Temperature");
+                SetChartValues("Work Head Temperature");
+                PlotCycleProfileChart(chartViewer2, "X-Axis Load");
+                SetChartValues("X-Axis Load");
+                PlotCycleProfileChart(chartViewer3, "Z-Axis Load");
+                SetChartValues("Z-Axis Load");
+                PlotCycleProfileChart(chartViewer4, "C-Axis Load");
+                SetChartValues("C-Axis Load");
+                PlotCycleProfileChart(chartViewer5, "C-Axis Speed");
+                SetChartValues("C-Axis Speed");
+                PlotCycleProfileChart(chartViewer6, "Spindle Speed");
+                SetChartValues("Spindle Speed");
+                PlotCycleProfileChart(chartViewer7, "Spindle Load");
+                SetChartValues("Spindle Load");
+                PlotCycleProfileChart(chartViewer8, "Actual Feed Rate");
+                SetChartValues("Actual Feed Rate");
+                PlotCycleProfileChart(chartViewer9, "Program Feed Rate");
+                SetChartValues("Program Feed Rate");
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteErrorLog(ex.Message);
+            }
+        }
+
+        private void SetMouseEnterEventForAllCharts()
+        {
+            chartViewer1.MouseEnter += (sender, e) => winChartViewer_MouseEnter(sender, EventArgs.Empty, chartViewer1, "Work Head Temperature");
+            chartViewer2.MouseEnter += (sender, e) => winChartViewer_MouseEnter(sender, EventArgs.Empty, chartViewer2, "X-Axis Load");
+            chartViewer3.MouseEnter += (sender, e) => winChartViewer_MouseEnter(sender, EventArgs.Empty, chartViewer3, "Z-Axis Load");
+            chartViewer4.MouseEnter += (sender, e) => winChartViewer_MouseEnter(sender, EventArgs.Empty, chartViewer4, "C-Axis Load");
+            chartViewer5.MouseEnter += (sender, e) => winChartViewer_MouseEnter(sender, EventArgs.Empty, chartViewer5, "C-Axis Speed");
+            chartViewer6.MouseEnter += (sender, e) => winChartViewer_MouseEnter(sender, EventArgs.Empty, chartViewer6, "Spindle Speed");
+            chartViewer7.MouseEnter += (sender, e) => winChartViewer_MouseEnter(sender, EventArgs.Empty, chartViewer7, "Spindle Load");
+            chartViewer8.MouseEnter += (sender, e) => winChartViewer_MouseEnter(sender, EventArgs.Empty, chartViewer8, "Actual Feed Rate");
+            chartViewer9.MouseEnter += (sender, e) => winChartViewer_MouseEnter(sender, EventArgs.Empty, chartViewer9, "Program Feed Rate");
+        }
+
+        private void pictureBoxExpandContract_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (tableLayoutPanelMain.RowStyles[1].Height > 150)
+                {
+                    tableLayoutPanelMain.RowStyles[1].Height = 40;
+                    pictureBoxExpandContract.Image = Resources.Expand_Btn;
+                }
+                else
+                {
+                    tableLayoutPanelMain.RowStyles[1].Height = 200;
+                    pictureBoxExpandContract.Image = Resources.Contract_Button;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteErrorLog(ex.Message);
+            }
         }
     }
 }

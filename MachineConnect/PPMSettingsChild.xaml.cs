@@ -331,7 +331,7 @@ namespace MachineConnectOEM
         private void cmbDivideBy_Loaded(object sender, RoutedEventArgs e)
         {
             ComboBox cmb = sender as ComboBox;
-            cmb.ItemsSource = new List<int>() { 10, 100, 1000, 10000 };
+            cmb.ItemsSource = new List<int>() { 1, 10, 100, 1000, 10000 };
         }
     }
 }

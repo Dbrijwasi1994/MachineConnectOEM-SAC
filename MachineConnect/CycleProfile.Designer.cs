@@ -35,13 +35,17 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CycleProfile));
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanelCycleGrid = new System.Windows.Forms.TableLayoutPanel();
             this.dgvCycleDetails = new System.Windows.Forms.DataGridView();
             this.SelectCycle = new System.Windows.Forms.DataGridViewButtonColumn();
             this.MachineModel = new System.Windows.Forms.DataGridViewLinkColumn();
             this.IPAddress = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.pictureBoxExpandContract = new System.Windows.Forms.PictureBox();
+            this.tableLayoutPanelFilter = new System.Windows.Forms.TableLayoutPanel();
             this.label3 = new System.Windows.Forms.Label();
+            this.btnGetCycles = new System.Windows.Forms.Button();
             this.cmbInterval = new System.Windows.Forms.ComboBox();
             this.cmbParameter = new System.Windows.Forms.ComboBox();
             this.lblParameter = new System.Windows.Forms.Label();
@@ -56,6 +60,9 @@
             this.chkShowValues = new System.Windows.Forms.CheckBox();
             this.ChartsPanel = new System.Windows.Forms.Panel();
             this.tableLayoutPanelCharts = new System.Windows.Forms.TableLayoutPanel();
+            this.chartViewer9 = new ChartDirector.WinChartViewer();
+            this.chartViewer8 = new ChartDirector.WinChartViewer();
+            this.chartViewer7 = new ChartDirector.WinChartViewer();
             this.chartViewer6 = new ChartDirector.WinChartViewer();
             this.chartViewer5 = new ChartDirector.WinChartViewer();
             this.chartViewer4 = new ChartDirector.WinChartViewer();
@@ -63,12 +70,16 @@
             this.chartViewer2 = new ChartDirector.WinChartViewer();
             this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
             this.chartViewer1 = new ChartDirector.WinChartViewer();
-            this.btnGetCycles = new System.Windows.Forms.Button();
             this.tableLayoutPanelMain.SuspendLayout();
+            this.tableLayoutPanelCycleGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCycleDetails)).BeginInit();
-            this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxExpandContract)).BeginInit();
+            this.tableLayoutPanelFilter.SuspendLayout();
             this.ChartsPanel.SuspendLayout();
             this.tableLayoutPanelCharts.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartViewer9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartViewer8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartViewer7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartViewer6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartViewer5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartViewer4)).BeginInit();
@@ -81,8 +92,8 @@
             // 
             this.tableLayoutPanelMain.ColumnCount = 1;
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelMain.Controls.Add(this.dgvCycleDetails, 0, 1);
-            this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanel1, 0, 0);
+            this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanelCycleGrid, 0, 1);
+            this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanelFilter, 0, 0);
             this.tableLayoutPanelMain.Controls.Add(this.ChartsPanel, 0, 2);
             this.tableLayoutPanelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelMain.Location = new System.Drawing.Point(0, 0);
@@ -95,6 +106,23 @@
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanelMain.Size = new System.Drawing.Size(1668, 1234);
             this.tableLayoutPanelMain.TabIndex = 0;
+            // 
+            // tableLayoutPanelCycleGrid
+            // 
+            this.tableLayoutPanelCycleGrid.ColumnCount = 3;
+            this.tableLayoutPanelCycleGrid.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 500F));
+            this.tableLayoutPanelCycleGrid.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelCycleGrid.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanelCycleGrid.Controls.Add(this.dgvCycleDetails, 0, 0);
+            this.tableLayoutPanelCycleGrid.Controls.Add(this.pictureBoxExpandContract, 2, 0);
+            this.tableLayoutPanelCycleGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelCycleGrid.Location = new System.Drawing.Point(3, 34);
+            this.tableLayoutPanelCycleGrid.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.tableLayoutPanelCycleGrid.Name = "tableLayoutPanelCycleGrid";
+            this.tableLayoutPanelCycleGrid.RowCount = 1;
+            this.tableLayoutPanelCycleGrid.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelCycleGrid.Size = new System.Drawing.Size(1662, 200);
+            this.tableLayoutPanelCycleGrid.TabIndex = 24;
             // 
             // dgvCycleDetails
             // 
@@ -132,11 +160,10 @@
             dataGridViewCellStyle13.SelectionForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvCycleDetails.DefaultCellStyle = dataGridViewCellStyle13;
-            this.dgvCycleDetails.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCycleDetails.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgvCycleDetails.EnableHeadersVisualStyles = false;
             this.dgvCycleDetails.GridColor = System.Drawing.SystemColors.ControlLight;
-            this.dgvCycleDetails.Location = new System.Drawing.Point(0, 34);
+            this.dgvCycleDetails.Location = new System.Drawing.Point(0, 0);
             this.dgvCycleDetails.Margin = new System.Windows.Forms.Padding(0);
             this.dgvCycleDetails.Name = "dgvCycleDetails";
             dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -159,7 +186,7 @@
             this.dgvCycleDetails.RowTemplate.ReadOnly = true;
             this.dgvCycleDetails.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvCycleDetails.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCycleDetails.Size = new System.Drawing.Size(1668, 200);
+            this.dgvCycleDetails.Size = new System.Drawing.Size(500, 200);
             this.dgvCycleDetails.TabIndex = 21;
             this.dgvCycleDetails.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCycleDetails_CellContentDoubleClick);
             this.dgvCycleDetails.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvCycleDetails_DataBindingComplete);
@@ -203,46 +230,58 @@
             this.IPAddress.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.IPAddress.Width = 200;
             // 
-            // tableLayoutPanel1
+            // pictureBoxExpandContract
             // 
-            this.tableLayoutPanel1.ColumnCount = 15;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 110F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 104F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.label3, 9, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnGetCycles, 8, 0);
-            this.tableLayoutPanel1.Controls.Add(this.cmbInterval, 10, 0);
-            this.tableLayoutPanel1.Controls.Add(this.cmbParameter, 7, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lblParameter, 6, 0);
-            this.tableLayoutPanel1.Controls.Add(this.cmbMachineId, 5, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 4, 0);
-            this.tableLayoutPanel1.Controls.Add(this.dtpToDate, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lblAxis, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.dtpFromDate, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnView, 11, 0);
-            this.tableLayoutPanel1.Controls.Add(this.chkShowMarkers, 13, 0);
-            this.tableLayoutPanel1.Controls.Add(this.chkShowValues, 14, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(1, 1);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(1);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1666, 32);
-            this.tableLayoutPanel1.TabIndex = 0;
+            this.pictureBoxExpandContract.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxExpandContract.Image")));
+            this.pictureBoxExpandContract.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBoxExpandContract.InitialImage")));
+            this.pictureBoxExpandContract.Location = new System.Drawing.Point(1632, 0);
+            this.pictureBoxExpandContract.Margin = new System.Windows.Forms.Padding(0);
+            this.pictureBoxExpandContract.Name = "pictureBoxExpandContract";
+            this.pictureBoxExpandContract.Size = new System.Drawing.Size(30, 33);
+            this.pictureBoxExpandContract.TabIndex = 22;
+            this.pictureBoxExpandContract.TabStop = false;
+            this.pictureBoxExpandContract.Click += new System.EventHandler(this.pictureBoxExpandContract_Click);
+            // 
+            // tableLayoutPanelFilter
+            // 
+            this.tableLayoutPanelFilter.ColumnCount = 15;
+            this.tableLayoutPanelFilter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanelFilter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tableLayoutPanelFilter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tableLayoutPanelFilter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tableLayoutPanelFilter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106F));
+            this.tableLayoutPanelFilter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
+            this.tableLayoutPanelFilter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanelFilter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tableLayoutPanelFilter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 110F));
+            this.tableLayoutPanelFilter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
+            this.tableLayoutPanelFilter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tableLayoutPanelFilter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tableLayoutPanelFilter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelFilter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 104F));
+            this.tableLayoutPanelFilter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanelFilter.Controls.Add(this.label3, 9, 0);
+            this.tableLayoutPanelFilter.Controls.Add(this.btnGetCycles, 8, 0);
+            this.tableLayoutPanelFilter.Controls.Add(this.cmbInterval, 10, 0);
+            this.tableLayoutPanelFilter.Controls.Add(this.cmbParameter, 7, 0);
+            this.tableLayoutPanelFilter.Controls.Add(this.lblParameter, 6, 0);
+            this.tableLayoutPanelFilter.Controls.Add(this.cmbMachineId, 5, 0);
+            this.tableLayoutPanelFilter.Controls.Add(this.label2, 4, 0);
+            this.tableLayoutPanelFilter.Controls.Add(this.dtpToDate, 3, 0);
+            this.tableLayoutPanelFilter.Controls.Add(this.label1, 2, 0);
+            this.tableLayoutPanelFilter.Controls.Add(this.lblAxis, 0, 0);
+            this.tableLayoutPanelFilter.Controls.Add(this.dtpFromDate, 1, 0);
+            this.tableLayoutPanelFilter.Controls.Add(this.btnView, 11, 0);
+            this.tableLayoutPanelFilter.Controls.Add(this.chkShowMarkers, 13, 0);
+            this.tableLayoutPanelFilter.Controls.Add(this.chkShowValues, 14, 0);
+            this.tableLayoutPanelFilter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelFilter.Location = new System.Drawing.Point(1, 1);
+            this.tableLayoutPanelFilter.Margin = new System.Windows.Forms.Padding(1);
+            this.tableLayoutPanelFilter.Name = "tableLayoutPanelFilter";
+            this.tableLayoutPanelFilter.RowCount = 1;
+            this.tableLayoutPanelFilter.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelFilter.Size = new System.Drawing.Size(1666, 32);
+            this.tableLayoutPanelFilter.TabIndex = 0;
             // 
             // label3
             // 
@@ -251,12 +290,25 @@
             this.label3.BackColor = System.Drawing.Color.White;
             this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.label3.Location = new System.Drawing.Point(1099, 6);
+            this.label3.Location = new System.Drawing.Point(1069, 6);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(107, 20);
             this.label3.TabIndex = 31;
             this.label3.Text = "Interval (Sec): ";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // btnGetCycles
+            // 
+            this.btnGetCycles.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnGetCycles.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGetCycles.Location = new System.Drawing.Point(958, 2);
+            this.btnGetCycles.Margin = new System.Windows.Forms.Padding(2);
+            this.btnGetCycles.Name = "btnGetCycles";
+            this.btnGetCycles.Size = new System.Drawing.Size(106, 28);
+            this.btnGetCycles.TabIndex = 26;
+            this.btnGetCycles.Text = "Get Cycles";
+            this.btnGetCycles.UseVisualStyleBackColor = true;
+            this.btnGetCycles.Click += new System.EventHandler(this.btnGetCycles_Click);
             // 
             // cmbInterval
             // 
@@ -272,7 +324,7 @@
             "30",
             "60",
             "120"});
-            this.cmbInterval.Location = new System.Drawing.Point(1213, 3);
+            this.cmbInterval.Location = new System.Drawing.Point(1183, 3);
             this.cmbInterval.Name = "cmbInterval";
             this.cmbInterval.Size = new System.Drawing.Size(74, 25);
             this.cmbInterval.TabIndex = 30;
@@ -284,11 +336,7 @@
             this.cmbParameter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbParameter.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbParameter.FormattingEnabled = true;
-            this.cmbParameter.Items.AddRange(new object[] {
-            "Hour",
-            "Minute",
-            "Seconds"});
-            this.cmbParameter.Location = new System.Drawing.Point(839, 3);
+            this.cmbParameter.Location = new System.Drawing.Point(809, 3);
             this.cmbParameter.Name = "cmbParameter";
             this.cmbParameter.Size = new System.Drawing.Size(144, 25);
             this.cmbParameter.TabIndex = 29;
@@ -300,7 +348,7 @@
             this.lblParameter.BackColor = System.Drawing.Color.White;
             this.lblParameter.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblParameter.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.lblParameter.Location = new System.Drawing.Point(739, 6);
+            this.lblParameter.Location = new System.Drawing.Point(709, 6);
             this.lblParameter.Name = "lblParameter";
             this.lblParameter.Size = new System.Drawing.Size(92, 20);
             this.lblParameter.TabIndex = 28;
@@ -319,7 +367,7 @@
             "Seconds"});
             this.cmbMachineId.Location = new System.Drawing.Point(589, 3);
             this.cmbMachineId.Name = "cmbMachineId";
-            this.cmbMachineId.Size = new System.Drawing.Size(144, 25);
+            this.cmbMachineId.Size = new System.Drawing.Size(114, 25);
             this.cmbMachineId.TabIndex = 24;
             // 
             // label2
@@ -390,7 +438,7 @@
             // 
             this.btnView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnView.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnView.Location = new System.Drawing.Point(1292, 2);
+            this.btnView.Location = new System.Drawing.Point(1262, 2);
             this.btnView.Margin = new System.Windows.Forms.Padding(2);
             this.btnView.Name = "btnView";
             this.btnView.Size = new System.Drawing.Size(76, 28);
@@ -447,19 +495,25 @@
             this.tableLayoutPanelCharts.AutoSize = true;
             this.tableLayoutPanelCharts.ColumnCount = 1;
             this.tableLayoutPanelCharts.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelCharts.Controls.Add(this.chartViewer9, 0, 8);
+            this.tableLayoutPanelCharts.Controls.Add(this.chartViewer8, 0, 7);
+            this.tableLayoutPanelCharts.Controls.Add(this.chartViewer7, 0, 6);
             this.tableLayoutPanelCharts.Controls.Add(this.chartViewer6, 0, 5);
             this.tableLayoutPanelCharts.Controls.Add(this.chartViewer5, 0, 4);
             this.tableLayoutPanelCharts.Controls.Add(this.chartViewer4, 0, 3);
             this.tableLayoutPanelCharts.Controls.Add(this.chartViewer3, 0, 2);
             this.tableLayoutPanelCharts.Controls.Add(this.chartViewer2, 0, 1);
-            this.tableLayoutPanelCharts.Controls.Add(this.hScrollBar1, 0, 6);
+            this.tableLayoutPanelCharts.Controls.Add(this.hScrollBar1, 0, 9);
             this.tableLayoutPanelCharts.Controls.Add(this.chartViewer1, 0, 0);
             this.tableLayoutPanelCharts.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelCharts.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelCharts.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanelCharts.MaximumSize = new System.Drawing.Size(1916, 1200);
             this.tableLayoutPanelCharts.Name = "tableLayoutPanelCharts";
-            this.tableLayoutPanelCharts.RowCount = 7;
+            this.tableLayoutPanelCharts.RowCount = 10;
+            this.tableLayoutPanelCharts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tableLayoutPanelCharts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tableLayoutPanelCharts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableLayoutPanelCharts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableLayoutPanelCharts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableLayoutPanelCharts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
@@ -467,8 +521,55 @@
             this.tableLayoutPanelCharts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableLayoutPanelCharts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableLayoutPanelCharts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanelCharts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanelCharts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanelCharts.Size = new System.Drawing.Size(1664, 976);
             this.tableLayoutPanelCharts.TabIndex = 0;
+            // 
+            // chartViewer9
+            // 
+            this.chartViewer9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chartViewer9.HotSpotCursor = System.Windows.Forms.Cursors.Hand;
+            this.chartViewer9.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.chartViewer9.Location = new System.Drawing.Point(3, 1603);
+            this.chartViewer9.Name = "chartViewer9";
+            this.chartViewer9.ScrollDirection = ChartDirector.WinChartDirection.HorizontalVertical;
+            this.chartViewer9.Size = new System.Drawing.Size(1641, 194);
+            this.chartViewer9.TabIndex = 35;
+            this.chartViewer9.TabStop = false;
+            this.chartViewer9.ZoomDirection = ChartDirector.WinChartDirection.HorizontalVertical;
+            // 
+            // chartViewer8
+            // 
+            this.chartViewer8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chartViewer8.HotSpotCursor = System.Windows.Forms.Cursors.Hand;
+            this.chartViewer8.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.chartViewer8.Location = new System.Drawing.Point(3, 1403);
+            this.chartViewer8.Name = "chartViewer8";
+            this.chartViewer8.ScrollDirection = ChartDirector.WinChartDirection.HorizontalVertical;
+            this.chartViewer8.Size = new System.Drawing.Size(1641, 194);
+            this.chartViewer8.TabIndex = 34;
+            this.chartViewer8.TabStop = false;
+            this.chartViewer8.ZoomDirection = ChartDirector.WinChartDirection.HorizontalVertical;
+            // 
+            // chartViewer7
+            // 
+            this.chartViewer7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chartViewer7.HotSpotCursor = System.Windows.Forms.Cursors.Hand;
+            this.chartViewer7.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.chartViewer7.Location = new System.Drawing.Point(3, 1203);
+            this.chartViewer7.Name = "chartViewer7";
+            this.chartViewer7.ScrollDirection = ChartDirector.WinChartDirection.HorizontalVertical;
+            this.chartViewer7.Size = new System.Drawing.Size(1641, 194);
+            this.chartViewer7.TabIndex = 33;
+            this.chartViewer7.TabStop = false;
+            this.chartViewer7.ZoomDirection = ChartDirector.WinChartDirection.HorizontalVertical;
             // 
             // chartViewer6
             // 
@@ -553,7 +654,7 @@
             // hScrollBar1
             // 
             this.hScrollBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.hScrollBar1.Location = new System.Drawing.Point(0, 1213);
+            this.hScrollBar1.Location = new System.Drawing.Point(0, 1813);
             this.hScrollBar1.Name = "hScrollBar1";
             this.hScrollBar1.Size = new System.Drawing.Size(1647, 17);
             this.hScrollBar1.TabIndex = 32;
@@ -575,19 +676,6 @@
             this.chartViewer1.ZoomDirection = ChartDirector.WinChartDirection.HorizontalVertical;
             this.chartViewer1.ViewPortChanged += new ChartDirector.WinViewPortEventHandler(this.chartViewer1_ViewPortChanged);
             // 
-            // btnGetCycles
-            // 
-            this.btnGetCycles.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnGetCycles.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGetCycles.Location = new System.Drawing.Point(988, 2);
-            this.btnGetCycles.Margin = new System.Windows.Forms.Padding(2);
-            this.btnGetCycles.Name = "btnGetCycles";
-            this.btnGetCycles.Size = new System.Drawing.Size(106, 28);
-            this.btnGetCycles.TabIndex = 26;
-            this.btnGetCycles.Text = "Get Cycles";
-            this.btnGetCycles.UseVisualStyleBackColor = true;
-            this.btnGetCycles.Click += new System.EventHandler(this.btnGetCycles_Click);
-            // 
             // CycleProfile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -601,12 +689,17 @@
             this.Load += new System.EventHandler(this.CycleProfile_Load);
             this.tableLayoutPanelMain.ResumeLayout(false);
             this.tableLayoutPanelMain.PerformLayout();
+            this.tableLayoutPanelCycleGrid.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvCycleDetails)).EndInit();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxExpandContract)).EndInit();
+            this.tableLayoutPanelFilter.ResumeLayout(false);
+            this.tableLayoutPanelFilter.PerformLayout();
             this.ChartsPanel.ResumeLayout(false);
             this.ChartsPanel.PerformLayout();
             this.tableLayoutPanelCharts.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chartViewer9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartViewer8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartViewer7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartViewer6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartViewer5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartViewer4)).EndInit();
@@ -620,7 +713,7 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelMain;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelFilter;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dtpToDate;
         private System.Windows.Forms.Label label1;
@@ -648,5 +741,10 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cmbInterval;
         private System.Windows.Forms.Button btnGetCycles;
+        private ChartDirector.WinChartViewer chartViewer9;
+        private ChartDirector.WinChartViewer chartViewer8;
+        private ChartDirector.WinChartViewer chartViewer7;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelCycleGrid;
+        private System.Windows.Forms.PictureBox pictureBoxExpandContract;
     }
 }

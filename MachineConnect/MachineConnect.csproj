@@ -903,6 +903,7 @@
     <None Include="packages.config" />
     <None Include="Resources\btnDownload.png" />
     <None Include="Resources\btnUpload.png" />
+    <None Include="Resources\Contract_Btn.png" />
     <Content Include="Scripts\1.Script.txt" />
     <Content Include="Scripts\2.Script.txt" />
     <Content Include="SI_Unit_Images\CuttingSpeed.png">
@@ -1122,7 +1123,7 @@
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>

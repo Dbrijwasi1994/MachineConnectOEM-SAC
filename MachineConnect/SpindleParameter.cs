@@ -93,6 +93,29 @@ namespace MachineConnectApplication
             }
         }
 
+        private void RPM_Load(object sender, EventArgs e)
+        {
+            MTB = DatabaseAccess.GetMTB(HomeScreen.selectedMachine);
+            cmbParameter.SelectedIndex = 0;
+            dtpStartDate.Value = DatabaseAccess.GetShiftStartEndTimeForDay(1, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            cmbDurationType.SelectedIndex = Settings.CmbDurationTypeSelectedIndex;
+            BindDuration();
+            currentDurationSelected = cmbDuration.Text;
+            LoadRunningParameter();
+            timer1.Interval = (int)TimeSpan.FromSeconds(30).TotalMilliseconds;// Settings.AutoRefreshInterval;
+            if (Convert.ToDateTime(MainScreen.CURRENT_DATE_TIME).ToString("yyyy-MM-dd") == (DatabaseAccess.GetShiftStartEndTimeForDay(1, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))).ToString("yyyy-MM-dd"))
+            {
+                timer1.Enabled = true;
+            }
+            else
+            {
+                timer1.Enabled = false;
+            }
+            hScrollBar1_ValueChanged_1(null, EventArgs.Empty);
+            hScrollBar2_ValueChanged_1(null, EventArgs.Empty);
+            hScrollBar3_ValueChanged_1(null, EventArgs.Empty);
+        }
+
         #region -- Data Binding
 
         private void loadData()
@@ -756,30 +779,6 @@ namespace MachineConnectApplication
                     Settings.WriteErrorMsg(ex.ToString());
                 }
             }
-        }
-
-
-        private void RPM_Load(object sender, EventArgs e)
-        {
-            MTB = DatabaseAccess.GetMTB(HomeScreen.selectedMachine);
-            cmbParameter.SelectedIndex = 0;
-            dtpStartDate.Value = DatabaseAccess.GetShiftStartEndTimeForDay(1, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-            cmbDurationType.SelectedIndex = Settings.CmbDurationTypeSelectedIndex;
-            BindDuration();
-            currentDurationSelected = cmbDuration.Text;
-            LoadRunningParameter();
-            timer1.Interval = (int)TimeSpan.FromSeconds(30).TotalMilliseconds;// Settings.AutoRefreshInterval;
-            if (Convert.ToDateTime(MainScreen.CURRENT_DATE_TIME).ToString("yyyy-MM-dd") == (DatabaseAccess.GetShiftStartEndTimeForDay(1, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))).ToString("yyyy-MM-dd"))
-            {
-                timer1.Enabled = true;
-            }
-            else
-            {
-                timer1.Enabled = false;
-            }
-            hScrollBar1_ValueChanged_1(null, EventArgs.Empty);
-            hScrollBar2_ValueChanged_1(null, EventArgs.Empty);
-            hScrollBar3_ValueChanged_1(null, EventArgs.Empty);
         }
 
         private void timer1_Tick(object sender, EventArgs e)
