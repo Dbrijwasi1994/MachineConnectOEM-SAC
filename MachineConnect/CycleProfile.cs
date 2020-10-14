@@ -260,6 +260,30 @@ namespace MachineConnectOEM
             }
         }
 
+        private void dgvCycleDetails_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (e.ColumnIndex.Equals(0))
+                {
+                    DialogResult dlgConfirmation = MessageBox.Show("Are you sure you want to view charts for selected cycle ?", "Information Message", MessageBoxButtons.YesNo);
+                    if (dlgConfirmation == DialogResult.Yes)
+                    {
+                        selectedRow = dgvCycleDetails.Rows[e.RowIndex];
+                        BindParamCycleProfile(selectedRow);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show($"{dgvCycleDetails.Columns[e.ColumnIndex].HeaderText} : {dgvCycleDetails.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void BindParamCycleProfile(DataGridViewRow dataGridViewRow)
         {
             string MachineID = cmbMachineId.SelectedItem != null ? cmbMachineId.SelectedValue.ToString() : "";
@@ -1126,7 +1150,7 @@ namespace MachineConnectOEM
         private void chartViewer1_ViewPortChanged(object sender, WinViewPortEventArgs e)
         {
             WinChartViewer winChartViewer = sender as WinChartViewer;
-            currentDuration = Math.Round(winChartViewer.ViewPortWidth * dateRange);
+            currentDuration = Convert.ToInt32(cmbInterval.SelectedItem.ToString());
             hScrollBar1.Enabled = winChartViewer.ViewPortWidth < 1;
             hScrollBar1.LargeChange = (int)Math.Ceiling(winChartViewer.ViewPortWidth * (hScrollBar1.Maximum - hScrollBar1.Minimum));
             hScrollBar1.SmallChange = (int)Math.Ceiling(hScrollBar1.LargeChange * 0.1);
@@ -1152,7 +1176,7 @@ namespace MachineConnectOEM
                     PlotCycleProfileChart(chartViewer6, "Spindle Speed");
                     break;
                 case "chartViewer7":
-                    PlotCycleProfileChart(chartViewer6, "Spindle Load");
+                    PlotCycleProfileChart(chartViewer7, "Spindle Load");
                     break;
                 case "chartViewer8":
                     PlotCycleProfileChart(chartViewer8, "Actual Feed Rate");
@@ -1288,6 +1312,19 @@ namespace MachineConnectOEM
             {
                 Logger.WriteErrorLog(ex.Message);
             }
+        }
+
+        private void pictureBoxExpandContract_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip toolTip = new ToolTip();
+            if (tableLayoutPanelMain.RowStyles[1].Height > 150)
+            {
+                toolTip.SetToolTip(this.pictureBoxExpandContract, "Contract cycle details");
+            }
+            else
+            {
+                toolTip.SetToolTip(this.pictureBoxExpandContract, "Expand cycle details");
+            }            
         }
     }
 }

@@ -188,6 +188,7 @@
             this.dgvCycleDetails.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCycleDetails.Size = new System.Drawing.Size(500, 200);
             this.dgvCycleDetails.TabIndex = 21;
+            this.dgvCycleDetails.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCycleDetails_CellContentDoubleClick);
             this.dgvCycleDetails.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvCycleDetails_DataBindingComplete);
             // 
             // pictureBoxExpandContract
@@ -202,6 +203,7 @@
             this.pictureBoxExpandContract.TabIndex = 22;
             this.pictureBoxExpandContract.TabStop = false;
             this.pictureBoxExpandContract.Click += new System.EventHandler(this.pictureBoxExpandContract_Click);
+            this.pictureBoxExpandContract.MouseHover += new System.EventHandler(this.pictureBoxExpandContract_MouseHover);
             // 
             // tableLayoutPanelFilter
             // 
@@ -501,6 +503,7 @@
             this.chartViewer9.TabIndex = 35;
             this.chartViewer9.TabStop = false;
             this.chartViewer9.ZoomDirection = ChartDirector.WinChartDirection.HorizontalVertical;
+            this.chartViewer9.ViewPortChanged += new ChartDirector.WinViewPortEventHandler(this.chartViewer1_ViewPortChanged);
             // 
             // chartViewer8
             // 
@@ -516,6 +519,7 @@
             this.chartViewer8.TabIndex = 34;
             this.chartViewer8.TabStop = false;
             this.chartViewer8.ZoomDirection = ChartDirector.WinChartDirection.HorizontalVertical;
+            this.chartViewer8.ViewPortChanged += new ChartDirector.WinViewPortEventHandler(this.chartViewer1_ViewPortChanged);
             // 
             // chartViewer7
             // 
@@ -531,6 +535,7 @@
             this.chartViewer7.TabIndex = 33;
             this.chartViewer7.TabStop = false;
             this.chartViewer7.ZoomDirection = ChartDirector.WinChartDirection.HorizontalVertical;
+            this.chartViewer7.ViewPortChanged += new ChartDirector.WinViewPortEventHandler(this.chartViewer1_ViewPortChanged);
             // 
             // chartViewer6
             // 
