@@ -26,7 +26,7 @@ namespace MachineConnectOEM
     public partial class PPMSettingsChild : UserControl
     {
         List<string> GroupIDList = new List<string> { "Grinding Cycle monitoring", "GRINDING APPLICATION PARAMETERS", "Live dashboard", "Load screen" };
-        List<string> DataTypeList = new List<string> { "Bool", "Int", "Sort", "Double", "byte" };
+        List<string> DataTypeList = new List<string> { "Bool", "numeric", "Sort", "double", "byte", "text" };
         List<string> TemplateTypeList = new List<string> { "Text", "High/Low Limits" };
         List<double> FreqIDList = new List<double> { 0.5, 1, 2, 4, 6, 10 };
         static ObservableCollection<ProcessParamConfigModelNew> prgListaData = null;
