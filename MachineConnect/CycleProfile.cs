@@ -418,18 +418,18 @@ namespace MachineConnectOEM
                                 {
                                     if (parameterCycleInfo.UpdatedtimeStamp != null)
                                     {
-                                        Mark markCycleStartTime = c.xAxis2().addMark(Chart.CTime(parameterCycleInfo.UpdatedtimeStamp), 0x4860, "Cycle Start", "Arial", 7);
-                                        markCycleStartTime.setLineWidth(2);
+                                        Mark markCycleStartTime = c.xAxis2().addMark(Chart.CTime(parameterCycleInfo.UpdatedtimeStamp), 0x2C6101, "Cycle Start", "Arial", 7);
+                                        markCycleStartTime.setLineWidth(3);
                                         markCycleStartTime.setFontAngle(90);
-                                        markCycleStartTime.setAlignment(Chart.TopRight2);
+                                        markCycleStartTime.setAlignment(Chart.TopLeft2);
                                     }
                                 }
                                 if (parameterCycleInfo.ParameterID.Equals("P2"))
                                 {
                                     if (parameterCycleInfo.UpdatedtimeStamp != null)
                                     {
-                                        Mark markCycleEndTime = c.xAxis2().addMark(Chart.CTime(parameterCycleInfo.UpdatedtimeStamp), 0x4860, "Cycle End", "Arial", 7);
-                                        markCycleEndTime.setLineWidth(2);
+                                        Mark markCycleEndTime = c.xAxis2().addMark(Chart.CTime(parameterCycleInfo.UpdatedtimeStamp), 0x2C6101, "Cycle End", "Arial", 7);
+                                        markCycleEndTime.setLineWidth(3);
                                         markCycleEndTime.setFontAngle(90);
                                         markCycleEndTime.setAlignment(Chart.BottomRight);
                                     }
@@ -438,18 +438,18 @@ namespace MachineConnectOEM
                                 {
                                     if (parameterCycleInfo.UpdatedtimeStamp != null)
                                     {
-                                        Mark markCycleEndTime = c.xAxis2().addMark(Chart.CTime(parameterCycleInfo.UpdatedtimeStamp), 0x8000, "Grinding Start", "Arial", 7);
-                                        markCycleEndTime.setLineWidth(2);
+                                        Mark markCycleEndTime = c.xAxis2().addMark(Chart.CTime(parameterCycleInfo.UpdatedtimeStamp), 0x4D4D4D, "Grinding Start", "Arial", 7);
+                                        markCycleEndTime.setLineWidth(3);
                                         markCycleEndTime.setFontAngle(90);
-                                        markCycleEndTime.setAlignment(Chart.BottomRight);
+                                        markCycleEndTime.setAlignment(Chart.TopLeft2);
                                     }
                                 }
                                 else if (parameterCycleInfo.ParameterID.Equals("P4"))
                                 {
                                     if (parameterCycleInfo.UpdatedtimeStamp != null)
                                     {
-                                        Mark markCycleEndTime = c.xAxis2().addMark(Chart.CTime(parameterCycleInfo.UpdatedtimeStamp), 0x8000, "Grinding End", "Arial", 7);
-                                        markCycleEndTime.setLineWidth(2);
+                                        Mark markCycleEndTime = c.xAxis2().addMark(Chart.CTime(parameterCycleInfo.UpdatedtimeStamp), 0x4D4D4D, "Grinding End", "Arial", 7);
+                                        markCycleEndTime.setLineWidth(3);
                                         markCycleEndTime.setFontAngle(90);
                                         markCycleEndTime.setAlignment(Chart.BottomRight);
                                     }
@@ -458,18 +458,18 @@ namespace MachineConnectOEM
                                 {
                                     if (parameterCycleInfo.UpdatedtimeStamp != null)
                                     {
-                                        Mark markCycleEndTime = c.xAxis2().addMark(Chart.CTime(parameterCycleInfo.UpdatedtimeStamp), 0x800000, "Dressing Start", "Arial", 7);
-                                        markCycleEndTime.setLineWidth(2);
+                                        Mark markCycleEndTime = c.xAxis2().addMark(Chart.CTime(parameterCycleInfo.UpdatedtimeStamp), 0xBFBF, "Dressing Start", "Arial", 7);
+                                        markCycleEndTime.setLineWidth(3);
                                         markCycleEndTime.setFontAngle(90);
-                                        markCycleEndTime.setAlignment(Chart.BottomRight);
+                                        markCycleEndTime.setAlignment(Chart.TopLeft2);
                                     }
                                 }
                                 else if (parameterCycleInfo.ParameterID.Equals("P6"))
                                 {
                                     if (parameterCycleInfo.UpdatedtimeStamp != null)
                                     {
-                                        Mark markCycleEndTime = c.xAxis2().addMark(Chart.CTime(parameterCycleInfo.UpdatedtimeStamp), 0x800000, "Dressing End", "Arial", 7);
-                                        markCycleEndTime.setLineWidth(2);
+                                        Mark markCycleEndTime = c.xAxis2().addMark(Chart.CTime(parameterCycleInfo.UpdatedtimeStamp), 0xBFBF, "Dressing End", "Arial", 7);
+                                        markCycleEndTime.setLineWidth(3);
                                         markCycleEndTime.setFontAngle(90);
                                         markCycleEndTime.setAlignment(Chart.BottomRight);
                                     }
@@ -491,15 +491,15 @@ namespace MachineConnectOEM
                                     {
                                         if (startEndTime.ParameterValue.Equals(1))
                                         {
-                                            Mark markAprFeedRateStart = c.xAxis2().addMark(Chart.CTime(startEndTime.EventTimeStamp), 0x4860, "Approach feed rate", "Arial", 7);
-                                            markAprFeedRateStart.setLineWidth(2);
+                                            Mark markAprFeedRateStart = c.xAxis2().addMark(Chart.CTime(startEndTime.EventTimeStamp), 0x40, "Approach feed rate", "Arial", 7);
+                                            markAprFeedRateStart.setLineWidth(3);
                                             markAprFeedRateStart.setFontAngle(90);
-                                            markAprFeedRateStart.setAlignment(Chart.BottomRight);
+                                            markAprFeedRateStart.setAlignment(Chart.TopLeft2);
                                         }
                                         if (startEndTime.ParameterValue.Equals(0))
                                         {
-                                            Mark markAprFeedRateEnd = c.xAxis2().addMark(Chart.CTime(startEndTime.EventTimeStamp), 0x4860, "Approach feed rate", "Arial", 7);
-                                            markAprFeedRateEnd.setLineWidth(2);
+                                            Mark markAprFeedRateEnd = c.xAxis2().addMark(Chart.CTime(startEndTime.EventTimeStamp), 0x40, "Approach feed rate", "Arial", 7);
+                                            markAprFeedRateEnd.setLineWidth(3);
                                             markAprFeedRateEnd.setFontAngle(90);
                                             markAprFeedRateEnd.setAlignment(Chart.BottomRight);
                                         }
@@ -511,15 +511,15 @@ namespace MachineConnectOEM
                                     {
                                         if (startEndTime.ParameterValue.Equals(1))
                                         {
-                                            Mark markRoughingFeedRateStart = c.xAxis2().addMark(Chart.CTime(startEndTime.EventTimeStamp), 0x80FF, "Roughing feed rate", "Arial", 7);
-                                            markRoughingFeedRateStart.setLineWidth(2);
+                                            Mark markRoughingFeedRateStart = c.xAxis2().addMark(Chart.CTime(startEndTime.EventTimeStamp), 0x80, "Roughing feed rate", "Arial", 7);
+                                            markRoughingFeedRateStart.setLineWidth(3);
                                             markRoughingFeedRateStart.setFontAngle(90);
-                                            markRoughingFeedRateStart.setAlignment(Chart.BottomRight);
+                                            markRoughingFeedRateStart.setAlignment(Chart.TopLeft2);
                                         }
                                         if (startEndTime.ParameterValue.Equals(0))
                                         {
-                                            Mark markRoughingFeedRateEnd = c.xAxis2().addMark(Chart.CTime(startEndTime.EventTimeStamp), 0x80FF, "Roughing feed rate", "Arial", 7);
-                                            markRoughingFeedRateEnd.setLineWidth(2);
+                                            Mark markRoughingFeedRateEnd = c.xAxis2().addMark(Chart.CTime(startEndTime.EventTimeStamp), 0x80, "Roughing feed rate", "Arial", 7);
+                                            markRoughingFeedRateEnd.setLineWidth(3);
                                             markRoughingFeedRateEnd.setFontAngle(90);
                                             markRoughingFeedRateEnd.setAlignment(Chart.BottomRight);
                                         }
@@ -531,15 +531,15 @@ namespace MachineConnectOEM
                                     {
                                         if (startEndTime.ParameterValue.Equals(1))
                                         {
-                                            Mark markSemiFinFeedRateStart = c.xAxis2().addMark(Chart.CTime(startEndTime.EventTimeStamp), 0xFFFF, "Semi finishing feed rate", "Arial", 7);
-                                            markSemiFinFeedRateStart.setLineWidth(2);
+                                            Mark markSemiFinFeedRateStart = c.xAxis2().addMark(Chart.CTime(startEndTime.EventTimeStamp), 0xFF, "Semi finishing feed rate", "Arial", 7);
+                                            markSemiFinFeedRateStart.setLineWidth(3);
                                             markSemiFinFeedRateStart.setFontAngle(90);
-                                            markSemiFinFeedRateStart.setAlignment(Chart.BottomRight);
+                                            markSemiFinFeedRateStart.setAlignment(Chart.TopLeft2);
                                         }
                                         if (startEndTime.ParameterValue.Equals(0))
                                         {
-                                            Mark markSemiFinFeedRateEnd = c.xAxis2().addMark(Chart.CTime(startEndTime.EventTimeStamp), 0xFFFF, "Semi finishing feed rate", "Arial", 7);
-                                            markSemiFinFeedRateEnd.setLineWidth(2);
+                                            Mark markSemiFinFeedRateEnd = c.xAxis2().addMark(Chart.CTime(startEndTime.EventTimeStamp), 0xFF, "Semi finishing feed rate", "Arial", 7);
+                                            markSemiFinFeedRateEnd.setLineWidth(3);
                                             markSemiFinFeedRateEnd.setFontAngle(90);
                                             markSemiFinFeedRateEnd.setAlignment(Chart.BottomRight);
                                         }
@@ -551,15 +551,15 @@ namespace MachineConnectOEM
                                     {
                                         if (startEndTime.ParameterValue.Equals(1))
                                         {
-                                            Mark markFinishingFeedRateStart = c.xAxis2().addMark(Chart.CTime(startEndTime.EventTimeStamp), 0xFF00, "Finishing feed rate", "Arial", 7);
-                                            markFinishingFeedRateStart.setLineWidth(2);
+                                            Mark markFinishingFeedRateStart = c.xAxis2().addMark(Chart.CTime(startEndTime.EventTimeStamp), 0x80FF, "Finishing feed rate", "Arial", 7);
+                                            markFinishingFeedRateStart.setLineWidth(3);
                                             markFinishingFeedRateStart.setFontAngle(90);
-                                            markFinishingFeedRateStart.setAlignment(Chart.BottomRight);
+                                            markFinishingFeedRateStart.setAlignment(Chart.TopLeft2);
                                         }
                                         if (startEndTime.ParameterValue.Equals(0))
                                         {
-                                            Mark markFinishingFeedRateEnd = c.xAxis2().addMark(Chart.CTime(startEndTime.EventTimeStamp), 0xFF00, "Finishing feed rate", "Arial", 7);
-                                            markFinishingFeedRateEnd.setLineWidth(2);
+                                            Mark markFinishingFeedRateEnd = c.xAxis2().addMark(Chart.CTime(startEndTime.EventTimeStamp), 0x80FF, "Finishing feed rate", "Arial", 7);
+                                            markFinishingFeedRateEnd.setLineWidth(3);
                                             markFinishingFeedRateEnd.setFontAngle(90);
                                             markFinishingFeedRateEnd.setAlignment(Chart.BottomRight);
                                         }
@@ -571,15 +571,15 @@ namespace MachineConnectOEM
                                     {
                                         if (startEndTime.ParameterValue.Equals(1))
                                         {
-                                            Mark markDressingFeedRateStart = c.xAxis2().addMark(Chart.CTime(startEndTime.EventTimeStamp), 0xFFFF00, "Dressing feed rate", "Arial", 7);
-                                            markDressingFeedRateStart.setLineWidth(2);
+                                            Mark markDressingFeedRateStart = c.xAxis2().addMark(Chart.CTime(startEndTime.EventTimeStamp), 0x5DBF4, "Dressing feed rate", "Arial", 7);
+                                            markDressingFeedRateStart.setLineWidth(3);
                                             markDressingFeedRateStart.setFontAngle(90);
-                                            markDressingFeedRateStart.setAlignment(Chart.BottomRight);
+                                            markDressingFeedRateStart.setAlignment(Chart.TopLeft2);
                                         }
                                         if (startEndTime.ParameterValue.Equals(0))
                                         {
-                                            Mark markDressingFeedRateEnd = c.xAxis2().addMark(Chart.CTime(startEndTime.EventTimeStamp), 0xFFFF00, "Dressing feed rate", "Arial", 7);
-                                            markDressingFeedRateEnd.setLineWidth(2);
+                                            Mark markDressingFeedRateEnd = c.xAxis2().addMark(Chart.CTime(startEndTime.EventTimeStamp), 0x5DBF4, "Dressing feed rate", "Arial", 7);
+                                            markDressingFeedRateEnd.setLineWidth(3);
                                             markDressingFeedRateEnd.setFontAngle(90);
                                             markDressingFeedRateEnd.setAlignment(Chart.BottomRight);
                                         }
@@ -599,7 +599,7 @@ namespace MachineConnectOEM
                                             for (int ii = 0; ii < (startEndTime.EventEnd - startEndTime.EventStart).TotalSeconds; ii++)
                                             {
                                                 Mark markAprFeedRate = c.xAxis2().addMark(Chart.CTime(startEndTime.EventStart.AddSeconds(ii)), 0x4860, "", "Arial", 7);
-                                                markAprFeedRate.setLineWidth(2);
+                                                markAprFeedRate.setLineWidth(3);
                                                 markAprFeedRate.setFontAngle(90);
                                                 markAprFeedRate.setAlignment(Chart.BottomRight);
                                             }
@@ -615,7 +615,7 @@ namespace MachineConnectOEM
                                             for (int ii = 0; ii < (startEndTime.EventEnd - startEndTime.EventStart).TotalSeconds; ii++)
                                             {
                                                 Mark markRoughingFeedRate = c.xAxis2().addMark(Chart.CTime(startEndTime.EventStart.AddSeconds(ii)), 0x80FF, "", "Arial", 7);
-                                                markRoughingFeedRate.setLineWidth(2);
+                                                markRoughingFeedRate.setLineWidth(3);
                                                 markRoughingFeedRate.setFontAngle(90);
                                                 markRoughingFeedRate.setAlignment(Chart.BottomRight);
                                             }
@@ -631,7 +631,7 @@ namespace MachineConnectOEM
                                             for (int ii = 0; ii < (startEndTime.EventEnd - startEndTime.EventStart).TotalSeconds; ii++)
                                             {
                                                 Mark markSemiFinFeedRate = c.xAxis2().addMark(Chart.CTime(startEndTime.EventStart.AddSeconds(ii)), 0xFFFF, "", "Arial", 7);
-                                                markSemiFinFeedRate.setLineWidth(2);
+                                                markSemiFinFeedRate.setLineWidth(3);
                                                 markSemiFinFeedRate.setFontAngle(90);
                                                 markSemiFinFeedRate.setAlignment(Chart.BottomRight);
                                             }
@@ -647,7 +647,7 @@ namespace MachineConnectOEM
                                             for (int ii = 0; ii < (startEndTime.EventEnd - startEndTime.EventStart).TotalSeconds; ii++)
                                             {
                                                 Mark markFinishingFeedRate = c.xAxis2().addMark(Chart.CTime(startEndTime.EventStart.AddSeconds(ii)), 0xFF00, "", "Arial", 7);
-                                                markFinishingFeedRate.setLineWidth(2);
+                                                markFinishingFeedRate.setLineWidth(3);
                                                 markFinishingFeedRate.setFontAngle(90);
                                                 markFinishingFeedRate.setAlignment(Chart.BottomRight);
                                             }
@@ -663,7 +663,7 @@ namespace MachineConnectOEM
                                             for (int ii = 0; ii < (startEndTime.EventEnd - startEndTime.EventStart).TotalSeconds; ii++)
                                             {
                                                 Mark markDressingFeedRate = c.xAxis2().addMark(Chart.CTime(startEndTime.EventStart.AddSeconds(ii)), 0xFFFF00, "", "Arial", 7);
-                                                markDressingFeedRate.setLineWidth(2);
+                                                markDressingFeedRate.setLineWidth(3);
                                                 markDressingFeedRate.setFontAngle(90);
                                                 markDressingFeedRate.setAlignment(Chart.BottomRight);
                                             }
@@ -679,7 +679,7 @@ namespace MachineConnectOEM
                                             for (int ii = 0; ii < (startEndTime.EventEnd - startEndTime.EventStart).TotalSeconds; ii++)
                                             {
                                                 Mark markSparkOutTime = c.xAxis2().addMark(Chart.CTime(startEndTime.EventStart.AddSeconds(ii)), 0xFF80FF, "", "Arial", 7);
-                                                markSparkOutTime.setLineWidth(2);
+                                                markSparkOutTime.setLineWidth(3);
                                                 markSparkOutTime.setFontAngle(90);
                                                 markSparkOutTime.setAlignment(Chart.BottomRight);
                                             }
@@ -1325,6 +1325,12 @@ namespace MachineConnectOEM
             {
                 toolTip.SetToolTip(this.pictureBoxExpandContract, "Expand cycle details");
             }            
+        }
+
+        public T GetT<T>(string name)
+        {
+            T result = default(T);
+            return result;
         }
     }
 }

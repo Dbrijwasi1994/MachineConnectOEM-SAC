@@ -196,7 +196,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                     <DataGridTemplateColumn.CellEditingTemplate>
                         <DataTemplate>
-                            <ComboBox x:Name="cmbFreq" Height="30" SelectedItem="{Binding GroupId, NotifyOnTargetUpdated=True,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Loaded="cmbFreq_Loaded" />
+                            <ComboBox x:Name="cmbFreq" Height="30" SelectedItem="{Binding Freqency, NotifyOnTargetUpdated=True,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Loaded="cmbFreq_Loaded" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>
